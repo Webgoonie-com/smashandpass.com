@@ -17,15 +17,15 @@ export const authConfig: NextAuthOptions = {
                 password: { label: "Your Password", type: "password" },
             },
             async authorize(credentials, req) {
+
                 if (!credentials || !credentials?.email || !credentials?.password) {
                     throw new Error('Invalid credentials');
-                    //return null;
                 }
-                
+               
 
                 const payload = {
-                email: credentials?.email,
-                password: credentials?.password,
+                    email: credentials?.email,
+                    password: credentials?.password,
                 };
         
                 const dbUser = await fetch(
