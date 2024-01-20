@@ -1,0 +1,9 @@
+{
+  "name": "smashandpass",
+  "version": "2.0.0",
+  "description": "Build Your Social Currency Online While Meeting And Chatting With New Friends in different areas.",
+  "main": "server.js",
+  "author": "Webgoonie",
+  "license": "BSD",
+  "private": true
+}

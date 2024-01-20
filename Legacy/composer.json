@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-4": {
+            "MyApp\\": "src"
+        }
+    },
+    "require": {
+        "google/apiclient": "^2.0",
+        "facebook/graph-sdk": "^5.7",
+        "cboden/ratchet": "^0.4.2"
+    }
+}

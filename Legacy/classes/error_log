@@ -1,0 +1,4 @@
+[06-Aug-2017 00:41:31] PHP Fatal error:  Call to undefined function  getsqlvaluestring() in /home2/webgoon/smashandpass.com/classes/scipt_loggin.php on line 33
+[06-Aug-2017 00:53:55] PHP Warning:  mysql_result() [<a href='function.mysql-result'>function.mysql-result</a>]: agent_access_level not found in MySQL result index 3 in /home2/webgoon/smashandpass.com/classes/scipt_loggin.php on line 39
+[06-Aug-2017 00:53:55] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/webgoon/smashandpass.com/classes/scipt_loggin.php:7) in /home2/webgoon/smashandpass.com/classes/scipt_loggin.php on line 48
+[06-Aug-2017 01:02:42] PHP Warning:  mysql_fetch_assoc(): supplied argument is not a valid MySQL result resource in /home2/webgoon/smashandpass.com/classes/scipt_loggin.php on line 36
