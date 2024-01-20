@@ -15,8 +15,8 @@ $gpicture_raw = "https://lh4.googleusercontent.com/-XipnPiXHnNw/AAAAAAAAAAI/AAAA
 		
 		echo $image_size = $photodata['bits'];
 		
-   		$mime = $photodata['mime];
- 
+		$mime = $photodata['mime'];
+
 		
 		
 ?>
