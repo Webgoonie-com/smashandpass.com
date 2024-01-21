@@ -28,14 +28,13 @@ model User {
   posts               Post[]  
   profile             Profile?
   account             Account[]
-  listings Listing[]
-  reservations Reservation[]
+  listing Listing[]
+  reservation Reservation[]
 } 
 
 model Account { 
   Id                  Int           @id @default(autoincrement())
   uuid                String        @default(uuid()) 
-  userId              String        
   type                String
   provider            String
   providerAccountId   String
@@ -47,8 +46,8 @@ model Account {
   id_token            String?       
   session_state       String?
 
-  accountUser         User          @relation(fields: [accountuserId], references: [id], onDelete: Cascade)
-  accountuserId       Int           @unique
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       Int           @unique
   @@unique([provider, providerAccountId])
 }
 

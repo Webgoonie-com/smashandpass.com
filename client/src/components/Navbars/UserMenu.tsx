@@ -7,11 +7,11 @@ import MenuItem from './MenuItem'
 
 import useRegisterModal from '@/Hooks/useRegisterModal'
 import useLoginModal from '@/Hooks/useLoginModal'
-import { User } from '@prisma/client'
 import { signOut } from 'next-auth/react'
+import { SafeUser } from '@/Types'
 
 interface UserMenuProps {
-    currentUser?: User | null
+    currentUser?: SafeUser | null
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({
@@ -25,7 +25,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
         setIsOpen((value) => !value)
       }, []);
 
-    //   console.log('huh? ', {currentUser})
+    
     
     return (
         <div className='relative'>
@@ -58,7 +58,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                     ">
                     <AiOutlineMenu />
                     <div className='hidden md:block'>
-                        <Avatar src={null} />
+                        <Avatar src={currentUser?.image} />
                     </div>
                 </div>
             </div>

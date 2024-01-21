@@ -8,20 +8,25 @@ const nextConfig = {
           fs: false,
         };
         
-        config.infrastructureLogging = { debug: /PackFileCache/ };
+        //  config.infrastructureLogging = { debug: /PackFileCache/ };
       
-        let modularizeImports = null;
-        config.module.rules.some((rule) =>
-          rule.oneOf?.some((oneOf) => {
-            modularizeImports =
-              oneOf?.use?.options?.nextConfig?.modularizeImports;
-            return modularizeImports;
-          }),
-        );
+        //  let modularizeImports = null;
+        // config.module.rules.some((rule) =>
+        //   rule.oneOf?.some((oneOf) => {
+        //     modularizeImports =
+        //       oneOf?.use?.options?.nextConfig?.modularizeImports;
+        //     return modularizeImports;
+        //   }),
+        // );
             
         return config;
       },
       images: {
+        domains: [
+          'res.cloudinary.com', 
+          'avatars.githubusercontent.com',
+          'lh3.googleusercontent.com'
+        ],
         remotePatterns: [
           {
             protocol: "https",
@@ -54,6 +59,10 @@ const nextConfig = {
           {
             protocol: "https",
             hostname: "api.smashandpass.com",
+          },
+          {
+            protocol: "https",
+            hostname: "avatars.githubusercontent.com",
           },
         ],
       },

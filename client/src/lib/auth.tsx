@@ -11,6 +11,8 @@ import { getSession } from "next-auth/react";
 
 import prismaOrm from "./prismaOrm"
 
+
+
 declare module 'next-auth' {
     interface User {
         id: number | undefined;
@@ -40,8 +42,17 @@ export const authOptions: AuthOptions = {
                 };
 
                 const dbUser = await prismaOrm.user.findUnique({
-                    where: { email: payload.email },
+                    where: { 
+                        email: payload.email 
+                    },
+                    select: {
+                        id: true,
+                        email: true,
+                        hashedPassword: true,
+                     }
                 });
+
+                console.log('Github Testing: ', dbUser, )
 
                 if (!dbUser) {
                     throw new Error('Sorry there was an error');
@@ -50,7 +61,7 @@ export const authOptions: AuthOptions = {
                 const user: User = {
                     id: dbUser.id,
                     email: dbUser.email,
-                    password: '#########', // You can provide a dummy value for the password if necessary
+                    password: 'stopPeeking', // You can provide a dummy value for the password if necessary
                     hashedPassword: dbUser.hashedPassword || undefined, // Ensure it's not null
                 };
 
@@ -58,8 +69,8 @@ export const authOptions: AuthOptions = {
             },
         }),
         GithubProvider({
-            clientId: process.env.GITHUB_ID as string,
-            clientSecret: process.env.GITHUB_SECRET as string,
+            clientId: process.env.GITHUB_CLIENT_ID as string,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
         }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -90,6 +101,7 @@ export const authOptions: AuthOptions = {
         }
     },
     pages: {
+        signIn: '/',
         //signIn: 'api/auth/signin',
         // signIn: '/auth/login',
         // signOut: '/auth/logout',

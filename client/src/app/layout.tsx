@@ -8,7 +8,7 @@ import RegisterModal from "@/components/Modals/RegisterModal";
 import LoginModal from "@/components/Modals/LoginModal";
 import ToasterProvider from "@/Providers/ToastProvider";
 
-import getCurrentUser from "./Actions/getCurrentUsers";
+import getCurrentUser from "@/actions/getCurrentUsers";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
