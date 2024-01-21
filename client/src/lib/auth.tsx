@@ -1,85 +1,60 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import NextAuth, { NextAuthOptions, User, getServerSession } from "next-auth"
-import { useSession } from "next-auth/react"
-import { redirect, useRouter } from "next/navigation"
+import NextAuth, { NextAuthOptions, User, getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation"
 
-import CredentialsProvider from "next-auth/providers/credentials"
+import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
-import bcrypt from "bcrypt"
-
-import { NextResponse } from "next/server"
-
+import { NextResponse } from "next/server";
+import { getSession } from "next-auth/react";
 
 import prismaOrm from "./prismaOrm"
 
-
-
+declare module 'next-auth' {
+    interface User {
+        id: number | undefined;
+        email: string | string[] | undefined;
+        password: string | undefined;
+        hashedPassword: string | null | undefined;
+    }
+}
 
 export const authConfig: NextAuthOptions = {
     adapter: PrismaAdapter(prismaOrm),
     providers: [
         CredentialsProvider({
-            name: "credentials",
+            name: "Credentials",
             credentials: {
                 email: { label: "Your Email", type: "email" },
                 password: { label: "Your Password", type: "password" },
             },
             async authorize(credentials) {
-
                 if (!credentials || !credentials?.email || !credentials?.password) {
                     throw new Error('Invalid credentials');
                 }
-               
 
                 const payload = {
                     email: credentials?.email,
                     password: credentials?.password,
                 };
 
-                console.log('Payload: ' + payload)
-
-                const user = await prismaOrm.user.findUnique({
-                    where: { email: payload.email}
-                })
-
-                if(!user || user.email === payload.email || !user?.hasedPassword) {
-                    throw new Error("Invalid Credentials Have Been Provided");
-                    
-                }
-
-                const isCorrectPassWord = await bcrypt.compare(credentials.password, user.hasedPassword)
-
-                if(!isCorrectPassWord){
-                    throw new Error('invalid Credentials')
-                }
-        
-                // const dbUser = await fetch(
-                // process.env.NEXT_PUBLIC_API_URL + "/auth/login",
-                // {
-                //     method: "POST",
-                //     body: JSON.stringify(payload),
-                //     headers: {
-                //     "Content-Type": "application/json",
-                //     },
-                // }
-                // );
-        
-                //console.log('Line 42: dbUser auth: lib/auth/ = ', dbUser)
-        
-                const dbUser = await prismaOrm.user.findFirst({
-                    where: { email: credentials.email},
+                const dbUser = await prismaOrm.user.findUnique({
+                    where: { email: payload.email },
                 });
 
-                console.log('Line 51: user auth: lib/auth/ = ', dbUser)
-        
-                // if (dbUser && dbUser.password === credentials.password){
-                //     const { password, createdAt, Id, ...dbUserWithoutPassword } = dbUser
-                //     return dbUserWithoutPassword as User;
-                // }
-        
-                // Return null if user data could not be retrieved
-                return null;
+                if (!dbUser) {
+                    throw new Error('Sorry there was an error');
+                }
+
+                const user: User = {
+                    id: dbUser.id,
+                    email: dbUser.email,
+                    password: '#########', // You can provide a dummy value for the password if necessary
+                    hashedPassword: dbUser.hashedPassword || undefined, // Ensure it's not null
+                };
+
+                return Promise.resolve(user);
             },
         }),
         GithubProvider({
@@ -95,7 +70,8 @@ export const authConfig: NextAuthOptions = {
         jwt({ token, user }) {
         if(user) {
             return {
-            ...token,  
+            ...token,
+             
             }
         }
 
@@ -103,21 +79,23 @@ export const authConfig: NextAuthOptions = {
         },
         session: async ({ session, token }) => {
         
+            //const userSession = await getSession();
 
         if(token && session.user) {
-           
+
         }
         return session;
         }
     },
-    // pages: {
-    //     signIn: '/auth/login',
-    //     signOut: '/auth/logout',
-    //     error: '/auth/error',
-    //     verifyRequest: '/auth/verify-request',
-    //     newUser: '/auth/new-user'
+    pages: {
+        //signIn: 'api/auth/signin',
+        // signIn: '/auth/login',
+        // signOut: '/auth/logout',
+        // error: '/auth/error',
+        // verifyRequest: '/auth/verify-request',
+        // newUser: '/auth/new-user'
     
-    // },
+    },
     // Enable debug messages in the console if we are having problems
     debug: process.env.NODE_ENV === 'development',
     session: {
@@ -128,4 +106,3 @@ export const authConfig: NextAuthOptions = {
 
 
 export default NextAuth(authConfig);
-
