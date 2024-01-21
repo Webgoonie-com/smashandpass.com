@@ -15,16 +15,7 @@ const UserMenu = () => {
             ">
                 <span>User Menu</span>
             </div>
-            <div
-                onClick={() => { console.log('clicked subUser Menu')} }
-                className="
-                    p-4 md:py-1 md:px-2 
-                    border-[1px] border-neutral-200 flex flex-row
-                    items-center gap-3 rounded-full cursour-pointer
-                    hover:shadow-md transition
-                ">
-                &nbsp;
-            </div>
+            
             
         </div>
     </div>
