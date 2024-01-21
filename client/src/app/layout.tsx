@@ -9,6 +9,8 @@ import LoginModal from "@/components/Modals/LoginModal";
 import ToasterProvider from "@/Providers/ToastProvider";
 
 import getCurrentUser from "@/actions/getCurrentUsers";
+import { ThemeProvider } from "@/providers/Theme-Provider";
+import { cn } from "@/lib/utils";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -27,15 +29,29 @@ export default async function RootLayout({
 
   console.log('currentUser', currentUser)
   return (
-    <html lang="en">
-      <body className={font.className}>
-        <ClientOnly>
-          <ToasterProvider />
-          <RegisterModal />
-          <LoginModal />
-          <Navbar currentUser={currentUser} />
-        </ClientOnly>
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body 
+        className={
+          cn(
+            font.className,
+            "bg-white dark:bg-[#313338] text-indigo-600"
+            )
+        }>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          //forcedTheme="light"
+          enableSystem={false}
+          storageKey="smashandapass-theme"
+        >
+          <ClientOnly>
+            <ToasterProvider />
+            <RegisterModal />
+            <LoginModal />
+            <Navbar currentUser={currentUser} />
+          </ClientOnly>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

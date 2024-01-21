@@ -9,6 +9,7 @@ import useRegisterModal from '@/Hooks/useRegisterModal'
 import useLoginModal from '@/Hooks/useLoginModal'
 import { signOut } from 'next-auth/react'
 import { SafeUser } from '@/Types'
+import { ModeToggle } from '../modeToggle'
 
 interface UserMenuProps {
     currentUser?: SafeUser | null
@@ -47,6 +48,9 @@ const UserMenu: React.FC<UserMenuProps> = ({
                         <span>User Menu</span>
                         </>
                     )}
+                </div>
+                <div className="md:block">
+                    <ModeToggle />
                 </div>
                 <div
                     onClick={toggleOpen}

@@ -24,8 +24,9 @@
       "@/*": ["./src/*"],
       "@/actions/*": ["./src/Actions/*"],
       "@/hooks/*": ["./src/Hooks/*"],
-      "@/types/*": ["./src/types/*"],
       "@/lib/*": ["./src/lib/*"],
+      "@/providers/*": ["./src/Providers/*"],
+      "@/types/*": ["./src/types/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/**/*.tsx", ".next/types/**/*.ts"],
