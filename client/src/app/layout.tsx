@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbars/navbar";
+import ClientOnly from "@/components/ClientOnly";
+import Modal from "@/components/Modals/Modal";
+import RegisterModal from "@/components/Modals/RegisterModal";
+import LoginModal from "@/components/Modals/LoginModal";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -18,7 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <Navbar />
+        <ClientOnly>
+          <RegisterModal />
+          <LoginModal />
+          <Navbar />
+        </ClientOnly>
         {children}
       </body>
     </html>
