@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "react-hook-form": "^7.49.3",
-    "react-hot-toast": "^2.4.1"
-  },
-  "peerDependencies": {
-    "csstype": "^3.0.10"
-  }
-}
