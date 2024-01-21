@@ -22,9 +22,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@/actions/*": ["./src/Actions/*"],
       "@/hooks/*": ["./src/Hooks/*"],
       "@/types/*": ["./src/types/*"],
-      "@/actions/*": ["./src/actions/*"],
       "@/lib/*": ["./src/lib/*"],
     }
   },

@@ -1,11 +1,21 @@
 "use client"
 
+import { User } from "@prisma/client"
+
 import Container from "../Container";
 import Logo from "../Logo";
 import Avatar from "../Avatar";
 import UserMenu from "./UserMenu";
+import React from "react";
 
-const Navbar = () => {
+interface NavarProps {
+    currentUser?: User | null
+}
+
+const Navbar: React.FC<NavarProps> = ({
+    currentUser
+}) => {
+    
     return ( 
         <div className="fixed w-full bg-slate-300 text-black z-10 shadow-sm">
             <div className="py-4 border-b-[1px] ">
@@ -19,7 +29,7 @@ const Navbar = () => {
                         md:gap-0
                     ">
                         <Logo />
-                        <UserMenu />
+                        <UserMenu currentUser={currentUser} />
                      </div>
                 </Container>
             </div>

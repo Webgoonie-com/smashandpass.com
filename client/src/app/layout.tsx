@@ -8,6 +8,8 @@ import RegisterModal from "@/components/Modals/RegisterModal";
 import LoginModal from "@/components/Modals/LoginModal";
 import ToasterProvider from "@/Providers/ToastProvider";
 
+import getCurrentUser from "./Actions/getCurrentUsers";
+
 const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -15,11 +17,15 @@ export const metadata: Metadata = {
   description: "A Social Media Networking Dating Game",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const currentUser = await getCurrentUser()
+
+  console.log('currentUser', currentUser)
   return (
     <html lang="en">
       <body className={font.className}>
@@ -27,7 +33,7 @@ export default function RootLayout({
           <ToasterProvider />
           <RegisterModal />
           <LoginModal />
-          <Navbar />
+          <Navbar currentUser={currentUser} />
         </ClientOnly>
         {children}
       </body>

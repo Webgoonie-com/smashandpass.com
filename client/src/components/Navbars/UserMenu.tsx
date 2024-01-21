@@ -4,10 +4,19 @@ import React, { useCallback, useState } from 'react'
 import { AiFillAudio, AiOutlineMenu, AiOutlineMenuFold } from 'react-icons/ai'
 import Avatar from '../Avatar'
 import MenuItem from './MenuItem'
+
 import useRegisterModal from '@/Hooks/useRegisterModal'
 import useLoginModal from '@/Hooks/useLoginModal'
+import { User } from '@prisma/client'
+import { signOut } from 'next-auth/react'
 
-const UserMenu = () => {
+interface UserMenuProps {
+    currentUser?: User | null
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({
+    currentUser
+}) => {
     const registerModal = useRegisterModal()
     const loginModal = useLoginModal()
     const [isOpen, setIsOpen] = useState(false)
@@ -15,7 +24,9 @@ const UserMenu = () => {
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value)
       }, []);
-      
+
+    //   console.log('huh? ', {currentUser})
+    
     return (
         <div className='relative'>
             <div className="flex flex-row items-center gap-3">
@@ -26,7 +37,16 @@ const UserMenu = () => {
                     py-3 sm:px-6 px-4 rounded-full hover:bg-neutral-400
                     transition cursor-pointer
                 ">
-                    <span>User Menu</span>
+                    
+                    {currentUser ? (
+                        <>
+                        {currentUser.name}
+                        </>
+                    ) : (
+                        <>
+                        <span>User Menu</span>
+                        </>
+                    )}
                 </div>
                 <div
                     onClick={toggleOpen}
@@ -46,7 +66,40 @@ const UserMenu = () => {
             {isOpen && (
                 <div className="absolute rounded-xl shadow-md sm:w-[30vw] md:w-3/4  w-[60vw] bg-white overflow-hidden md:right-0 top-12 text-sm">
                         <div className="flex flex-col cursor-pointer">
-                            <>
+                          
+                            
+                            {currentUser ? (
+
+                                <>
+                                <MenuItem 
+                                    onClick={() => {console.log('Clicked Blanked 1')}}
+                                    label={'My Link Number 1'}
+                                />
+                                <MenuItem 
+                                    onClick={() => {console.log('Clicked Blanked 2')}}
+                                    label={'My Link Number 2'}
+                                />
+
+                                <MenuItem 
+                                    onClick={() => {console.log('Clicked Blanked 3')}}
+                                    label={'My Link Number 3'}
+                                />
+                                
+                                <MenuItem 
+                                    onClick={() => {console.log('Clicked Blanked 4')}}
+                                    label={'My Link Number 4'}
+                                />
+
+                                <MenuItem 
+                                    onClick={() => signOut()}
+                                    label={'Logout'}
+                                />
+                                
+                                
+                                </>
+                            ): (
+
+                                <>
                                 <MenuItem 
                                     onClick={loginModal.onOpen}
                                     label={'Login'}
@@ -56,7 +109,9 @@ const UserMenu = () => {
                                     label={'SignUp'}
                                 />
                                 
-                            </>
+                                </>    
+                            )}
+
                         </div>
                 </div>
             )}

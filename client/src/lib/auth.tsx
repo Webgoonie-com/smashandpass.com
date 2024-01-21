@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import NextAuth, { NextAuthOptions, User, getServerSession } from "next-auth";
+import NextAuth, { NextAuthOptions, User, AuthOptions, getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation"
 
@@ -20,7 +20,7 @@ declare module 'next-auth' {
     }
 }
 
-export const authConfig: NextAuthOptions = {
+export const authOptions: AuthOptions = {
     adapter: PrismaAdapter(prismaOrm),
     providers: [
         CredentialsProvider({
@@ -79,12 +79,14 @@ export const authConfig: NextAuthOptions = {
         },
         session: async ({ session, token }) => {
         
-            //const userSession = await getSession();
+        
 
         if(token && session.user) {
-
+            //const userSession = await getSession();
         }
+
         return session;
+        
         }
     },
     pages: {
@@ -105,4 +107,4 @@ export const authConfig: NextAuthOptions = {
 };
 
 
-export default NextAuth(authConfig);
+export default NextAuth(authOptions);

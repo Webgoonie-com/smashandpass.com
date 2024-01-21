@@ -7,23 +7,24 @@ import {
   FieldValues, 
   SubmitHandler, 
   useForm
-} from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
-import { AiFillGithub } from "react-icons/ai";
-import { useRouter } from "next/navigation";
+} from "react-hook-form"
+import { FcGoogle } from "react-icons/fc"
+import { AiFillGithub } from "react-icons/ai"
+import { useRouter } from "next/navigation"
 
-import useRegisterModal from "@/hooks/useLoginModal";
-import useLoginModal from "@/hooks/useLoginModal";
-import Modal from "./Modal";
-import Input from "../Inputs/Input";
-import Heading from "../Heading";
-import Button from "../Buttons/Button";
+import useRegisterModal from "@/hooks/useLoginModal"
+import useLoginModal from "@/hooks/useLoginModal"
+
+import Modal from "./Modal"
+import Input from "../Inputs/Input"
+import Heading from "../Heading"
+import Button from "../Buttons/Button"
 
 const LoginModal = () => {
-  const router = useRouter();
-  const loginModal = useLoginModal();
-  const registerModal = useRegisterModal();
-  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter()
+  const loginModal = useLoginModal()
+  const registerModal = useRegisterModal()
+  const [isLoading, setIsLoading] = useState(false)
 
   const { 
     register, 
@@ -38,8 +39,8 @@ const LoginModal = () => {
     },
   });
   
-  const onSubmit: SubmitHandler<FieldValues> = 
-  (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    
     setIsLoading(true);
 
     signIn('credentials', { 
@@ -50,7 +51,7 @@ const LoginModal = () => {
       setIsLoading(false);
 
       if (callback?.ok) {
-        toast.success('Logged in');
+        toast.success('Successfully Logged In');
         router.refresh();
         loginModal.onClose();
       }

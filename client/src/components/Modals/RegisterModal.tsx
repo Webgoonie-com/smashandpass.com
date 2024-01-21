@@ -94,7 +94,7 @@ const RegisterModal= () => {
           errors={errors}
           required
         />
-        {/* <Input
+        <Input
           id="confirmPassword"
           label="Confirm Password"
           type="password"
@@ -102,7 +102,7 @@ const RegisterModal= () => {
           register={register}
           errors={errors}
           required
-        /> */}
+        />
       </div>
     )
   
