@@ -22,12 +22,6 @@ const nextConfig = {
         return config;
       },
       images: {
-        domains: [
-          "ui.shadcn.com",
-          "avatars.githubusercontent.com",
-          "lh3.googleusercontent.com",
-          "images.unsplash.com"
-        ],
         remotePatterns: [
           {
             protocol: "https",
@@ -46,12 +40,20 @@ const nextConfig = {
             hostname: "localhost",
           },
           {
-            protocol: "http",
-            hostname: "localhost:3333",
+            protocol: "https",
+            hostname: "localhost",
           },
           {
             protocol: "http",
-            hostname: "localhost:3334",
+            hostname: "localhost:7667",
+          },
+          {
+            protocol: "https",
+            hostname: "smashandpass.com",
+          },
+          {
+            protocol: "https",
+            hostname: "api.smashandpass.com",
           },
         ],
       },

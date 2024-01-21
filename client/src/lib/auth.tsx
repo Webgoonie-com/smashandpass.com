@@ -1,12 +1,18 @@
-import NextAuth, { NextAuthOptions, User, getServerSession } from "next-auth";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation"
+import NextAuth, { NextAuthOptions, User, getServerSession } from "next-auth"
+import { useSession } from "next-auth/react"
+import { redirect, useRouter } from "next/navigation"
 
-import CredentialsProvider from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
+
 import { NextResponse } from "next/server";
-import { getSession } from "next-auth/react";
+
+
+import prismaOrm from './prismaOrm'
+
+
+
 
 export const authConfig: NextAuthOptions = {
     providers: [
@@ -28,38 +34,29 @@ export const authConfig: NextAuthOptions = {
                     password: credentials?.password,
                 };
         
-                const dbUser = await fetch(
-                process.env.NEXT_PUBLIC_API_URL + "/auth/login",
-                {
-                    method: "POST",
-                    body: JSON.stringify(payload),
-                    headers: {
-                    "Content-Type": "application/json",
-                    },
-                }
-                );
+                // const dbUser = await fetch(
+                // process.env.NEXT_PUBLIC_API_URL + "/auth/login",
+                // {
+                //     method: "POST",
+                //     body: JSON.stringify(payload),
+                //     headers: {
+                //     "Content-Type": "application/json",
+                //     },
+                // }
+                // );
         
                 //console.log('Line 42: dbUser auth: lib/auth/ = ', dbUser)
         
-                const user = await dbUser.json();
-                //console.log('Line 45: user auth: lib/auth/ = ', user)
+                const dbUser = await prismaOrm.user.findFirst({
+                    where: { email: credentials.email},
+                });
+
+                console.log('Line 51: user auth: lib/auth/ = ', dbUser)
         
-                if (!dbUser.ok) {
-                    throw new Error(user.message);
-                }
-                
-                if(user.admin){
-                    //console.log('Detected Admin on Line 150', user.admin)
-                }
-                    // If no error and we have user data, return it
-                if (
-                    user !== null &&
-                    user.user !== null
-                ) {
-                    //console.log('Success returning res.ok On Line 58', res.ok)
-                    //console.log('Success returning User On Line 59', user)
-                    return user.user;
-                }
+                // if (dbUser && dbUser.password === credentials.password){
+                //     const { password, createdAt, Id, ...dbUserWithoutPassword } = dbUser
+                //     return dbUserWithoutPassword as User;
+                // }
         
                 // Return null if user data could not be retrieved
                 return null;
@@ -78,14 +75,7 @@ export const authConfig: NextAuthOptions = {
         jwt({ token, user }) {
         if(user) {
             return {
-            ...token,
-            role: user.role,
-            uuid: user.uuid,
-            token: user.token,
-            name: user.firstName + ' ' +user.lastName,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            usrImage: user.usrImage,      
+            ...token,  
             }
         }
 
@@ -93,17 +83,9 @@ export const authConfig: NextAuthOptions = {
         },
         session: async ({ session, token }) => {
         
-            //const userSession = await getSession();
 
         if(token && session.user) {
-            session.user.role = token.role;
-            session.user.uuid = token.uuid,
-            session.user.token = token.token,
-            session.user.name = token.firstName + ' ' + token.lastName;
-            session.user.firstName = token.firstName,
-            session.user.lastName = token.lastName,
-            session.user.email = token.email;
-            session.user.image = token.usrImage;
+           
         }
         return session;
         }
@@ -126,3 +108,4 @@ export const authConfig: NextAuthOptions = {
 
 
 export default NextAuth(authConfig);
+
