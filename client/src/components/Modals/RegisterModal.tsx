@@ -1,28 +1,34 @@
 "use client"
 
-import axios from "axios";
-import { AiFillGithub } from "react-icons/ai";
-import { signIn } from "next-auth/react";
-import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
+
+import { FcGoogle } from "react-icons/fc";
 import { 
   FieldValues, 
   SubmitHandler,
   useForm
 } from "react-hook-form";
+import axios from "axios";
+import { AiFillGithub } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
+
+import { toast } from "react-hot-toast";
 
 import Modal from "./Modal";
 import Input from "../Inputs/Input";
 import Heading from "../Heading";
 import Button from "../Buttons/Button";
-import { toast } from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 const RegisterModal= () => {
+    const router = useRouter();
+
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
+    
     const [isLoading, setIsLoading] = useState(false);
   
     const { 
@@ -35,7 +41,8 @@ const RegisterModal= () => {
       defaultValues: {
         name: '',
         email: '',
-        password: ''
+        password: '',
+        confirmPassword: ''
       },
     });
   
@@ -44,7 +51,8 @@ const RegisterModal= () => {
       setIsLoading(true);
   
       axios.post('/api/register', data)
-      .then(() => {
+      .then((callback) => {
+        setIsLoading(false);
         toast.success('Registered!');
         registerModal.onClose();
         loginModal.onOpen();
@@ -58,10 +66,10 @@ const RegisterModal= () => {
       })
     }
   
-    const onToggle = useCallback(() => {
+    const toggle = useCallback(() => {
       registerModal.onClose();
       loginModal.onOpen();
-    }, [registerModal, loginModal])
+    }, [loginModal, registerModal])
   
     const bodyContent = (
       <div className="flex flex-col gap-4">
@@ -129,19 +137,15 @@ const RegisterModal= () => {
             font-light
           "
         >
-          <div 
-            //className="flex flex-row items-center gap-2"
-            >Already have an account?
+          <p>Already have an account?
             <span 
-              //onClick={onToggle} 
-              onClick={registerModal.onClose}
+              onClick={toggle}
               className="
                 text-neutral-800
                 cursor-pointer 
                 hover:underline
-              "
-              > Log in</span>
-          </div>
+              "> Log in</span>
+          </p>
         </div>
       </div>
     )

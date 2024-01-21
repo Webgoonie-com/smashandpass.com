@@ -37,31 +37,39 @@ import Button from '../Buttons/Button';
     }, [isOpen]);
 
     const handleClose = useCallback(() => {
-        if (disabled) return
+        if (disabled){ 
+            return
+        }
         
         setShowModal(false)
 
         setTimeout(() => {
             onClose()
-        }, 350)
+        }, 300)
 
     }, [onClose, disabled])
 
     const handleSubmit = useCallback(() => {
-        if (disabled) return
+        if (disabled){ 
+            return
+        }
             
         onSubmit()
 
     }, [onSubmit, disabled])
 
-    const handleOtherAction = useCallback(() => {
-        if (disabled || !secondaryAction) return
+    const handleSecondaryAction  = useCallback(() => {
+        if (disabled || !secondaryAction){ 
+            return
+        }
     
         secondaryAction()
 
     }, [secondaryAction, disabled])
 
-    if (!isOpen) return null
+    if (!isOpen) { 
+        return null
+    }
 
 
     return (
@@ -102,6 +110,7 @@ import Button from '../Buttons/Button';
                                         className="
                                             p-1 border-0 hover:opacity-70 transition absolute left-9
                                         "
+                                        onClick={handleClose}
                                     >
                                         <IoMdClose id="closeModalIcon" size={18} />
                                     </button>
@@ -128,15 +137,13 @@ import Button from '../Buttons/Button';
                                         
                                         <Button
                                             disabled={disabled}
-                                            icon={IoMdClose}
                                             label={secondaryActionLabel}
-                                            onClick={handleOtherAction}
+                                            onClick={handleSecondaryAction}
         
                                         />
                                         )}
                                         <Button
                                             disabled={disabled}
-                                            icon={IoMdClose}
                                             label={actionLabel}
                                             onClick={handleSubmit}
         
@@ -147,7 +154,6 @@ import Button from '../Buttons/Button';
                         </div>
                     </div>
                 </div>
-    
             </div>
         </>
     )

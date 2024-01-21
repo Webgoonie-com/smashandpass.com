@@ -3,10 +3,10 @@ const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
     webpack(config) {
-        config.resolve.fallback = {
-          ...config.resolve.fallback,
-          fs: false,
-        };
+        // config.resolve.fallback = {
+        //   ...config.resolve.fallback,
+        //   fs: false,
+        // };
         
         //  config.infrastructureLogging = { debug: /PackFileCache/ };
       
@@ -19,14 +19,10 @@ const nextConfig = {
         //   }),
         // );
             
-        return config;
+        //return config;
       },
       images: {
-        domains: [
-          'res.cloudinary.com', 
-          'avatars.githubusercontent.com',
-          'lh3.googleusercontent.com'
-        ],
+
         remotePatterns: [
           {
             protocol: "https",
@@ -62,7 +58,13 @@ const nextConfig = {
           },
           {
             protocol: "https",
+            hostname: "lh3.googleusercontent.com",
+            pathname: '**',
+          },
+          {
+            protocol: "https",
             hostname: "avatars.githubusercontent.com",
+            pathname: '**',
           },
         ],
       },

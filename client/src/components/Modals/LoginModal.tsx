@@ -12,7 +12,7 @@ import { FcGoogle } from "react-icons/fc"
 import { AiFillGithub } from "react-icons/ai"
 import { useRouter } from "next/navigation"
 
-import useRegisterModal from "@/hooks/useLoginModal"
+import useRegisterModal from "@/hooks/useRegisterModal"
 import useLoginModal from "@/hooks/useLoginModal"
 
 import Modal from "./Modal"
@@ -22,8 +22,10 @@ import Button from "../Buttons/Button"
 
 const LoginModal = () => {
   const router = useRouter()
+
   const loginModal = useLoginModal()
   const registerModal = useRegisterModal()
+
   const [isLoading, setIsLoading] = useState(false)
 
   const { 
@@ -62,7 +64,7 @@ const LoginModal = () => {
     });
   }
 
-  const onToggle = useCallback(() => {
+  const toggle = useCallback(() => {
     loginModal.onClose();
     registerModal.onOpen();
   }, [loginModal, registerModal])
@@ -112,8 +114,7 @@ const LoginModal = () => {
       text-neutral-500 text-center mt-4 font-light">
         <p>First time using SmashAndPass?
           <span 
-            //onClick={onToggle}
-            onClick={loginModal.onClose}
+            onClick={toggle}
             className="
               text-neutral-800
               cursor-pointer 
