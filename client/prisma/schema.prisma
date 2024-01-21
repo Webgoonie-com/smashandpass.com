@@ -11,34 +11,98 @@ datasource db {
 }
 
 
+model User {  
+  Id                  Int           @id @default(autoincrement())
+  uuid                String        @default(uuid()) 
+  name                String? 
+  email               String        @unique
+  emailVerified       DateTime? 
+  image               String? 
+  hasedPassword       String? 
+  firstName           String? 
+  lastName            String? 
+  role                String? 
+  updatedAt           DateTime      @default(now()) @updatedAt
+  createdAt           DateTime      @default(now())
+  favoriteIds         Favorites[]    
+  posts               Post[]  
+  profile             Profile?
+  account             Account[]
+  listings Listing[]
+  reservations Reservation[]
+} 
+
+model Account { 
+  Id                  Int           @id @default(autoincrement())
+  uuid                String        @default(uuid()) 
+  userId              String        
+  type                String
+  provider            String
+  providerAccountId   String
+  refresh_token       String?       
+  access_token        String?       
+  expires_at          Int? 
+  token_type          String?
+  scope               String?
+  id_token            String?       
+  session_state       String?
+
+  accountUser         User          @relation(fields: [accountuserId], references: [Id], onDelete: Cascade)
+  accountuserId       Int           @unique
+  @@unique([provider, providerAccountId])
+}
+
+model Favorites {
+  Id                  Int           @id @default(autoincrement())
+  uuid                String        @default(uuid())
+  favorite            User          @relation(fields: [favoriteId], references: [Id], onDelete: Cascade)
+  favoriteId          Int
+}
+
 model Post {
-  Id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [Id])
-  authorId  Int
+  Id                  Int           @id @default(autoincrement())
+  uuid                String        @default(uuid())
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  title               String        @db.VarChar(255)
+  content             String?
+  published           Boolean       @default(false)
+  author              User          @relation(fields: [authorId], references: [Id], onDelete: Cascade)
+  authorId            Int
 }
 
 model Profile {
-  Id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [Id])
-  userId Int     @unique
+  Id                  Int           @id @default(autoincrement())
+  uuid                String        @default(uuid())
+  bio                 String?
+  userProfile         User          @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userId              Int           @unique
 }
 
-model User {
-  Id      Int      @id @default(autoincrement())
-  email   String   @unique
-  password String
-  name    String?
-  firstName    String?
-  lastName    String?
-  updatedAt    DateTime @default(now()) @updatedAt
-  createdAt    DateTime @default(now())
-  role    String?
-  posts   Post[]
-  profile Profile?
+model Listing {
+  Id             Int             @id @default(autoincrement()) @map("_Id")
+  title String
+  description String
+  imageSrc String
+  createdAt DateTime @default(now())
+  category  String
+  locationValue String
+  price Int
+  userResrvation User @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  reservations Reservation[]
+  userId  Int @unique
+}
+
+model Reservation {
+  Id Int                @id @default(autoincrement()) @map("_id")
+  
+  startDate DateTime
+  endDate DateTime
+  totalPrice Int
+  createdAt DateTime @default(now())
+
+  userListing User @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userId Int 
+  listing Listing @relation(fields: [listingId], references: [Id], onDelete: Cascade)
+  listingId Int 
 }

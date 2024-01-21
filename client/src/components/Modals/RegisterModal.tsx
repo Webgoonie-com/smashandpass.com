@@ -5,7 +5,6 @@ import { AiFillGithub } from "react-icons/ai";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
-import { toast } from "react-hot-toast";
 import { 
   FieldValues, 
   SubmitHandler,
@@ -19,6 +18,7 @@ import Modal from "./Modal";
 import Input from "../Inputs/Input";
 import Heading from "../Heading";
 import Button from "../Buttons/Button";
+import { toast } from "react-hot-toast";
 
 const RegisterModal= () => {
     const registerModal = useRegisterModal();
@@ -40,6 +40,7 @@ const RegisterModal= () => {
     });
   
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
+      
       setIsLoading(true);
   
       axios.post('/api/register', data)
@@ -49,7 +50,8 @@ const RegisterModal= () => {
         loginModal.onOpen();
       })
       .catch((error) => {
-        toast.error(error);
+        //toast.error(error);
+        toast.error("So Very Sorry Something Went Wrong Please Try Again");
       })
       .finally(() => {
         setIsLoading(false);
@@ -64,8 +66,8 @@ const RegisterModal= () => {
     const bodyContent = (
       <div className="flex flex-col gap-4">
         <Heading
-          title="Welcome to Airbnb"
-          subtitle="Create an account!"
+          title="Welcome to SmashAndPass"
+          subtitle="Create an account today!"
         />
         <Input
           id="email"
@@ -92,6 +94,15 @@ const RegisterModal= () => {
           errors={errors}
           required
         />
+        {/* <Input
+          id="confirmPassword"
+          label="Confirm Password"
+          type="password"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        /> */}
       </div>
     )
   
@@ -118,16 +129,19 @@ const RegisterModal= () => {
             font-light
           "
         >
-          <p>Already have an account?
+          <div 
+            //className="flex flex-row items-center gap-2"
+            >Already have an account?
             <span 
-              onClick={onToggle} 
+              //onClick={onToggle} 
+              onClick={registerModal.onClose}
               className="
                 text-neutral-800
                 cursor-pointer 
                 hover:underline
               "
               > Log in</span>
-          </p>
+          </div>
         </div>
       </div>
     )

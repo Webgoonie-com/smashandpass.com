@@ -6,6 +6,7 @@ import ClientOnly from "@/components/ClientOnly";
 import Modal from "@/components/Modals/Modal";
 import RegisterModal from "@/components/Modals/RegisterModal";
 import LoginModal from "@/components/Modals/LoginModal";
+import ToasterProvider from "@/Providers/ToastProvider";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <ClientOnly>
+          <ToasterProvider />
           <RegisterModal />
           <LoginModal />
           <Navbar />

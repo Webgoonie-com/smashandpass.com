@@ -142,6 +142,7 @@ import Button from '../Buttons/Button';
         
                                         />
                                 </div>
+                                {footer}
                             </div>
                         </div>
                     </div>
