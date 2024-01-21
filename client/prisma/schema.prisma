@@ -24,7 +24,7 @@ model User {
   role                String? 
   updatedAt           DateTime      @default(now()) @updatedAt
   createdAt           DateTime      @default(now())
-  favoriteIds         Favorites[]    
+  favoriteIds         Favorite[]    
   posts               Post[]  
   profile             Profile?
   account             Account[]
@@ -52,7 +52,7 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-model Favorites {
+model Favorite {
   Id                  Int           @id @default(autoincrement())
   uuid                String        @default(uuid())
   favorite            User          @relation(fields: [favoriteId], references: [Id], onDelete: Cascade)
