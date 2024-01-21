@@ -11,14 +11,14 @@ const SetupPage = async () => {
     where: {
         members: {
             some: {
-                profileId: profile?.Id as number,
+                profileId: profile?.Id,
             }
         }
     }
  })
 
  if(server){
-    return redirect
+    return redirect(`/server/${server.Id}`)
  }
 
   return (
