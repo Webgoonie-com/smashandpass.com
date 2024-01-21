@@ -1,3 +1,4 @@
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import NextAuth, { NextAuthOptions, User, getServerSession } from "next-auth"
 import { useSession } from "next-auth/react"
 import { redirect, useRouter } from "next/navigation"
@@ -5,24 +6,26 @@ import { redirect, useRouter } from "next/navigation"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
+import bcrypt from "bcrypt"
 
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/server"
 
 
-import prismaOrm from './prismaOrm'
+import prismaOrm from "./prismaOrm"
 
 
 
 
 export const authConfig: NextAuthOptions = {
+    adapter: PrismaAdapter(prismaOrm),
     providers: [
         CredentialsProvider({
-            name: "Credentials",
+            name: "credentials",
             credentials: {
                 email: { label: "Your Email", type: "email" },
                 password: { label: "Your Password", type: "password" },
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
 
                 if (!credentials || !credentials?.email || !credentials?.password) {
                     throw new Error('Invalid credentials');
@@ -33,6 +36,23 @@ export const authConfig: NextAuthOptions = {
                     email: credentials?.email,
                     password: credentials?.password,
                 };
+
+                console.log('Payload: ' + payload)
+
+                const user = await prismaOrm.user.findUnique({
+                    where: { email: payload.email}
+                })
+
+                if(!user || user.email === payload.email || !user?.hasedPassword) {
+                    throw new Error("Invalid Credentials Have Been Provided");
+                    
+                }
+
+                const isCorrectPassWord = await bcrypt.compare(credentials.password, user.hasedPassword)
+
+                if(!isCorrectPassWord){
+                    throw new Error('invalid Credentials')
+                }
         
                 // const dbUser = await fetch(
                 // process.env.NEXT_PUBLIC_API_URL + "/auth/login",
