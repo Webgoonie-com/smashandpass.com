@@ -7,11 +7,11 @@ import getCurrentUser from '@/actions/getCurrentUsers'
 
 
 export const IntialProfileSetup = async () => {
-    const router = useRouter()
+    //const router = useRouter()
     
     async function redirectToSign() {
-        console.log('Redirecting to Sign In')
-        //router.push('/test')
+        console.log('Redirecting to Sign In because session not found.')
+        redirect('/test')
     }
 
     const user = await getCurrentUser()

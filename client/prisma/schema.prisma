@@ -13,74 +13,88 @@ datasource db {
 
 
 model User {  
-  id                  Int           @id @default(autoincrement())
-  uuid                String        @default(uuid()) 
+  id                  Int                     @id @default(autoincrement())
+  uuid                String                  @default(uuid()) 
   name                String? 
-  email               String        @unique
+  email               String                  @unique
   emailVerified       DateTime? 
   image               String? 
   hashedPassword      String? 
   firstName           String? 
   lastName            String? 
   role                String? 
-  updatedAt           DateTime      @default(now()) @updatedAt
-  createdAt           DateTime      @default(now())
+  updatedAt           DateTime                @default(now()) @updatedAt
+  createdAt           DateTime                @default(now())
   favoriteIds         Favorite[]    
   posts               Post[]  
   profile             Profile?
   account             Account[]
   listing             Listing[]
   reservation         Reservation[]
+  ActivateToken       ActivateToken[]
 } 
 
+model ActivateToken {
+  id                  Int                     @id @default(autoincrement())
+  uuid                String                  @default(uuid()) 
+  token               String                  @unique
+  activatedAt         DateTime?
+
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @default(now()) @updatedAt
+
+  user                User                    @relation(fields: [userId], references: [id])
+  userId              Int                     @unique
+}
 
 
 model Account { 
-  Id                  Int           @id @default(autoincrement())
-  uuid                String        @default(uuid()) 
-  type                String
-  provider            String
-  providerAccountId   String
-  refresh_token       String?       
-  access_token        String?       
-  expires_at          Int? 
-  token_type          String?
-  scope               String?
-  id_token            String?       
-  session_state       String?
+  Id                      Int                 @id @default(autoincrement())
+  uuid                    String              @default(uuid()) 
+  type                    String
+  provider                String
+  providerAccountId       String
+  refresh_token           String?       
+  access_token            String?       
+  expires_at              Int? 
+  token_type              String?
+  scope                   String?
+  id_token                String?       
+  session_state           String?
 
-  user         User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId       Int                  @unique
+user                      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+userId                    Int                 @unique
   @@unique([provider, providerAccountId])
 }
 
 model Favorite {
-  Id                  Int           @id @default(autoincrement())
-  uuid                String        @default(uuid())
-  userfavorite        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId              Int
+  Id                      Int                 @id @default(autoincrement())
+  uuid                    String              @default(uuid())
+  userfavorite            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                  Int                 @unique
 }
 
 model Post {
-  Id                  Int           @id @default(autoincrement())
-  uuid                String        @default(uuid())
-  createdAt           DateTime      @default(now())
-  updatedAt           DateTime      @updatedAt
-  title               String        @db.VarChar(255)
-  content             String?
-  published           Boolean       @default(false)
-  author              User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId            Int
+  Id                      Int                 @id @default(autoincrement())
+  uuid                    String              @default(uuid())
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+  title                   String              @db.VarChar(255)
+  content                 String?     
+  published               Boolean             @default(false)
+ 
+  author                  User                @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId                Int                 @unique
 }
 
 model Profile {
-  Id                  Int           @id @default(autoincrement())
-  uuid                String        @default(uuid())
-  name                String
-  bio                 String?
-  imageUrl            String?       @db.Text
-  userProfile         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId              Int           @unique
+  Id                      Int                 @id @default(autoincrement())
+  uuid                    String              @default(uuid())
+  name                    String      
+  bio                     String?     
+  imageUrl                String?             @db.Text
+  userProfile             User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                  Int                 @unique
 
   servers Server[]
   members Member[]
@@ -90,50 +104,50 @@ model Profile {
   updatedAt DateTime @updatedAt
 }
 
-model Listing {
-  Id             Int             @id @default(autoincrement()) @map("_id")
-  uuid String             @default(uuid())
-  title String
-  description String
-  imageSrc String
-  createdAt DateTime @default(now())
-  category  String
-  locationValue String
-  price Int
-  userResrvation User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  reservations Reservation[]
-  userId  Int @unique
-}
+model Listing {   
+  Id                      Int                 @id @default(autoincrement()) @map("_id")
+  uuid                    String              @default(uuid())
+  title                   String    
+  description             String    
+  imageSrc                String    
+  createdAt               DateTime            @default(now())
+  category                String    
+  locationValue           String    
+  price                   Int   
+  userResrvation          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reservations            Reservation[]   
+  userId                  Int                 @unique
+}       
 
-model Reservation {
-  Id Int                @id @default(autoincrement()) @map("_Id")
-  uuid String             @default(uuid())
-  startDate DateTime
-  endDate DateTime
-  totalPrice Int
-  createdAt DateTime @default(now())
+model Reservation {       
+  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  uuid                    String              @default(uuid())
+  startDate               DateTime    
+  endDate                 DateTime    
+  totalPrice              Int   
+  createdAt               DateTime            @default(now())
 
   userListing User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int 
+  userId Int  @unique
   listing Listing @relation(fields: [listingId], references: [Id], onDelete: Cascade)
-  listingId Int 
+  listingId Int  @unique
 }
 
 model Server {
-  Id Int                @id @default(autoincrement()) @map("_Id")
-  uuid String             @default(uuid())
-  name String
-  imageUrl String @db.Text
-  inviteCode String @unique
+  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  uuid                    String              @default(uuid())
+  name                    String
+  imageUrl                String              @db.Text
+  inviteCode              String              @unique
 
-  profileId Int
-  profile Profile @relation(fields: [profileId], references: [Id], onDelete: Cascade)
+  profileId               Int
+  profile                 Profile             @relation(fields: [profileId], references: [Id], onDelete: Cascade)
 
-  members Member[]
-  channels Channel[]
+  members                 Member[]
+  channels                Channel[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
 
   @@index([profileId])
 }
@@ -145,24 +159,24 @@ enum MemberRole {
 }
 
 model Member {
-  Id Int                @id @default(autoincrement()) @map("_Id")
-  uuid String @default(uuid())
-  role MemberRole @default(GUEST)
+  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  uuid                    String              @default(uuid())
+  role                    MemberRole          @default(GUEST)
 
-  profile Profile @relation(fields: [profileId], references: [Id], onDelete: Cascade)
-  profileId Int
+  profile                 Profile             @relation(fields: [profileId], references: [Id], onDelete: Cascade)
+  profileId               Int
 
-  serverId Int
-  server Server @relation(fields: [serverId], references: [Id], onDelete: Cascade)
+  serverId                Int
+  server                  Server              @relation(fields: [serverId], references: [Id], onDelete: Cascade)
 
-  messages Message[]
-  directMessages DirectMessage[]
+  messages                Message[]
+  directMessages          DirectMessage[]
 
-  conversationsInitiated Conversation[] @relation("MemberOne")
-  conversationsReceived Conversation[] @relation("MemberTwo")
+  conversationsInitiated  Conversation[]      @relation("MemberOne")
+  conversationsReceived   Conversation[]      @relation("MemberTwo")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
 
   @@index([profileId])
   @@index([serverId])
@@ -175,58 +189,58 @@ enum ChannelType {
 }
 
 model Channel {
-  Id Int                @id @default(autoincrement()) @map("_Id")
-  uuid String @default(uuid())
-  name String
-  type ChannelType @default(TEXT)
+  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  uuid                    String              @default(uuid())
+  name                    String
+  type                    ChannelType         @default(TEXT)
 
-  profile Profile @relation(fields: [profileId], references: [Id], onDelete: Cascade)
-  profileId Int
+  profile                 Profile             @relation(fields: [profileId], references: [Id], onDelete: Cascade)
+  profileId               Int
 
-  serverId Int
-  server Server @relation(fields: [serverId], references: [Id], onDelete: Cascade)
+  serverId                Int
+  server                  Server              @relation(fields: [serverId], references: [Id], onDelete: Cascade)
 
-  messages Message[]
+  messages                Message[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
 
   @@index([profileId])
   @@index([serverId])
 }
 
 model Message {
-  Id Int                @id @default(autoincrement()) @map("_Id")
-  uuid String @default(uuid())
-  content String @db.Text
+  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  uuid                    String              @default(uuid())
+  content                 String              @db.Text
 
-  fileUrl String? @db.Text
+  fileUrl                 String?             @db.Text
 
-  memberId Int
-  member Member @relation(fields: [memberId], references: [Id], onDelete: Cascade)
+  memberId                Int
+  member                  Member              @relation(fields: [memberId], references: [Id], onDelete: Cascade)
 
-  channelId Int
-  channel Channel @relation(fields: [channelId], references: [Id], onDelete: Cascade)
+  channelId               Int
+  channel                 Channel             @relation(fields: [channelId], references: [Id], onDelete: Cascade)
 
-  deleted Boolean @default(false)
+  deleted Boolean                             @default(false)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime                          @default(now())
+  updatedAt DateTime                          @updatedAt
 
   @@index([channelId])
   @@index([memberId])
 }
 
 model Conversation {
-  Id Int                @id @default(autoincrement()) @map("_Id")
-  uuid String             @default(uuid())
-  memberOneId Int
-  memberOne Member @relation("MemberOne", fields: [memberOneId], references: [Id], onDelete: Cascade)
+  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  uuid                    String              @default(uuid())
+  memberOneId             Int
+  memberOne               Member              @relation("MemberOne", fields: [memberOneId], references: [Id], onDelete: Cascade)
 
-  memberTwoId Int
-  memberTwo Member @relation("MemberTwo", fields: [memberTwoId], references: [Id], onDelete: Cascade)
+  memberTwoId             Int
+  memberTwo               Member              @relation("MemberTwo", fields: [memberTwoId], references: [Id], onDelete: Cascade)
 
-  directMessages DirectMessage[]
+  directMessages          DirectMessage[]
 
   @@index([memberTwoId])
 
@@ -234,21 +248,21 @@ model Conversation {
 }
 
 model DirectMessage {
-  Id                      Int                @id @default(autoincrement()) @map("_Id")
-  uuid                    String @default(uuid())
-  content                 String @db.Text
-  fileUrl                 String? @db.Text
+  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  uuid                    String              @default(uuid())
+  content                 String              @db.Text
+  fileUrl                 String?             @db.Text
 
-  memberId Int
-  member Member @relation(fields: [memberId], references: [Id], onDelete: Cascade)
+  memberId                Int
+  member                  Member              @relation(fields: [memberId], references: [Id], onDelete: Cascade)
 
-  conversationId Int
-  conversation Conversation @relation(fields: [conversationId], references: [Id], onDelete: Cascade)
+  conversationId          Int
+  conversation            Conversation        @relation(fields: [conversationId], references: [Id], onDelete: Cascade)
 
-  deleted Boolean @default(false)
+  deleted                 Boolean             @default(false)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
 
   @@index([memberId])
   @@index([conversationId])
