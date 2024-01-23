@@ -42,7 +42,7 @@ export async function POST(request: NextRequest){
         size: bytes,
         type: file.type,
         local: path,
-        url: join('\/public\/images\/uploaded\/', file.name),
+        url: `/public/images/uploaded/${file.name}`,
         filename: file.name,
         message: "Buffer was successfully uploaded"
     })
