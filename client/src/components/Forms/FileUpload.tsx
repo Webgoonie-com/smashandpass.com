@@ -3,7 +3,7 @@
 import Image from "next/image"
 import React, { useState } from "react"
 import { X } from "lucide-react"
-import getCurrentUsers from "@/Actions/getCurrentUsers"
+
 
 interface FileUploadProps {
     onChange: (url?: string) => void
@@ -23,18 +23,12 @@ export const FileUpload = ({
     const [selectedFile, setSelectedFile] = useState<File>()
     const [imageData, setImageData] = useState({})
 
-    //const currentUser = await getCurrentUsers()
-
-    //console.log('currentUser: ', currentUser)
 
     async function deleteImageFromServer(imageData: {}){
 
-        console.log('delete imageData: ', imageData)
         try {
         
-            const data = imageData
 
-            //data['user'] = currentUser;
 
             const res = await fetch('/api/deleteImageFromServer', {
                 method: 'POST',
@@ -48,13 +42,7 @@ export const FileUpload = ({
                 throw new Error(`HTTP error! Status: ${res.status}`);
             }
             
-            const responseData = await res.json();
-            console.log(responseData);
-            //setImageData(responseData)
-            
-            //onChange(responseData.url);
-
-            //if(!res.ok)  throw new Error(await res.text())
+           
         
         
         } catch (error) {
@@ -64,10 +52,8 @@ export const FileUpload = ({
     }
 
     async function sendImageToServer(file: any) {
-        console.log('Sending Image to Server', file)
         
         if(!file) return
-
 
         try {
         
@@ -117,8 +103,6 @@ export const FileUpload = ({
             deleteImageFromServer(imageData)
         }
     }
-    
-
     
     // Do Better Security Checks
     if(selectedImage && selectedImage !== undefined  && selectedImage !== null && selectedImage !== "pdf"){

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
-import "./globals.css";
+import "../../app/globals.css";
 import Navbar from "@/components/Navbars/navbar";
 import ClientOnly from "@/components/ClientOnly";
 import Modal from "@/components/Modals/Modal";
