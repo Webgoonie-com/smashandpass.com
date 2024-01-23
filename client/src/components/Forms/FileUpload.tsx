@@ -40,14 +40,8 @@ export const FileUpload = ({
             })
             
             const responseData = await res.json();
-            console.log('responseData', responseData);
-            console.log('responseData.filename', responseData.filename);
-
+            
             onChange(responseData.url);
-            
-            
-            
-            console.log('res', res?.url)
 
             if(!res.ok)  throw new Error(await res.text())
         
@@ -59,19 +53,18 @@ export const FileUpload = ({
     }
     
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('On Change');
+
         const file = event.target.files?.[0];
         if (file) {
             setSelectedImage(URL.createObjectURL(file));
             setSelectedFile(file);
-            //onChange(URL.createObjectURL(file));
             sendImageToServer(file as any)
         }
     };
     
 
-    //if(value && fileType !== undefined  && fileType !== null && fileType !== "pdf"){
-
+    
+    // Do Better Security Checks
     if(selectedImage && selectedImage !== undefined  && selectedImage !== null && selectedImage !== "pdf"){
         
         return (
@@ -101,22 +94,11 @@ export const FileUpload = ({
     return (
         <div className="relative h-20 ">
             <div className="space-y-6 p-10 mx-auto w-full">
-                <span>File Upload Prior Yo</span>
+                <span>Upload Channel Image</span>
                 <label>
                     <input
                         type="file"
                         //className="hidden"
-                        /* onChange={({ target }) => {
-                            console.log('On Change')
-                            if(target.files){
-                                const file = target.files[0]
-                                setSelectedImage(URL.createObjectURL(file))
-                                setSelectedFile(file)
-
-                                onChange(URL.createObjectURL(file));
-                            }
-                        }} */
-
                         onChange={handleFileChange}
                     />
                 </label>
