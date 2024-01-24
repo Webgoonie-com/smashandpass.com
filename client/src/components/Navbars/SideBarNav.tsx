@@ -1,11 +1,14 @@
-import { CurrentProfile } from '@/lib/currentProfile'
-import PrismaOrm from '@/lib/prismaOrm'
-import { redirect } from 'next/navigation'
 import React from 'react'
 
 
 import { Separator } from "@/components/ui/separator"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {NavigationAction} from './navigationAction'
+import { NavigationItem } from './NavigationItem'
+import { ModeToggle } from '../modeToggle'
+import { CurrentProfile } from '@/lib/currentProfile'
+import { redirect } from 'next/navigation'
+import PrismaOrm from '@/lib/prismaOrm'
 
 
 export const SideBarNav = async () => {
@@ -31,18 +34,34 @@ export const SideBarNav = async () => {
         <div 
             className="
                 space-y-4 flex flex-col items-center h-full
-                text-primary w-full dark:bg-[#1E1F22]
+                text-primary w-full dark:bg-[#1E1F22] py-3
             "
         >
-            <Separator />
 
             
 
             <NavigationAction />
+            <Separator 
+                className="h-[2px] bg-slate-500 dark:bg-zinc-500 rounded-md w=10 mx-auto" 
+            />
 
+            <ScrollArea className="w-full flex-1">
+                {servers.map((server) => (
+                    <div key={server.Id} className='mb-4'>
+                       <NavigationItem 
+                            Id={server.Id} 
+                            uuid={server.uuid} 
+                            imageUrl={server.imageUrl} 
+                            name={server.name}                       />
+                    </div>
+                ))}
+            </ScrollArea>
+            <div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
+        <ModeToggle />
+            
+      </div>
             <Separator />
 
         </div>
     )
 }
-
