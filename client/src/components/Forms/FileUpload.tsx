@@ -3,6 +3,7 @@
 import Image from "next/image"
 import React, { useState } from "react"
 import { X } from "lucide-react"
+import { ActionTooltip } from "../actionTooltip"
 
 
 interface FileUploadProps {
@@ -109,16 +110,25 @@ export const FileUpload = ({
         
         return (
             <div className="row">
-                <div className="relative w-[35vw] h-[35vw]">
+                <div className="relative h-60 w-60">
                    
                    {selectedImage ? 
                     (<>
                         <Image
                             fill={true}
+                            width="100"
+                            height="100"
+                            sizes="(max-width: 60px) 60, (max-width: 60px) 100vw, 60vw"
                             src={selectedImage}
                             alt={"Uploaded Image" as string} 
-                            //className="rounded-full"
+                            className="rounded-full w-full h-auto"
+                            priority
                         />
+                         <ActionTooltip
+                            side="right"
+                            align="center"
+                            label="Click To Remove Image"
+                        >
                         <button
                             onClick={() => handleDeleteImage(selectedImage)}
                             className="bg-rose-800 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
@@ -126,6 +136,7 @@ export const FileUpload = ({
                         >
                             <X  className="h-4 w-4" />
                         </button>
+                        </ActionTooltip>
                     </>)
                     : 
                     (<>

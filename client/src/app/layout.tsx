@@ -9,6 +9,7 @@ import LoginModal from "@/components/Modals/LoginModal";
 import ToasterProvider from "@/Providers/ToastProvider";
 import { ThemeProvider } from "@/providers/Theme-Provider";
 import ClientOnly from "@/components/ClientOnly";
+import { ModalProvider } from '@/components/Modals/ModalProvider';
 
 export default function RootLayout({
   children,
@@ -29,6 +30,7 @@ export default function RootLayout({
             <ToasterProvider />
             <RegisterModal />
             <LoginModal />
+            <ModalProvider />
           </ClientOnly>
           {children}
         </ThemeProvider>

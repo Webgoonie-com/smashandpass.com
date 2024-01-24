@@ -46,17 +46,17 @@ export const NavigationItem  = ({
                         params?.serverId === Id ? "group-hover:[h-8px]" : "h-[8px]"
                         
                     )} />
-                    <div
-                    className={
-                        cn("relative group flex mx-3 h-[48px] w-[48px] rounded-[24px group-hover: rounded-[16px] transition-all overflow-hidden", params?.serverId === Id && "bg-primary/10 text-primary rounded-[16px]")}
-                    >
-                        
+                    <div className={cn(
+                        "relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden",
+                        params?.serverId === Id && "bg-primary/10 text-primary rounded-[16px]"
+                        )}>
                         <Image
                             fill
-                            src={modifiedImageUrl || imageUrl}
+                            src={modifiedImageUrl}
                             alt="Channel"
+                            sizes="48px"
+                            priority={true}
                         />
-                            
                     </div>
                 </button>
             </ActionTooltip> 

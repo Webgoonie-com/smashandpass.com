@@ -3,7 +3,7 @@ import {redirect} from 'next/navigation'
 import PrismaOrm from '@/lib/prismaOrm'
 
 import { IntialProfileSetup } from '@/lib/intialProfileSetup'
-import { IntialModal } from '@/components/Modals/InitialModal'
+import { CreateServerModal } from '@/components/Modals/CreateServerModal'
 
 const SetupPage = async () => {
 
@@ -23,7 +23,7 @@ const SetupPage = async () => {
     return redirect(`/servers/${server.uuid}`)
  }
 
- return <IntialModal />
+ return <CreateServerModal />
 
   return (
     <div className="container mb-20">
