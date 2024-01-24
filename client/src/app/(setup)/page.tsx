@@ -20,8 +20,7 @@ const SetupPage = async () => {
  })
 
  if(server){
-    return redirect(`/servers/${server.Id}`)
-    //return redirect(`/server/${server.uuid}`)
+    return redirect(`/servers/${server.uuid}`)
  }
 
  return <IntialModal />
