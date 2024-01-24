@@ -115,10 +115,10 @@ export const FileUpload = ({
                    {selectedImage ? 
                     (<>
                         <Image
-                            fill={true}
+                           
                             width="100"
                             height="100"
-                            sizes="(max-width: 60px) 60, (max-width: 60px) 100vw, 60vw"
+                            sizes="(max-width: 100px) 100, (max-width: 100px) 100vw, 100vw"
                             src={selectedImage}
                             alt={"Uploaded Image" as string} 
                             className="rounded-full w-full h-auto"

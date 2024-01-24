@@ -1,5 +1,5 @@
 import {SideBarNav}from "@/components/Navbars/SideBarNav"
-import "../../app/globals.css";
+//import "../../app/globals.css";
 const MainLayout = async({
     children
 } : {
