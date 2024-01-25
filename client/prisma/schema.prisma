@@ -135,7 +135,7 @@ model Reservation {
 
 model Server {
   Id                      Int                 @id @default(autoincrement()) @map("_Id")
-  uuid                    String              @default(uuid())
+  uuid                    String              @unique @default(uuid())
   name                    String
   imageUrl                String              @db.Text
   inviteCode              String              @unique
