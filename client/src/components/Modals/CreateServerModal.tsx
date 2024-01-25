@@ -31,6 +31,7 @@ import  FileUpload  from "@/components/Forms/FileUpload";
 import { useModal } from "@/Hooks/useModalStore";
 
 
+
 const formSchema = z.object({
     name: z.string().min(1, {
     message: "Server name is required."
@@ -41,8 +42,14 @@ const formSchema = z.object({
 });
 
 
+
+
+
+
+console.log('Create ServerModal running')
 export const CreateServerModal = () => {
 
+      
     const { isOpen, onClose, type } = useModal();
 
     const router = useRouter()
@@ -82,10 +89,16 @@ export const CreateServerModal = () => {
         form.reset();
         onClose();
       }
-    
+
+      
+
     
     return (
-        <Dialog open={isModalOpen} onOpenChange={handleClose}>
+        <Dialog
+            open={isModalOpen} 
+            //open={true} 
+            onOpenChange={handleClose}
+        >
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-center text-2xl font-extrabold">

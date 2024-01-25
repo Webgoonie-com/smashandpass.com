@@ -11,7 +11,7 @@ export const CurrentProfile = async () => {
 
     const profile = await prismaOrm.profile.findUnique({
         where: { 
-            Id: userId 
+            Id: userId
         }
     });
     

@@ -40,6 +40,7 @@ export const authOptions: AuthOptions = {
                     email: credentials?.email,
                     password: credentials?.password,
                 };
+                console.log('Payload:',  payload);
 
                 const dbUser = await prismaOrm.user.findUnique({
                     where: { 

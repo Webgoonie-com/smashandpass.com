@@ -30,6 +30,7 @@ export const IntialProfileSetup = async () => {
     })
 
     if(profile){
+        console.log('profile Found')
         return profile;
     }
 
@@ -39,5 +40,7 @@ export const IntialProfileSetup = async () => {
             name: `${user.name}`
         }
     })
+
+    //return newProfile
 }
 
