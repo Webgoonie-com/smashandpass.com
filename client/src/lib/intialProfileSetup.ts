@@ -25,7 +25,7 @@ export const IntialProfileSetup = async () => {
 
     const profile = await prismaOrm.profile.findUnique({
         where: {
-            userId: user.id
+            userId: user.Id
         }
     })
 
@@ -36,7 +36,7 @@ export const IntialProfileSetup = async () => {
 
     const newProfile = await prismaOrm.profile.create({
         data: {
-            userId: user.id,
+            userId: user.Id,
             name: `${user.name}`
         }
     })

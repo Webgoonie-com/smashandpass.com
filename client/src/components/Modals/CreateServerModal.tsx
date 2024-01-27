@@ -49,7 +49,7 @@ const formSchema = z.object({
 console.log('Create ServerModal running')
 export const CreateServerModal = () => {
 
-      
+    const [showCreateModal, setShowCreateModal] = useState(false)
     const { isOpen, onClose, type } = useModal();
 
     const router = useRouter()
@@ -91,12 +91,15 @@ export const CreateServerModal = () => {
       }
 
       
-
+      useEffect(() => {
+      
+        setShowCreateModal(true)
+      
+    }, [])
     
     return (
         <Dialog
-            open={isModalOpen} 
-            //open={true} 
+            //open={showCreateModal} 
             onOpenChange={handleClose}
         >
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
