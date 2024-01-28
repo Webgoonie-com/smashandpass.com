@@ -4,9 +4,11 @@ import ClientOnly from "@/components/ClientOnly";
 import getCurrentUser from "@/actions/getCurrentUsers";
 //import "../../app/globals.css";
 const MainLayout = async({
-    children
+    children,
+    params,
 } : {
-    children: React.ReactNode
+    children: React.ReactNode,
+    params: string
 }) => {
 
     const currentUser = await getCurrentUser()
@@ -22,9 +24,7 @@ const MainLayout = async({
              </div>
 
             <div className="mt-[70px] hidden md:flex h-full w-[72px] z-30 flex-col fixed inset-y-0">
-                <SideBarNav
-                    
-                />
+                <SideBarNav />
             </div>
             <main className="md:pl-[72px] h-full">
                 {children}

@@ -1,4 +1,4 @@
-import ServerSidebar from "@/components/SideBars/ServerSidebar";
+import ServerSidebar from "@/components/Servers/ServerSidebar";
 import { CurrentProfile } from "@/lib/currentProfile"
 import PrismaOrm from "@/lib/prismaOrm";
 import { redirect } from "next/navigation";
@@ -37,7 +37,7 @@ const ServerIdLayout = async ({
         <div className="h-full">
             <div 
                 className="mt-[74px] hidden md:flex h-full w-60 z-20 flex-col fixed inset-y-0">
-            <ServerSidebar />
+            <ServerSidebar serverId={params?.serverId} />
             </div>
             <main className="h-full md:pl-60 pb-80">
                 {children}

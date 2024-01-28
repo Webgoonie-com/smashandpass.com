@@ -1,4 +1,4 @@
-import {User} from "@prisma/client"
+import {User, Server, Member, Profile} from "@prisma/client"
 
  export type SafeUser = Omit<
     User,
@@ -7,4 +7,8 @@ import {User} from "@prisma/client"
     createdAt: string;
     updatedAt: string;
     emailVerified: string | null;
+ }
+
+ export type ServerWithMembersWithProfiles = Server & {
+   members: (Member & { profile: Profile })[]
  }
