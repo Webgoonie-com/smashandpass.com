@@ -19,28 +19,19 @@ export const metadata: Metadata = {
   description: "A Social Media Networking Dating Game",
 };
 
-export default async function RootLayout({
+export default async function SetUpLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
 
-  const currentUser = await getCurrentUser()
+  
 
-  console.log('currentUser', currentUser)
+  
+
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        
-          <ClientOnly>
-            <ToasterProvider />
-            <RegisterModal />
-            <LoginModal />
-            <Navbar currentUser={currentUser} />
-          </ClientOnly>
+      <main className="md:pl-[72px] h-full">
           {children}
-        
-      </body>
-    </html>
+      </main>
   );
 }
