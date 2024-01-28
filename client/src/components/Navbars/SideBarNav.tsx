@@ -9,7 +9,7 @@ import { ModeToggle } from '../modeToggle'
 import { CurrentProfile } from '@/lib/currentProfile'
 import { redirect } from 'next/navigation'
 import PrismaOrm from '@/lib/prismaOrm'
-import LogOutButton from '../logOutButton'
+import LogOutButton from '@/components/LogOutButton'
 
 
 export const SideBarNav = async () => {
