@@ -22,7 +22,7 @@ export const ActionTooltip = ({
 }: ActionTooltipProps) => {
   return (
     <TooltipProvider>
-      <Tooltip delayDuration={50}>
+      <Tooltip delayDuration={100}>
         <TooltipTrigger asChild>
           {children}
         </TooltipTrigger>

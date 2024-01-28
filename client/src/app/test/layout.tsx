@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: "A Social Media Networking Dating Game",
 };
 
-export default async function RootLayout({
+export default async function TestLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

@@ -99,7 +99,8 @@ export const CreateServerModal = () => {
     
     return (
         <Dialog
-            open={showCreateModal} 
+            //open={showCreateModal} 
+            open={false} 
             onOpenChange={handleClose}
         >
             <DialogContent className="bg-white text-black p-0 overflow-hidden">

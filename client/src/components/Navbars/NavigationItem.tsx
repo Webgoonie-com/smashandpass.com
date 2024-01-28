@@ -27,6 +27,7 @@ export const NavigationItem  = ({
     const modifiedImageUrl = imageUrl.replace('/public', '');
 
     const onClick = () => {
+        console.log('onClick = ', `/servers/${uuid}`)
         router.push(`/servers/${uuid}`)
     }
 
@@ -43,9 +44,10 @@ export const NavigationItem  = ({
                     <div className={cn(
                         "absolute left-0 bg-primary rounded-r-full transition-all w-[4px] mt-2",
                         params?.serverId !== Id && "group-hover:[h-20px]",
-                        params?.serverId === Id ? "group-hover:[h-8px]" : "h-[8px]"
+                        params?.serverId === Id ? "[h-36px]" : "h-[8px]"
                         
                     )} />
+
                     <div className={cn(
                         "relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden",
                         params?.serverId === Id && "bg-primary/10 text-primary rounded-[16px]"
@@ -53,7 +55,7 @@ export const NavigationItem  = ({
                         <Image
                             fill
                             src={modifiedImageUrl}
-                            alt="Channel"
+                            alt="User Channel Image"
                             sizes="48px"
                             className="relative"
                             priority={true}

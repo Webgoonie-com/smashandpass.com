@@ -28,7 +28,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import  FileUpload  from "../../components/Forms/FileUpload";
-
+import { useModal } from "@/Hooks/useModalStore";
 
 const formSchema = z.object({
     name: z.string().min(1, {
@@ -39,10 +39,11 @@ const formSchema = z.object({
     })
 });
 
-
+console.log('IntialModal Is running')
 export const IntialModal = () => {
 
     const [showIntialModal, setShowInitialModal] = useState(false);
+    const { isOpen, onClose, type } = useModal();
 
     const router = useRouter()
 
@@ -72,6 +73,11 @@ export const IntialModal = () => {
         }
     }
 
+    const handleClose = () => {
+        form.reset();
+        onClose();
+      }
+
     useEffect(() => {
       
         setShowInitialModal(true)
@@ -84,7 +90,7 @@ export const IntialModal = () => {
     }
     
     return (
-        <Dialog open={showIntialModal}>
+        <Dialog open={showIntialModal}  onOpenChange={handleClose}>
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-center text-2xl font-extrabold">
