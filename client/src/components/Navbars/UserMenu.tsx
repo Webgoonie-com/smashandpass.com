@@ -32,7 +32,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
         <div className='relative'>
             <div className="flex flex-row items-center gap-3">
                 <div
-                    onClick={() => { console.log('clicked Used Menu')}}
+                    onClick={() => { console.log('clicked on Name from User Menu')}}
                     className="
                     md:block text-sm font-semibold 
                     py-3 sm:px-6 px-4 rounded-full hover:bg-neutral-400

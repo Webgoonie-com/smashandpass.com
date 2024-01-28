@@ -16,7 +16,7 @@ const Navbar: React.FC<NavarProps> = ({
 }) => {
     
     return ( 
-        <div className="fixed w-full bg-slate-300 text-black z-50 shadow-sm">
+        <div className="fixed w-full bg-slate-300 text-black z-50 shadow-sm mb-20">
             <div className="py-4 border-b-[1px] ">
                 <Container>
                     <div className="
