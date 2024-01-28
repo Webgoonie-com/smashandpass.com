@@ -40,13 +40,14 @@ export const authOptions: AuthOptions = {
                     email: credentials?.email,
                     password: credentials?.password,
                 };
+                console.log('Payload:',  payload);
 
                 const dbUser = await prismaOrm.user.findUnique({
                     where: { 
                         email: payload.email 
                     },
                     select: {
-                        id: true,
+                        Id: true,
                         email: true,
                         hashedPassword: true,
                      }
@@ -59,7 +60,7 @@ export const authOptions: AuthOptions = {
                 }
 
                 const user: User = {
-                    id: dbUser.id,
+                    id: dbUser.Id,
                     email: dbUser.email,
                     password: 'stopPeeking', // You can provide a dummy value for the password if necessary
                     hashedPassword: dbUser.hashedPassword || undefined, // Ensure it's not null

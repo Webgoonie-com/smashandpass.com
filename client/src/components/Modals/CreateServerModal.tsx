@@ -5,6 +5,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useFormContext } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   Dialog,
@@ -26,8 +27,10 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import  FileUpload  from "../../components/Forms/FileUpload";
-import { useRouter } from "next/navigation"
+import  FileUpload  from "@/components/Forms/FileUpload";
+import { useModal } from "@/Hooks/useModalStore";
+
+
 
 const formSchema = z.object({
     name: z.string().min(1, {
@@ -39,9 +42,20 @@ const formSchema = z.object({
 });
 
 
-export const IntialModal = () => {
 
-    const [showIntialModal, setShowInitialModal] = useState(false);
+
+
+
+console.log('Create ServerModal running')
+export const CreateServerModal = () => {
+
+    const [showCreateModal, setShowCreateModal] = useState(false)
+    const { isOpen, onClose, type } = useModal();
+
+    const router = useRouter()
+
+
+    const isModalOpen = isOpen && type === "createServer";
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -55,21 +69,39 @@ export const IntialModal = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log(values)
+
+        try {
+
+            await axios.post("/api/servers", values)
+
+            form.reset();
+            router.refresh();
+            onClose();
+            
+        } catch (error) {
+            console.log('Error',    )
+        }
     }
 
-    useEffect(() => {
+    
+
+    const handleClose = () => {
+        form.reset();
+        onClose();
+      }
+
       
-        setShowInitialModal(true)
+      useEffect(() => {
+      
+        setShowCreateModal(true)
       
     }, [])
-
-
-    if(!showIntialModal){
-        return null
-    }
     
     return (
-        <Dialog open={showIntialModal}>
+        <Dialog
+            //open={showCreateModal} 
+            onOpenChange={handleClose}
+        >
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-center text-2xl font-extrabold">

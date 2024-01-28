@@ -18,8 +18,23 @@ CREATE TABLE `User` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `ActivateToken` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `uuid` VARCHAR(191) NOT NULL,
+    `token` VARCHAR(191) NOT NULL,
+    `activatedAt` DATETIME(3) NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `userId` INTEGER NOT NULL,
+
+    UNIQUE INDEX `ActivateToken_token_key`(`token`),
+    UNIQUE INDEX `ActivateToken_userId_key`(`userId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Account` (
-    `Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `uuid` VARCHAR(191) NOT NULL,
     `type` VARCHAR(191) NOT NULL,
     `provider` VARCHAR(191) NOT NULL,
@@ -35,21 +50,22 @@ CREATE TABLE `Account` (
 
     UNIQUE INDEX `Account_userId_key`(`userId`),
     UNIQUE INDEX `Account_provider_providerAccountId_key`(`provider`, `providerAccountId`),
-    PRIMARY KEY (`Id`)
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Favorite` (
-    `Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `uuid` VARCHAR(191) NOT NULL,
     `userId` INTEGER NOT NULL,
 
-    PRIMARY KEY (`Id`)
+    UNIQUE INDEX `Favorite_userId_key`(`userId`),
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Post` (
-    `Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `uuid` VARCHAR(191) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
@@ -58,13 +74,15 @@ CREATE TABLE `Post` (
     `published` BOOLEAN NOT NULL DEFAULT false,
     `authorId` INTEGER NOT NULL,
 
-    PRIMARY KEY (`Id`)
+    UNIQUE INDEX `Post_authorId_key`(`authorId`),
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Profile` (
-    `Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `uuid` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
     `bio` VARCHAR(191) NULL,
     `imageUrl` TEXT NULL,
     `userId` INTEGER NOT NULL,
@@ -72,12 +90,33 @@ CREATE TABLE `Profile` (
     `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `Profile_userId_key`(`userId`),
-    PRIMARY KEY (`Id`)
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `UserPhoto` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `uuid` VARCHAR(191) NOT NULL,
+    `serverCaption` VARCHAR(191) NULL,
+    `userCaption` VARCHAR(191) NULL,
+    `imageSize` INTEGER NULL,
+    `type` VARCHAR(191) NOT NULL,
+    `local` VARCHAR(191) NOT NULL,
+    `url` VARCHAR(191) NOT NULL,
+    `filename` VARCHAR(191) NOT NULL,
+    `message` VARCHAR(191) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `userId` INTEGER NOT NULL,
+
+    INDEX `UserPhoto_userId_idx`(`userId`),
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Listing` (
-    `_id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `uuid` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
     `imageSrc` VARCHAR(191) NOT NULL,
@@ -88,12 +127,13 @@ CREATE TABLE `Listing` (
     `userId` INTEGER NOT NULL,
 
     UNIQUE INDEX `Listing_userId_key`(`userId`),
-    PRIMARY KEY (`_id`)
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Reservation` (
-    `_Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `uuid` VARCHAR(191) NOT NULL,
     `startDate` DATETIME(3) NOT NULL,
     `endDate` DATETIME(3) NOT NULL,
     `totalPrice` INTEGER NOT NULL,
@@ -101,12 +141,15 @@ CREATE TABLE `Reservation` (
     `userId` INTEGER NOT NULL,
     `listingId` INTEGER NOT NULL,
 
-    PRIMARY KEY (`_Id`)
+    UNIQUE INDEX `Reservation_userId_key`(`userId`),
+    UNIQUE INDEX `Reservation_listingId_key`(`listingId`),
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Server` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `uuid` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `imageUrl` TEXT NOT NULL,
     `inviteCode` VARCHAR(191) NOT NULL,
@@ -114,6 +157,7 @@ CREATE TABLE `Server` (
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
+    UNIQUE INDEX `Server_uuid_key`(`uuid`),
     UNIQUE INDEX `Server_inviteCode_key`(`inviteCode`),
     INDEX `Server_profileId_idx`(`profileId`),
     PRIMARY KEY (`id`)
@@ -121,10 +165,11 @@ CREATE TABLE `Server` (
 
 -- CreateTable
 CREATE TABLE `Member` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `uuid` VARCHAR(191) NOT NULL,
     `role` ENUM('ADMIN', 'MODERATOR', 'GUEST') NOT NULL DEFAULT 'GUEST',
     `profileId` INTEGER NOT NULL,
-    `serverId` VARCHAR(191) NOT NULL,
+    `serverId` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -135,11 +180,12 @@ CREATE TABLE `Member` (
 
 -- CreateTable
 CREATE TABLE `Channel` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `uuid` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `type` ENUM('TEXT', 'AUDIO', 'VIDEO') NOT NULL DEFAULT 'TEXT',
     `profileId` INTEGER NOT NULL,
-    `serverId` VARCHAR(191) NOT NULL,
+    `serverId` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -150,11 +196,12 @@ CREATE TABLE `Channel` (
 
 -- CreateTable
 CREATE TABLE `Message` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `uuid` VARCHAR(191) NOT NULL,
     `content` TEXT NOT NULL,
     `fileUrl` TEXT NULL,
-    `memberId` VARCHAR(191) NOT NULL,
-    `channelId` VARCHAR(191) NOT NULL,
+    `memberId` INTEGER NOT NULL,
+    `channelId` INTEGER NOT NULL,
     `deleted` BOOLEAN NOT NULL DEFAULT false,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
@@ -166,27 +213,29 @@ CREATE TABLE `Message` (
 
 -- CreateTable
 CREATE TABLE `Conversation` (
-    `id` VARCHAR(191) NOT NULL,
-    `memberOneId` VARCHAR(191) NOT NULL,
-    `memberTwoId` VARCHAR(191) NOT NULL,
+    `_Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `uuid` VARCHAR(191) NOT NULL,
+    `memberOneId` INTEGER NOT NULL,
+    `memberTwoId` INTEGER NOT NULL,
 
     INDEX `Conversation_memberTwoId_idx`(`memberTwoId`),
     UNIQUE INDEX `Conversation_memberOneId_memberTwoId_key`(`memberOneId`, `memberTwoId`),
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`_Id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `DirectMessage` (
-    `id` VARCHAR(191) NOT NULL,
+    `_Id` INTEGER NOT NULL AUTO_INCREMENT,
+    `uuid` VARCHAR(191) NOT NULL,
     `content` TEXT NOT NULL,
     `fileUrl` TEXT NULL,
-    `memberId` VARCHAR(191) NOT NULL,
-    `conversationId` VARCHAR(191) NOT NULL,
+    `memberId` INTEGER NOT NULL,
+    `conversationId` INTEGER NOT NULL,
     `deleted` BOOLEAN NOT NULL DEFAULT false,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
     INDEX `DirectMessage_memberId_idx`(`memberId`),
     INDEX `DirectMessage_conversationId_idx`(`conversationId`),
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`_Id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

@@ -13,7 +13,7 @@ datasource db {
 
 
 model User {  
-  id                  Int                     @id @default(autoincrement())
+  Id                  Int                     @id @default(autoincrement()) @map("id")
   uuid                String                  @default(uuid()) 
   name                String? 
   email               String                  @unique
@@ -28,6 +28,7 @@ model User {
   favoriteIds         Favorite[]    
   posts               Post[]  
   profile             Profile?
+  UserPhotos          UserPhoto[]
   account             Account[]
   listing             Listing[]
   reservation         Reservation[]
@@ -35,7 +36,7 @@ model User {
 } 
 
 model ActivateToken {
-  id                  Int                     @id @default(autoincrement())
+  Id                  Int                     @id @default(autoincrement()) @map("id")
   uuid                String                  @default(uuid()) 
   token               String                  @unique
   activatedAt         DateTime?
@@ -43,13 +44,13 @@ model ActivateToken {
   createdAt           DateTime                @default(now())
   updatedAt           DateTime                @default(now()) @updatedAt
 
-  user                User                    @relation(fields: [userId], references: [id])
+  user                User                    @relation(fields: [userId], references: [Id])
   userId              Int                     @unique
 }
 
 
 model Account { 
-  Id                      Int                 @id @default(autoincrement())
+  Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid()) 
   type                    String
   provider                String
@@ -62,20 +63,20 @@ model Account {
   id_token                String?       
   session_state           String?
 
-user                      User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-userId                    Int                 @unique
+  user                    User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userId                  Int                 @unique
   @@unique([provider, providerAccountId])
 }
 
 model Favorite {
-  Id                      Int                 @id @default(autoincrement())
+  Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
-  userfavorite            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userfavorite            User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
   userId                  Int                 @unique
 }
 
 model Post {
-  Id                      Int                 @id @default(autoincrement())
+  Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
   createdAt               DateTime            @default(now())
   updatedAt               DateTime            @updatedAt
@@ -83,17 +84,17 @@ model Post {
   content                 String?     
   published               Boolean             @default(false)
  
-  author                  User                @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author                  User                @relation(fields: [authorId], references: [Id], onDelete: Cascade)
   authorId                Int                 @unique
 }
 
 model Profile {
-  Id                      Int                 @id @default(autoincrement())
+  Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
   name                    String      
   bio                     String?     
   imageUrl                String?             @db.Text
-  userProfile             User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userProfile             User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
   userId                  Int                 @unique
 
   servers Server[]
@@ -104,8 +105,28 @@ model Profile {
   updatedAt DateTime @updatedAt
 }
 
+model UserPhoto {
+  Id Int @id @default(autoincrement()) @map("id")
+  uuid String @default(uuid())
+  serverCaption String?
+  userCaption String?
+  imageSize Int?
+  type String
+  local String
+  url String
+  filename String
+  message String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  
+  user User @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userId Int
+
+  @@index([userId])
+}
+
 model Listing {   
-  Id                      Int                 @id @default(autoincrement()) @map("_id")
+  Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
   title                   String    
   description             String    
@@ -114,28 +135,28 @@ model Listing {
   category                String    
   locationValue           String    
   price                   Int   
-  userResrvation          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userResrvation          User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
   reservations            Reservation[]   
   userId                  Int                 @unique
 }       
 
 model Reservation {       
-  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
   startDate               DateTime    
   endDate                 DateTime    
   totalPrice              Int   
   createdAt               DateTime            @default(now())
 
-  userListing User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userListing User @relation(fields: [userId], references: [Id], onDelete: Cascade)
   userId Int  @unique
   listing Listing @relation(fields: [listingId], references: [Id], onDelete: Cascade)
   listingId Int  @unique
 }
 
 model Server {
-  Id                      Int                 @id @default(autoincrement()) @map("_Id")
-  uuid                    String              @default(uuid())
+  Id                      Int                 @id @default(autoincrement()) @map("id")
+  uuid                    String              @unique @default(uuid())
   name                    String
   imageUrl                String              @db.Text
   inviteCode              String              @unique
@@ -159,7 +180,7 @@ enum MemberRole {
 }
 
 model Member {
-  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
   role                    MemberRole          @default(GUEST)
 
@@ -189,7 +210,7 @@ enum ChannelType {
 }
 
 model Channel {
-  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
   name                    String
   type                    ChannelType         @default(TEXT)
@@ -210,7 +231,7 @@ model Channel {
 }
 
 model Message {
-  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
   content                 String              @db.Text
 

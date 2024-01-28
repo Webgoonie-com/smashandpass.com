@@ -7,10 +7,11 @@ import getCurrentUser from '@/actions/getCurrentUsers'
 
 
 export const IntialProfileSetup = async () => {
-    //const router = useRouter()
+    
     
     async function redirectToSign() {
-        console.log('Redirecting to Sign In because session not found.')
+        
+        // This needs to go to sign in page. don't redirect to home as it will cause a forever crashing loop.
         redirect('/test')
     }
 
@@ -24,19 +25,22 @@ export const IntialProfileSetup = async () => {
 
     const profile = await prismaOrm.profile.findUnique({
         where: {
-            userId: user.id
+            userId: user.Id
         }
     })
 
     if(profile){
+        console.log('profile Found')
         return profile;
     }
 
     const newProfile = await prismaOrm.profile.create({
         data: {
-            userId: user.id,
+            userId: user.Id,
             name: `${user.name}`
         }
     })
+
+    //return newProfile
 }
 

@@ -1,7 +1,9 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
+import React, { useState } from "react"
+import { X } from "lucide-react"
+import { ActionTooltip } from "../actionTooltip"
 
 
 interface FileUploadProps {
@@ -20,14 +22,39 @@ export const FileUpload = ({
     const [uploading, setUploading] = useState(false)
     const [selectedImage, setSelectedImage] = useState("")
     const [selectedFile, setSelectedFile] = useState<File>()
+    const [imageData, setImageData] = useState({})
 
-   
+
+    async function deleteImageFromServer(imageData: {}){
+
+        try {
+        
+
+
+            const res = await fetch('/api/deleteImageFromServer', {
+                method: 'POST',
+                body: JSON.stringify(imageData),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+
+            if (!res.ok) {
+                throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+            
+           
+        
+        
+        } catch (error) {
+            console.log('Error', error)
+        }
+        
+    }
 
     async function sendImageToServer(file: any) {
-        console.log('Sending Image to Server', file)
         
         if(!file) return
-
 
         try {
         
@@ -40,6 +67,7 @@ export const FileUpload = ({
             })
             
             const responseData = await res.json();
+            setImageData(responseData)
             
             onChange(responseData.url);
 
@@ -61,24 +89,54 @@ export const FileUpload = ({
             sendImageToServer(file as any)
         }
     };
-    
 
+    const handleDeleteImage = (event: string) => {
+
+        console.log('handleDeleteImage event', event);
+
+        console.log('deleteImage event', imageData);
+
+        deleteImageFromServer({imageData: imageData});
+
+        if (selectedFile) {
+            setSelectedImage("");
+            setSelectedFile(undefined);
+            deleteImageFromServer(imageData)
+        }
+    }
     
     // Do Better Security Checks
     if(selectedImage && selectedImage !== undefined  && selectedImage !== null && selectedImage !== "pdf"){
         
         return (
             <div className="row">
-                <div className="relative w-[35vw] h-[35vw]">
-                   <span> File Uploaded</span>
+                <div className="relative h-60 w-60">
+                   
                    {selectedImage ? 
                     (<>
                         <Image
-                            fill={true}
+                           
+                            width="100"
+                            height="100"
+                            sizes="(max-width: 100px) 100, (max-width: 100px) 100vw, 100vw"
                             src={selectedImage}
                             alt={"Uploaded Image" as string} 
-                            //className="rounded-full"
+                            className="rounded-full w-full h-auto"
+                            priority
                         />
+                         <ActionTooltip
+                            side="right"
+                            align="center"
+                            label="Click To Remove Image"
+                        >
+                        <button
+                            onClick={() => handleDeleteImage(selectedImage)}
+                            className="bg-rose-800 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
+                            type="button"
+                        >
+                            <X  className="h-4 w-4" />
+                        </button>
+                        </ActionTooltip>
                     </>)
                     : 
                     (<>

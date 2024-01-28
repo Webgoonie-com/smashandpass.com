@@ -1,13 +1,23 @@
+"use server"
+
 import React from 'react'
 import {redirect} from 'next/navigation'
 import PrismaOrm from '@/lib/prismaOrm'
 
 import { IntialProfileSetup } from '@/lib/intialProfileSetup'
-import { IntialModal } from '@/components/Modals/InitialModal'
+import { CreateServerModal } from '@/components/Modals/CreateServerModal'
+import { revalidatePath } from 'next/cache'
 
 const SetupPage = async () => {
 
  const profile = await IntialProfileSetup()
+
+if(!profile){
+  
+  revalidatePath('/test') // Update cached posts
+  redirect(`/test`)
+  return
+}
 
  const server = await PrismaOrm.server.findFirst({
     where: {
@@ -20,22 +30,11 @@ const SetupPage = async () => {
  })
 
  if(server){
-    return redirect(`/server/${server.Id}`)
+    return redirect(`/servers/${server.uuid}`)
  }
 
- return <IntialModal />
+ return <CreateServerModal  />
 
-  return (
-    <div className="container mb-20">
-      <div className="mb-20 row">
-        Create Server<br />
-        Create Server<br />
-        Create Server<br />
-        Create Server<br />
-        Create Server<br />
-      </div>
-    </div>
-  )
 }
 
 export default SetupPage
