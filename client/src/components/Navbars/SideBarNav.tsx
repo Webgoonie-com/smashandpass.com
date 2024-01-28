@@ -9,13 +9,14 @@ import { ModeToggle } from '../modeToggle'
 import { CurrentProfile } from '@/lib/currentProfile'
 import { redirect } from 'next/navigation'
 import PrismaOrm from '@/lib/prismaOrm'
+import LogOutButton from '../logOutButton'
 
 
 export const SideBarNav = async () => {
     const profile = await CurrentProfile()
 
     if(!profile){
-        return redirect("/dashboard")
+        return redirect("/test")
     }
 
     const servers = await PrismaOrm.server.findMany({
@@ -41,6 +42,7 @@ export const SideBarNav = async () => {
             
 
             <NavigationAction />
+
             <Separator 
                 className="h-[2px] bg-slate-500 dark:bg-zinc-500 rounded-md w=10 mx-auto" 
             />
@@ -56,10 +58,15 @@ export const SideBarNav = async () => {
                     </div>
                 ))}
             </ScrollArea>
+
             <div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
-        <ModeToggle />
             
-      </div>
+                <ModeToggle />
+
+                <LogOutButton />
+                
+            </div>
+
             <Separator />
 
         </div>
