@@ -7,11 +7,10 @@ import getCurrentUser from '@/actions/getCurrentUsers'
 
 
 export const IntialProfileSetup = async () => {
-    
+    //const router = useRouter()
     
     async function redirectToSign() {
-        
-        // This needs to go to sign in page. don't redirect to home as it will cause a forever crashing loop.
+        console.log('Redirecting to Sign In because session not found.')
         redirect('/test')
     }
 
@@ -30,7 +29,6 @@ export const IntialProfileSetup = async () => {
     })
 
     if(profile){
-        console.log('profile Found')
         return profile;
     }
 
@@ -40,7 +38,5 @@ export const IntialProfileSetup = async () => {
             name: `${user.name}`
         }
     })
-
-    //return newProfile
 }
 
