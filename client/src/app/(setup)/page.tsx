@@ -10,30 +10,30 @@ import { revalidatePath } from 'next/cache'
 
 const SetupPage = async () => {
 
- const profile = await IntialProfileSetup()
+    const profile = await IntialProfileSetup()
 
-if(!profile){
-  
-  revalidatePath('/test') // Update cached posts
-  redirect(`/test`)
-  return
-}
+    if(!profile){
+    
+    revalidatePath('/test') // Updates cached posts
+    redirect(`/test`)
+    return
+    }
 
- const server = await PrismaOrm.server.findFirst({
-    where: {
-        members: {
-            some: {
-                profileId: profile?.Id,
+    const server = await PrismaOrm.server.findFirst({
+        where: {
+            members: {
+                some: {
+                    profileId: profile?.Id,
+                }
             }
         }
+    })
+
+    if(server){
+        return redirect(`/servers/${server.uuid}`)
     }
- })
 
- if(server){
-    return redirect(`/servers/${server.uuid}`)
- }
-
- return <CreateServerModal  />
+    return <CreateServerModal  />
 
 }
 

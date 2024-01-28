@@ -55,6 +55,7 @@ export const NavigationItem  = ({
                             src={modifiedImageUrl}
                             alt="Channel"
                             sizes="48px"
+                            className="relative"
                             priority={true}
                         />
                     </div>

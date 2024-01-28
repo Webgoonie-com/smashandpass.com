@@ -9,6 +9,11 @@ export const CurrentProfile = async () => {
 
     const userId = currentUser?.Id
 
+    if(!userId) {
+        console.log('returnig null on finding user')
+        return null
+    }
+
     const profile = await prismaOrm.profile.findUnique({
         where: { 
             Id: userId
