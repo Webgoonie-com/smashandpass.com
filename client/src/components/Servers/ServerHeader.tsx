@@ -1,17 +1,23 @@
 "use client"
 
-import { Server } from "@prisma/client"
+import { ServerWithMembersWithProfiles } from "@/Types"
+import { MemberRole } from "@prisma/client"
 
 interface ServerHeaderProps {
-    server: Server
+    server: ServerWithMembersWithProfiles
+    role?:  MemberRole
 }
 
-const ServerHeader = ({server}: ServerHeaderProps) => {
+const ServerHeader = ({server, role}: ServerHeaderProps) => {
     
     //const   server = Server.fromProps(serverHeaderProps)
 
     return (
-        <div>ServerHeader</div>
+        <div>
+            
+            Server Header
+
+        </div>
     )
 }
 
