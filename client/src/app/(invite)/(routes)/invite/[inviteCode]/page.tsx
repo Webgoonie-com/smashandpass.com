@@ -51,6 +51,12 @@ const InviteCodePage = async ({params}: InviteCodePageProps) => {
     })
 
 
+    if(server){
+        return redirect(`/servers/${server.uuid}`)
+    }
+
+    return null
+
     return (
         <div>InviteCodePage</div>
     )

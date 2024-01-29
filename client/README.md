@@ -42,9 +42,40 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 This project uses tailwindcss and shadcn/ui for reusable components for this project.
 
 Home Page
-    https://ui.shadcn.com/
+    [ui.shadcn.com/](https://ui.shadcn.com/)
 
 Important links to components are as follows
 
 -Button
-    https://ui.shadcn.com/docs/components/button
+    [ui.shadcn.com - Button](https://ui.shadcn.com/docs/components/button)
+
+
+## Prisma
+
+You can do as many push you want to the database but once you have the database the way you want it, and it's responding corrrectly.
+
+Then you run this command only.
+
+```sh
+    npx prisma db push
+```
+
+After chaning a model in the again, you must migrate reset, prisma migrate genearte and primsa db push as follows:
+
+```sh
+
+    npx prisma migrate reset
+
+    npx prisma migrate generate
+
+    npx primsa 
+
+```
+
+## Prisma Studio
+
+This is how you run prisma studio from client directory.
+
+```sh
+    npx prisma studio
+```

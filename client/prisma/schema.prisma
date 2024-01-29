@@ -11,30 +11,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-
-model User {  
-  Id                  Int                     @id @default(autoincrement()) @map("id")
-  uuid                String                  @default(uuid()) 
-  name                String? 
-  email               String                  @unique
-  emailVerified       DateTime? 
-  image               String? 
-  hashedPassword      String? 
-  firstName           String? 
-  lastName            String? 
-  role                String? 
-  updatedAt           DateTime                @default(now()) @updatedAt
-  createdAt           DateTime                @default(now())
-  favoriteIds         Favorite[]    
-  posts               Post[]  
-  profile             Profile?
-  UserPhotos          UserPhoto[]
-  account             Account[]
-  listing             Listing[]
-  reservation         Reservation[]
-  ActivateToken       ActivateToken[]
-} 
-
 model ActivateToken {
   Id                  Int                     @id @default(autoincrement()) @map("id")
   uuid                String                  @default(uuid()) 
@@ -47,7 +23,6 @@ model ActivateToken {
   user                User                    @relation(fields: [userId], references: [Id])
   userId              Int                     @unique
 }
-
 
 model Account { 
   Id                      Int                 @id @default(autoincrement()) @map("id")
@@ -66,147 +41,6 @@ model Account {
   user                    User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
   userId                  Int                 @unique
   @@unique([provider, providerAccountId])
-}
-
-model Favorite {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
-  uuid                    String              @default(uuid())
-  userfavorite            User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
-  userId                  Int                 @unique
-}
-
-model Post {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
-  uuid                    String              @default(uuid())
-  createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @updatedAt
-  title                   String              @db.VarChar(255)
-  content                 String?     
-  published               Boolean             @default(false)
- 
-  author                  User                @relation(fields: [authorId], references: [Id], onDelete: Cascade)
-  authorId                Int                 @unique
-}
-
-model Profile {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
-  uuid                    String              @default(uuid())
-  name                    String      
-  bio                     String?     
-  imageUrl                String?             @db.Text
-  userProfile             User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
-  userId                  Int                 @unique
-
-  servers Server[]
-  members Member[]
-  channels Channel[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model UserPhoto {
-  Id Int @id @default(autoincrement()) @map("id")
-  uuid String @default(uuid())
-  serverCaption String?
-  userCaption String?
-  imageSize Int?
-  type String
-  local String
-  url String
-  filename String
-  message String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  
-  user User @relation(fields: [userId], references: [Id], onDelete: Cascade)
-  userId Int
-
-  @@index([userId])
-}
-
-model Listing {   
-  Id                      Int                 @id @default(autoincrement()) @map("id")
-  uuid                    String              @default(uuid())
-  title                   String    
-  description             String    
-  imageSrc                String    
-  createdAt               DateTime            @default(now())
-  category                String    
-  locationValue           String    
-  price                   Int   
-  userResrvation          User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
-  reservations            Reservation[]   
-  userId                  Int                 @unique
-}       
-
-model Reservation {       
-  Id                      Int                 @id @default(autoincrement()) @map("id")
-  uuid                    String              @default(uuid())
-  startDate               DateTime    
-  endDate                 DateTime    
-  totalPrice              Int   
-  createdAt               DateTime            @default(now())
-
-  userListing User @relation(fields: [userId], references: [Id], onDelete: Cascade)
-  userId Int  @unique
-  listing Listing @relation(fields: [listingId], references: [Id], onDelete: Cascade)
-  listingId Int  @unique
-}
-
-model Server {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
-  uuid                    String              @unique @default(uuid())
-  name                    String
-  imageUrl                String              @db.Text
-  inviteCode              String              @unique
-
-  profileId               Int
-  profile                 Profile             @relation(fields: [profileId], references: [Id], onDelete: Cascade)
-
-  members                 Member[]
-  channels                Channel[]
-
-  createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @updatedAt
-
-  @@index([profileId])
-}
-
-enum MemberRole {
-  ADMIN
-  MODERATOR
-  GUEST
-}
-
-model Member {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
-  uuid                    String              @default(uuid())
-  role                    MemberRole          @default(GUEST)
-
-  profile                 Profile             @relation(fields: [profileId], references: [Id], onDelete: Cascade)
-  profileId               Int
-
-  serverId                Int
-  server                  Server              @relation(fields: [serverId], references: [Id], onDelete: Cascade)
-
-  messages                Message[]
-  directMessages          DirectMessage[]
-
-  conversationsInitiated  Conversation[]      @relation("MemberOne")
-  conversationsReceived   Conversation[]      @relation("MemberTwo")
-
-  createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @updatedAt
-
-  @@index([profileId])
-  @@index([serverId])
-}
-
-enum ChannelType {
-  TEXT
-  AUDIO
-  VIDEO
 }
 
 model Channel {
@@ -228,28 +62,6 @@ model Channel {
 
   @@index([profileId])
   @@index([serverId])
-}
-
-model Message {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
-  uuid                    String              @default(uuid())
-  content                 String              @db.Text
-
-  fileUrl                 String?             @db.Text
-
-  memberId                Int
-  member                  Member              @relation(fields: [memberId], references: [Id], onDelete: Cascade)
-
-  channelId               Int
-  channel                 Channel             @relation(fields: [channelId], references: [Id], onDelete: Cascade)
-
-  deleted Boolean                             @default(false)
-
-  createdAt DateTime                          @default(now())
-  updatedAt DateTime                          @updatedAt
-
-  @@index([channelId])
-  @@index([memberId])
 }
 
 model Conversation {
@@ -288,3 +100,188 @@ model DirectMessage {
   @@index([memberId])
   @@index([conversationId])
 }
+model Favorite {
+  Id                      Int                 @id @default(autoincrement()) @map("id")
+  uuid                    String              @default(uuid())
+  userfavorite            User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userId                  Int                 @unique
+}
+
+model Listing {   
+  Id                      Int                 @id @default(autoincrement()) @map("id")
+  uuid                    String              @default(uuid())
+  title                   String    
+  description             String    
+  imageSrc                String    
+  createdAt               DateTime            @default(now())
+  category                String    
+  locationValue           String    
+  price                   Int   
+  userResrvation          User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  reservations            Reservation[]   
+  userId                  Int                 @unique
+}
+
+model Message {
+  Id                      Int                 @id @default(autoincrement()) @map("id")
+  uuid                    String              @default(uuid())
+  content                 String              @db.Text
+
+  fileUrl                 String?             @db.Text
+
+  memberId                Int
+  member                  Member              @relation(fields: [memberId], references: [Id], onDelete: Cascade)
+
+  channelId               Int
+  channel                 Channel             @relation(fields: [channelId], references: [Id], onDelete: Cascade)
+
+  deleted Boolean                             @default(false)
+
+  createdAt DateTime                          @default(now())
+  updatedAt DateTime                          @updatedAt
+
+  @@index([channelId])
+  @@index([memberId])
+}
+
+model Member {
+  Id                      Int                 @id @default(autoincrement()) @map("id")
+  uuid                    String              @default(uuid())
+  role                    MemberRole          @default(GUEST)
+
+  profile                 Profile             @relation(fields: [profileId], references: [Id], onDelete: Cascade)
+  profileId               Int
+
+  serverId                Int
+  server                  Server              @relation(fields: [serverId], references: [Id], onDelete: Cascade)
+
+  messages                Message[]
+  directMessages          DirectMessage[]
+
+  conversationsInitiated  Conversation[]      @relation("MemberOne")
+  conversationsReceived   Conversation[]      @relation("MemberTwo")
+
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+
+  @@index([profileId])
+  @@index([serverId])
+}
+model Post {
+  Id                      Int                 @id @default(autoincrement()) @map("id")
+  uuid                    String              @default(uuid())
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+  title                   String              @db.VarChar(255)
+  content                 String?     
+  published               Boolean             @default(false)
+ 
+  author                  User                @relation(fields: [authorId], references: [Id], onDelete: Cascade)
+  authorId                Int                 @unique
+}
+
+model Profile {
+  Id                      Int                 @id @default(autoincrement()) @map("id")
+  uuid                    String              @default(uuid())
+  name                    String      
+  bio                     String?     
+  imageUrl                String?             @db.Text
+  userProfile             User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userId                  Int                 @unique
+
+  servers Server[]
+  members Member[]
+  channels Channel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Reservation {       
+  Id                      Int                 @id @default(autoincrement()) @map("id")
+  uuid                    String              @default(uuid())
+  startDate               DateTime    
+  endDate                 DateTime    
+  totalPrice              Int   
+  createdAt               DateTime            @default(now())
+
+  userListing User @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userId Int  @unique
+  listing Listing @relation(fields: [listingId], references: [Id], onDelete: Cascade)
+  listingId Int  @unique
+}
+
+model Server {
+  Id                      Int                 @id @default(autoincrement()) @map("id")
+  uuid                    String              @unique @default(uuid())
+  name                    String
+  imageUrl                String              @db.Text
+  inviteCode              String              @unique
+
+  profileId               Int
+  profile                 Profile             @relation(fields: [profileId], references: [Id], onDelete: Cascade)
+
+  members                 Member[]
+  channels                Channel[]
+
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+
+  @@index([profileId])
+}
+
+model User {  
+  Id                  Int                     @id @default(autoincrement()) @map("id")
+  uuid                String                  @default(uuid()) 
+  name                String? 
+  email               String                  @unique
+  emailVerified       DateTime? 
+  image               String? 
+  hashedPassword      String? 
+  firstName           String? 
+  lastName            String? 
+  role                String? 
+  updatedAt           DateTime                @default(now()) @updatedAt
+  createdAt           DateTime                @default(now())
+  favoriteIds         Favorite[]    
+  posts               Post[]  
+  profile             Profile?
+  UserPhotos          UserPhoto[]
+  account             Account[]
+  listing             Listing[]
+  reservation         Reservation[]
+  ActivateToken       ActivateToken[]
+} 
+
+model UserPhoto {
+  Id Int @id @default(autoincrement()) @map("id")
+  uuid String @default(uuid())
+  serverCaption String?
+  userCaption String?
+  imageSize Int?
+  type String
+  local String
+  url String
+  filename String
+  message String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  
+  user User @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userId Int
+
+  @@index([userId])
+}
+
+enum MemberRole {
+  ADMIN
+  MODERATOR
+  GUEST
+}
+
+enum ChannelType {
+  TEXT
+  AUDIO
+  VIDEO
+}
+
