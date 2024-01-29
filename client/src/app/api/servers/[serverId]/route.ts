@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { CurrentProfile } from "@/lib/currentProfile";
 import prismaOrm from "@/lib/prismaOrm";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 
 export async function DELETE(
   req: Request,
@@ -16,7 +17,7 @@ export async function DELETE(
 
     const server = await prismaOrm.server.delete({
       where: {
-        Id: parseInt(params.serverId),
+        uuid: params.serverId,
         profileId: profile.Id,
       }
     });
@@ -32,6 +33,7 @@ export async function PATCH(
   req: Request,
   { params }: { params: { serverId: string } }
 ) {
+    console.log('API Hit Patch')
   try {
     const profile = await CurrentProfile();
     const { name, imageUrl } = await req.json();
@@ -42,7 +44,7 @@ export async function PATCH(
 
     const server = await prismaOrm.server.update({
       where: {
-        Id: parseInt(params.serverId),
+        uuid: params.serverId,
         profileId: profile.Id,
       },
       data: {
