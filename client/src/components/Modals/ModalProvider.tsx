@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { CreateServerModal } from '@/components/Modals/CreateServerModal'
 import { InviteModal } from '@/components/Modals/InviteModal'
+import { EditServerModal } from '@/components/Modals/EditServerModal'
 
 export const ModalProvider = () => {
 
@@ -20,6 +21,7 @@ export const ModalProvider = () => {
         <>
             <CreateServerModal />
             <InviteModal />
+            <EditServerModal />
         </>
     )
 }

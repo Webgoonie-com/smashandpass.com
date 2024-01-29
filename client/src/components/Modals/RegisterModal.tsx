@@ -78,16 +78,16 @@ const RegisterModal= () => {
           subtitle="Create an account today!"
         />
         <Input
-          id="email"
-          label="Email"
+          id="name"
+          label="Your Name"
           disabled={isLoading}
           register={register}
           errors={errors}
           required
         />
         <Input
-          id="name"
-          label="Name"
+          id="email"
+          label="Your Primary Email"
           disabled={isLoading}
           register={register}
           errors={errors}
@@ -95,7 +95,7 @@ const RegisterModal= () => {
         />
         <Input
           id="password"
-          label="Password"
+          label="Create A Password"
           type="password"
           disabled={isLoading}
           register={register}
@@ -104,7 +104,7 @@ const RegisterModal= () => {
         />
         <Input
           id="confirmPassword"
-          label="Confirm Password"
+          label="Retype Password"
           type="password"
           disabled={isLoading}
           register={register}
