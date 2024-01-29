@@ -27,7 +27,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import  FileUpload  from "@/components/Forms/FileUpload";
+import  EditFileUpload  from "@/components/Forms/EditFileUpload";
 import { useModal } from "@/Hooks/useModalStore";
 
 const formSchema = z.object({
@@ -39,14 +39,16 @@ const formSchema = z.object({
     })
 });
 
-console.log('Edit ServerModal running')
+
 export const EditServerModal = () => {
 
-    const { isOpen, onClose, type } = useModal();
+    const { isOpen, onClose, type, data } = useModal();
 
     const router = useRouter()
 
     const isModalOpen = isOpen && type === "editServer";
+
+    const { server } = data
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -59,11 +61,11 @@ export const EditServerModal = () => {
     const isLoading = form.formState.isSubmitting
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values)
+        // console.log(values)
 
         try {
 
-            await axios.post("/api/servers", values)
+            await axios.patch(`/api/servers/${server?.uuid}`, values)
 
             form.reset();
             router.refresh();
@@ -79,6 +81,14 @@ export const EditServerModal = () => {
         onClose();
       }
 
+      useEffect(() => {
+        
+        if(server && server.name && server.imageUrl){
+            form.setValue("name", server.name)
+            form.setValue("imageUrl", server.imageUrl)
+        }
+      }, [form, server])
+      
     
     return (
         <Dialog
@@ -107,9 +117,10 @@ export const EditServerModal = () => {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
-                                            <FileUpload
+                                            <EditFileUpload
                                                 endpoint="serverImage"
-                                                value={field.value}
+                                                value={server?.imageUrl as string}
+                                                data={data as any}
                                                 onChange={field.onChange}
                                             />
                                         </FormControl>
@@ -145,7 +156,7 @@ export const EditServerModal = () => {
                         {/* Start Dialog Footer Within Body And Form */}
                         <DialogFooter className="bg-gray-100 px-6 py-4">
                             <Button variant={"primary"} disabled={isLoading}>
-                                Create
+                                Save
                             </Button>
                         </DialogFooter>
                         {/* End Dialog Footer */}
