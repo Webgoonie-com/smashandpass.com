@@ -2,18 +2,20 @@ import { NextResponse } from "next/server";
 
 import { CurrentProfile } from "@/lib/currentProfile";
 import PrismaOrm from "@/lib/prismaOrm";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 
 
 
-export async function DELTE(req: Request,
-      {params}: { params: {memberId: string | number} }
+export async function DELETE(req: Request,
+      {params}: { params: {memberId: string} }
 ) {
     try {
         const profile = await CurrentProfile();
         const { searchParams } = new URL(req.url);
-        const {role } = await req.json()
+        
 
         const serverId = searchParams.get("serverId");
+        console.log()
 
         if (!profile) {
             return new NextResponse("Unauthorized" ,{ status: 401 });
@@ -29,13 +31,13 @@ export async function DELTE(req: Request,
 
         const server = await PrismaOrm.server.update({
             where: {
-                uuid: serverId,
+                Id: parseInt(serverId),
                 profileId: profile.Id,
               },
               data: {
                 members: {
                   deleteMany: {
-                    Id: params.memberId as number,
+                    Id: parseInt(params.memberId),
                     profileId: {
                       not: profile.Id
                     }

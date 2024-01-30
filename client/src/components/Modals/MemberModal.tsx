@@ -57,6 +57,27 @@ export const MemberModal = () => {
 
     const { server } = data as { server: ServerWithMembersWithProfiles}
     
+    const onKick = async (memberId: string) => {
+        try {
+          setLoadingId(memberId);
+          const url = qs.stringifyUrl({
+            url: `/api/members/${memberId}`,
+            query: {
+              serverId: server?.Id,
+            },
+          });
+    
+          const response = await axios.delete(url);
+    
+          router.refresh();
+          onOpen("members", { server: response.data });
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setLoadingId("");
+        }
+      }
+    
     
        
 
@@ -169,7 +190,7 @@ export const MemberModal = () => {
                                             <DropdownMenuSeparator />
 
                                             <DropdownMenuItem
-                                                onClick={() => console.log('Kicking')}
+                                                onClick={() => onKick(member.Id.toLocaleString())}
                                             >
                                                 <Gavel className="h-4 w-4 mr-2" />
                                                 Kick
