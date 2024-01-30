@@ -37,6 +37,8 @@ model Account {
   scope                   String?
   id_token                String?       
   session_state           String?
+  createdAt               DateTime                @default(now())
+  updatedAt               DateTime                @default(now()) @updatedAt
 
   user                    User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
   userId                  Int                 @unique
@@ -58,7 +60,7 @@ model Channel {
   messages                Message[]
 
   createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @updatedAt
+  updatedAt               DateTime            @default(now()) @updatedAt
 
   @@index([profileId])
   @@index([serverId])
@@ -113,10 +115,12 @@ model Listing {
   title                   String    
   description             String    
   imageSrc                String    
-  createdAt               DateTime            @default(now())
   category                String    
   locationValue           String    
   price                   Int   
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @default(now()) @updatedAt
+
   userResrvation          User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
   reservations            Reservation[]   
   userId                  Int                 @unique
@@ -194,7 +198,7 @@ model Profile {
   channels Channel[]
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Reservation {       
@@ -225,7 +229,7 @@ model Server {
   channels                Channel[]
 
   createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @updatedAt
+  updatedAt               DateTime            @default(now()) @updatedAt
 
   @@index([profileId])
 }

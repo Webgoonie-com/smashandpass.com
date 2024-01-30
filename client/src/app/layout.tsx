@@ -6,7 +6,7 @@ import RegisterModal from "@/components/Modals/RegisterModal";
 import LoginModal from "@/components/Modals/LoginModal";
 import ToasterProvider from "@/Providers/ToastProvider";
 import { ThemeProvider } from "@/providers/Theme-Provider";
-import { ModalProvider } from '@/components/Modals/ModalProvider';
+import { ModalProvider } from '@/providers/ModalProvider';
 import {cn} from '@/lib/utils'
 
 export const metadata: Metadata = {
