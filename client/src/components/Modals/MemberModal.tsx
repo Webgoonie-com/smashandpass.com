@@ -37,7 +37,7 @@ import {
     DropdownMenuSubTrigger,
   } from "@/components/ui/dropdown-menu";
 
-console.log('MemberModal running')
+
 
 const roleIconMap = {
     "GUEST": null,

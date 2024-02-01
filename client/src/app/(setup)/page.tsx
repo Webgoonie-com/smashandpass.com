@@ -5,19 +5,12 @@ import {redirect} from 'next/navigation'
 import PrismaOrm from '@/lib/prismaOrm'
 
 import { IntialProfileSetup } from '@/lib/intialProfileSetup'
-import { CreateServerModal } from '@/components/Modals/CreateServerModal'
+import { IntialModal } from '@/components/Modals/IntialModal'
 import { revalidatePath } from 'next/cache'
 
 const SetupPage = async () => {
 
     const profile = await IntialProfileSetup()
-
-    if(!profile){
-    
-    revalidatePath('/test') // Updates cached posts
-    redirect(`/test`)
-    return
-    }
 
     const server = await PrismaOrm.server.findFirst({
         where: {
@@ -33,7 +26,7 @@ const SetupPage = async () => {
         return redirect(`/servers/${server.uuid}`)
     }
 
-    return <CreateServerModal  />
+    return <IntialModal  />
 
 }
 

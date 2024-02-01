@@ -39,13 +39,19 @@ const formSchema = z.object({
     })
 });
 
-console.log('IntialModal Is running')
+
 export const IntialModal = () => {
 
     const [showIntialModal, setShowInitialModal] = useState(false);
-    const { isOpen, onClose, type } = useModal();
+    
 
     const router = useRouter()
+
+    useEffect(() => {
+      
+        setShowInitialModal(true)
+      
+    }, [])
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -73,16 +79,7 @@ export const IntialModal = () => {
         }
     }
 
-    const handleClose = () => {
-        form.reset();
-        onClose();
-      }
-
-    useEffect(() => {
-      
-        setShowInitialModal(true)
-      
-    }, [])
+     
 
 
     if(!showIntialModal){
@@ -90,7 +87,7 @@ export const IntialModal = () => {
     }
     
     return (
-        <Dialog open={showIntialModal}  onOpenChange={handleClose}>
+        <Dialog open>
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-center text-2xl font-extrabold">

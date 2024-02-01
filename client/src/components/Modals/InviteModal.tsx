@@ -20,7 +20,7 @@ import { useState } from "react"
 import axios from "axios"
 
 
-console.log('InviteModal running')
+
 export const InviteModal = () => {
 
     const [copied, setCopied ] = useState(false);
