@@ -77,6 +77,7 @@ model Conversation {
 
   directMessages          DirectMessage[]
 
+  @@index([memberOneId])
   @@index([memberTwoId])
 
   @@unique([memberOneId, memberTwoId])
@@ -102,6 +103,7 @@ model DirectMessage {
   @@index([memberId])
   @@index([conversationId])
 }
+
 model Favorite {
   Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
@@ -124,28 +126,6 @@ model Listing {
   userResrvation          User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
   reservations            Reservation[]   
   userId                  Int                 @unique
-}
-
-model Message {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
-  uuid                    String              @default(uuid())
-  content                 String              @db.Text
-
-  fileUrl                 String?             @db.Text
-
-  memberId                Int
-  member                  Member              @relation(fields: [memberId], references: [Id], onDelete: Cascade)
-
-  channelId               Int
-  channel                 Channel             @relation(fields: [channelId], references: [Id], onDelete: Cascade)
-
-  deleted Boolean                             @default(false)
-
-  createdAt DateTime                          @default(now())
-  updatedAt DateTime                          @updatedAt
-
-  @@index([channelId])
-  @@index([memberId])
 }
 
 model Member {
@@ -171,6 +151,29 @@ model Member {
   @@index([profileId])
   @@index([serverId])
 }
+
+model Message {
+  Id                      Int                 @id @default(autoincrement()) @map("id")
+  uuid                    String              @default(uuid())
+  content                 String              @db.Text
+
+  fileUrl                 String?             @db.Text
+
+  memberId                Int
+  member                  Member              @relation(fields: [memberId], references: [Id], onDelete: Cascade)
+
+  channelId               Int
+  channel                 Channel             @relation(fields: [channelId], references: [Id], onDelete: Cascade)
+
+  deleted Boolean                             @default(false)
+
+  createdAt DateTime                          @default(now())
+  updatedAt DateTime                          @updatedAt
+
+  @@index([channelId])
+  @@index([memberId])
+}
+
 model Post {
   Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())

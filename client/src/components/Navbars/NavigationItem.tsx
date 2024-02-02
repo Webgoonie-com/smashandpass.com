@@ -27,8 +27,9 @@ export const NavigationItem  = ({
     const modifiedImageUrl = imageUrl.replace('/public', '');
 
     const onClick = () => {
-        console.log('onClick = ', `/servers/${uuid}`)
+
         router.push(`/servers/${uuid}`)
+
     }
 
     return ( 
