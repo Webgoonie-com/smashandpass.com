@@ -13,6 +13,7 @@ export async function DELETE(
     const profile = await CurrentProfile();
     const { searchParams } = new URL(req.url);
 
+    // this should the server uuid as serverId which is a string.
     const serverId = searchParams.get("serverId");
 
     if (!profile) {
@@ -64,9 +65,12 @@ export async function PATCH(
 ) {
   try {
     const profile = await CurrentProfile();
-    const { name, type } = await req.json();
+    
+    const {name, type} = await req.json()
+
     const { searchParams } = new URL(req.url);
 
+    // this should the server uuid as serverId which is a string.
     const serverId = searchParams.get("serverId");
 
     if (!profile) {
@@ -101,10 +105,10 @@ export async function PATCH(
         channels: {
           update: {
             where: {
-              Id: parseInt(params.channelId),
+              Id: parseInt( params.channelId),
               NOT: {
                 name: "general",
-              },
+              }
             },
             data: {
               name,

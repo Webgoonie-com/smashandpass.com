@@ -1,6 +1,7 @@
-'use client'
+"use client";
 
-import axios from "axios"
+import qs from "query-string";
+import axios from "axios";
 import {
   Dialog,
   DialogContent,
@@ -19,40 +20,53 @@ import { useState } from "react"
 
 
 
-export const DeleteServerModal = () => {
+export const DeleteChannelModal = () => {
 
     
     const [isLoading, setIsLoading] = useState(false)
-    const router = useRouter();
 
+    const router = useRouter();
+    
     const {isOpen, onClose, type, data } = useModal()
 
     
 
-    const isModalOpen = isOpen && type === "deleteServer"
+    const isModalOpen = isOpen && type === "deleteChannel"
 
-    const {server } = data
+    const {server, channel } = data
     
     const onClick = async () => {
         try {
-          setIsLoading(true);
-    
-          await axios.delete(`/api/servers/${server?.uuid}`);
-    
-          onClose();
-          router.refresh();
-          router.push("/");
-        } catch (error) {
-          console.log(error);
-        } finally {
-          setIsLoading(false);
+            
+            setIsLoading(true);
+
+            const url = qs.stringifyUrl({
+              url: `/api/channels/${channel?.Id}`,
+              query: {
+                serverId: server?.uuid,
+      
+              }
+            })
+      
+            await axios.delete(url);
+      
+            router.refresh();
+            onClose();
+
+            //router.push(`/servers/${server?.uuid}`);
+
+          } catch (error) {
+
+            console.log(error);
+
+          } finally {
+
+            setIsLoading(false);
+
+          }
         }
-      }
-
-
-
-    
-    return (
+      
+        return (
         <Dialog
             open={isModalOpen}
             onOpenChange={onClose}
@@ -60,13 +74,13 @@ export const DeleteServerModal = () => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-center text-2xl font-extrabold">
-                        Delete This Server?
+                        Delete This Channel?
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500">
-                        Are you sure you want to delete this server? <br />
+                        Are you sure you want to delete this channel? <br />
                         <span
                             className="font-semibold text-orange-500"
-                        >{server?.name}</span><br />
+                        > #{channel?.name} </span><br />
                         Will be forever deleted this action is permanent.
                     </DialogDescription>
                 </DialogHeader>

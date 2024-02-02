@@ -15,7 +15,7 @@ export async function DELETE(req: Request,
         
 
         const serverId = searchParams.get("serverId");
-        console.log()
+        console.log('Line 18 on member route.ts serverId', serverId);
 
         if (!profile) {
             return new NextResponse("Unauthorized" ,{ status: 401 });

@@ -39,7 +39,7 @@ const formSchema = z.object({
     })
 });
 
-console.log('Create ServerModal running')
+
 export const CreateServerModal = () => {
 
     const { isOpen, onClose, type } = useModal();

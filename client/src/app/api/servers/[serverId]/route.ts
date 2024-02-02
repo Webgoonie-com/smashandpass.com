@@ -8,6 +8,8 @@ export async function DELETE(
   req: Request,
   { params }: { params: { serverId: string } }
 ) {
+  console.log('API Hit DELETE')
+
   try {
     const profile = await CurrentProfile();
 
@@ -33,7 +35,7 @@ export async function PATCH(
   req: Request,
   { params }: { params: { serverId: string } }
 ) {
-    console.log('API Hit Patch')
+    
   try {
     const profile = await CurrentProfile();
     const { name, imageUrl } = await req.json();
