@@ -67,7 +67,7 @@ model Channel {
 }
 
 model Conversation {
-  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
   memberOneId             Int
   memberOne               Member              @relation("MemberOne", fields: [memberOneId], references: [Id], onDelete: Cascade)
@@ -84,7 +84,7 @@ model Conversation {
 }
 
 model DirectMessage {
-  Id                      Int                 @id @default(autoincrement()) @map("_Id")
+  Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
   content                 String              @db.Text
   fileUrl                 String?             @db.Text
@@ -129,7 +129,7 @@ model Listing {
 }
 
 model Member {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement()) @map("Id")
   uuid                    String              @default(uuid())
   role                    MemberRole          @default(GUEST)
 
