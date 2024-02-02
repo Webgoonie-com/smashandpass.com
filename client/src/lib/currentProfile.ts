@@ -7,7 +7,7 @@ export const CurrentProfile = async () => {
     const currentUser = await getCurrentUser()
     
 
-    const userId = currentUser?.Id
+    const userId = currentUser?.id
 
     if(!userId) {
         console.log('returnig null on finding user')

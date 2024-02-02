@@ -47,7 +47,7 @@ export const authOptions: AuthOptions = {
                         email: payload.email 
                     },
                     select: {
-                        Id: true,
+                        id: true,
                         email: true,
                         hashedPassword: true,
                      }
@@ -60,7 +60,7 @@ export const authOptions: AuthOptions = {
                 }
 
                 const user: User = {
-                    id: dbUser.Id,
+                    id: dbUser.id,
                     email: dbUser.email,
                     password: 'stopPeeking', // You can provide a dummy value for the password if necessary
                     hashedPassword: dbUser.hashedPassword || undefined, // Ensure it's not null

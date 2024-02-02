@@ -4,9 +4,12 @@ import {User, Server, Member, Profile} from "@prisma/client"
     User,
     "createdAt" | "updatedAt" | "emailVerified"
  > & {
-    createdAt: string;
-    updatedAt: string;
-    emailVerified: string | null;
+      Id: number;
+      createdAt: string;
+      updatedAt: string;
+      password: string | null;
+      emailVerified: string | null;
+      hashedPassword: string | null | undefined;
  }
 
  export type ServerWithMembersWithProfiles = Server & {

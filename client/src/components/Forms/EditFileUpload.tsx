@@ -121,7 +121,7 @@ export const EditFileUpload = ({
         setSelectedImage(imageUrlWithoutPublic)
       }
 
-    }, [])
+    }, [data?.server?.imageUrl])
     
     // Do Better Security Checks
     if(selectedImage && selectedImage !== undefined  && selectedImage !== null && selectedImage !== "pdf"){

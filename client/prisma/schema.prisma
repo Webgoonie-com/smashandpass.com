@@ -20,7 +20,7 @@ model ActivateToken {
   createdAt           DateTime                @default(now())
   updatedAt           DateTime                @default(now()) @updatedAt
 
-  user                User                    @relation(fields: [userId], references: [Id])
+  user                User                    @relation(fields: [userId], references: [id])
   userId              Int                     @unique
 }
 
@@ -40,7 +40,7 @@ model Account {
   createdAt               DateTime                @default(now())
   updatedAt               DateTime                @default(now()) @updatedAt
 
-  user                    User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  user                    User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                  Int                 @unique
   @@unique([provider, providerAccountId])
 }
@@ -107,7 +107,7 @@ model DirectMessage {
 model Favorite {
   Id                      Int                 @id @default(autoincrement()) @map("id")
   uuid                    String              @default(uuid())
-  userfavorite            User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userfavorite            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                  Int                 @unique
 }
 
@@ -123,7 +123,7 @@ model Listing {
   createdAt           DateTime                @default(now())
   updatedAt           DateTime                @default(now()) @updatedAt
 
-  userResrvation          User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userResrvation          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations            Reservation[]   
   userId                  Int                 @unique
 }
@@ -183,7 +183,7 @@ model Post {
   content                 String?     
   published               Boolean             @default(false)
  
-  author                  User                @relation(fields: [authorId], references: [Id], onDelete: Cascade)
+  author                  User                @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId                Int                 @unique
 }
 
@@ -193,7 +193,7 @@ model Profile {
   name                    String      
   bio                     String?     
   imageUrl                String?             @db.Text
-  userProfile             User                @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userProfile             User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                  Int                 @unique
 
   servers Server[]
@@ -212,7 +212,7 @@ model Reservation {
   totalPrice              Int   
   createdAt               DateTime            @default(now())
 
-  userListing User @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  userListing User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int  @unique
   listing Listing @relation(fields: [listingId], references: [Id], onDelete: Cascade)
   listingId Int  @unique
@@ -238,7 +238,7 @@ model Server {
 }
 
 model User {  
-  Id                  Int                     @id @default(autoincrement()) @map("id")
+  id                  Int                     @id @default(autoincrement()) @map("Id")
   uuid                String                  @default(uuid()) 
   name                String? 
   email               String                  @unique
@@ -274,7 +274,7 @@ model UserPhoto {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
   
-  user User @relation(fields: [userId], references: [Id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 
   @@index([userId])

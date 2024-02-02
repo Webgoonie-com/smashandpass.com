@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
         message: "Buffer was successfully uploaded",
         //userId: profile.Id,
         user: {
-            connect: { Id: profile.Id }, // Connect to the user by ID
+            connect: { id: profile.Id }, // Connect to the user by ID
           },
       },
     });
