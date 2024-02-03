@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { CurrentProfile } from "@/lib/currentProfile";
-import PrismaOrm from "@/lib/prismaOrm";
+import {PrismaOrm} from "@/lib/prismaOrm";
 import { AiOutlineConsoleSql } from "react-icons/ai";
 
 
@@ -128,7 +128,7 @@ export async function PATCH(req: Request,
         return NextResponse.json(server);
         
     } catch (error) {
-        console.log("[MEMBER_ID_DELETE]", error);
+        console.log("[MEMBER_ID_PATCH]", error);
         return new NextResponse("Internal Error", { status: 500 });
     }
 

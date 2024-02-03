@@ -2,7 +2,7 @@ import { Hash } from "lucide-react";
 
 import { MobileToggle } from "@/components/MobileToggle";
 import  UserAvatar from "@/components/UserAvatar";
-import PrismaOrm from "@/lib/prismaOrm";
+import {PrismaOrm} from "@/lib/prismaOrm";
 import { redirect } from "next/navigation";
 //import { SocketIndicator } from "@/components/socket-indicator";
 
@@ -26,7 +26,7 @@ export const ChatHeader = async ({
 
   const server = await PrismaOrm.server.findFirst({
     where:{
-      Id: serverId,
+      uuid: serverId.toString(),
     }
   })
 

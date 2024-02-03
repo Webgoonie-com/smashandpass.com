@@ -25,15 +25,18 @@ const ServerHeader = ({server, role}: ServerHeaderProps) => {
             <DropdownMenu>
                 <DropdownMenuTrigger
                 className="focus:outline-none" asChild>
-                    <button
-                        className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200
-                        dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10
-                        dark:hover:bg-zinc-700/500 transition
-                        "
-                    >
-                        {server.name}
-                        <ChevronDown className="h-5 w-5 ml-auto" />
-                    </button>
+                    <>
+                        <ChevronDown className="sm:block md:hidden h-5 w-5 ml-auto" />
+                        <button
+                            className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200
+                            dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10
+                            dark:hover:bg-zinc-700/500 transition
+                            "
+                        >
+                            {server.name}
+                            <ChevronDown className="hidden sm:block md:block h-5 w-5 ml-auto" />
+                        </button>
+                    </>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                     className="w-56 text-sx font-medium text-black dark:text-neutral-400 space-y-[2px]"

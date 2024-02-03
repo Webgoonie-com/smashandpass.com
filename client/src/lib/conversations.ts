@@ -1,7 +1,7 @@
-import PrismaOrm from "./prismaOrm";
+import {PrismaOrm} from "./prismaOrm";
 
 
-export const getOrCreateConversation = async (memberOneId: any, memberTwoId: any) => {
+export const getOrCreateConversation = async (memberOneId: number, memberTwoId: number) => {
     
   console.log('Line 6 Getting getOrCreateConversation', memberOneId, memberTwoId);
   try {

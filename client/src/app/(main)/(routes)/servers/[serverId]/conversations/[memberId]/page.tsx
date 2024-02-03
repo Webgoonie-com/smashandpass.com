@@ -3,7 +3,7 @@ import React from 'react'
 import { redirect } from "next/navigation";
 import { CurrentProfile } from '@/lib/currentProfile';
 import { getOrCreateConversation } from "@/lib/conversations";
-import PrismaOrm from '@/lib/prismaOrm';
+import {PrismaOrm} from '@/lib/prismaOrm';
 import { ChatHeader } from '@/components/ChatComps/ChatHeader';
 
 interface MemberIdPageProps {
