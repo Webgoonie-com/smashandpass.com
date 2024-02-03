@@ -8,6 +8,7 @@ import ToasterProvider from "@/Providers/ToastProvider";
 import { ThemeProvider } from "@/providers/Theme-Provider";
 import { ModalProvider } from '@/providers/ModalProvider';
 import {cn} from '@/lib/utils'
+import { SocketProvider } from '@/Providers/SocketProvider';
 
 export const metadata: Metadata = {
   title: "SmashAndPass.com Chat & Streaming Application",
@@ -35,13 +36,16 @@ export default function RootLayout({
             enableSystem={false}
             storageKey="smashandapass-theme"
           >
-          
-            <ToasterProvider />
-            <RegisterModal />
-            <LoginModal />
-            <ModalProvider />
-          
-          {children}
+          <SocketProvider>
+              <ToasterProvider />
+              <RegisterModal />
+              <LoginModal />
+              <ModalProvider />
+            
+            
+            {children}
+
+          </SocketProvider>
         </ThemeProvider>
         </body>
     </html>
