@@ -41,7 +41,7 @@ const ServerIdLayout = async ({
             >
                 <ServerSidebar serverId={params?.serverId} />
             </div>
-            <main className="h-full md:pl-60 pb-80">
+            <main className="relative h-full md:pl-60 pb-80">
                 {children}
             </main>
         </div>

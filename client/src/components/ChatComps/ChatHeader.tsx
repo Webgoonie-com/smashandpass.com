@@ -4,7 +4,7 @@ import { MobileToggle } from "@/components/MobileToggle";
 import  UserAvatar from "@/components/UserAvatar";
 import {PrismaOrm} from "@/lib/prismaOrm";
 import { redirect } from "next/navigation";
-//import { SocketIndicator } from "@/components/socket-indicator";
+import SocketIndicator from "@/components/Sockets/SocketIndicator";
 
 //import { ChatVideoButton } from "./chat-video-button";
 
@@ -52,7 +52,7 @@ export const ChatHeader = async ({
   return (
     
 
-    <div className="text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2">
+    <div className="relative text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2">
       <MobileToggle 
         serverId={server.uuid as any} 
       />
@@ -68,6 +68,11 @@ export const ChatHeader = async ({
       <p className="font-semibold text-md text-black dark:text-white">
         {name}
       </p>
+      <div
+        className="ml-auto flex items-center"
+      >
+        <SocketIndicator />
+      </div>
       
     </div>
   )

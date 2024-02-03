@@ -86,17 +86,21 @@ const MemberIdPage = async ({
 
     return (
         <div className='mt-[74px] flex flex-row w-full h-full z-30 top-0 absolute inset-y-0'>
-          <div className="bg-white dark:bg-[#313338] w-full flex flex-col h-full">
-
-            <ChatHeader
-              imageUrl={otherMember.profile.imageUrl as any}
-              name={otherMember.profile.name}
-              serverId={params.serverId}
-              type="conversation"
-            />
-
-              Member Id Page
-            </div>
+          <div className="relative md:w-[87%]">
+            <div className="bg-white dark:bg-[#313338] w-full flex flex-col h-full">
+  
+              <ChatHeader
+                imageUrl={otherMember.profile.imageUrl as any}
+                name={otherMember.profile.name}
+                serverId={params.serverId}
+                type="conversation"
+              />
+  
+                <div className='p-2'>
+                  Member Id Page
+                </div>
+              </div>
+          </div>
           </div>
       )
 }

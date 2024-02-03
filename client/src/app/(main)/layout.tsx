@@ -26,7 +26,7 @@ const MainLayout = async({
             <div className="mt-[70px] hidden md:flex h-full w-[72px] z-30 flex-col fixed inset-y-0">
                 <SideBarNav />
             </div>
-            <main className="md:pl-[72px] h-full">
+            <main className="relative md:pl-[72px] h-full">
                 {children}
             </main>
         </div>

@@ -30,7 +30,7 @@ export default async function SetUpLayout({
   
 
   return (
-      <main className="md:pl-[72px] h-full">
+      <main className="relative md:pl-[72px] h-full">
           {children}
       </main>
   );
