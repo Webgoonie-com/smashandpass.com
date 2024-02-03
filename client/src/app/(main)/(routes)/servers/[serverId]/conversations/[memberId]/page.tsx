@@ -24,7 +24,7 @@ const MemberIdPage = async ({
     const profile = await CurrentProfile();
 
     if (!profile) {
-      return redirect("/");
+      return redirect("/login");
     }
 
     //console.log('Line 32 params.serverId', params.serverId)
@@ -40,7 +40,7 @@ const MemberIdPage = async ({
         
         console.log('Could not find server', params.serverId)
 
-        //redirect("/");
+        redirect("/");
         return null; 
       }  
 
@@ -59,7 +59,7 @@ const MemberIdPage = async ({
   
     if (!currentMember) {
       //console.log('Current Member not found Redirecting')
-      //return redirect("/");
+      return redirect("/");
       return null; 
     }
   
@@ -72,8 +72,8 @@ const MemberIdPage = async ({
 
     if (!conversation) {
       //console.log('No Conversation', params.serverId)
+      return redirect(`/servers/${params.serverId}`);
       return null; 
-      //return redirect(`/servers/${params.serverId}`);
     }
 
     //  This is to comparing both these members to see if it matches.
@@ -85,20 +85,18 @@ const MemberIdPage = async ({
 
 
     return (
-        <div className='mt-[74px] flex h-full z-30 flex-col top-0 absolute inset-y-0'>
-    
-              
-                  <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
-                  <ChatHeader
-                    imageUrl={otherMember.profile.imageUrl as any}
-                    name={otherMember.profile.name}
-                    serverId={params.serverId}
-                    type="conversation"
-                  />
-                    Member Id Page
-                  </div>
-          
-          
+        <div className='mt-[74px] flex flex-row w-full h-full z-30 top-0 absolute inset-y-0'>
+          <div className="bg-white dark:bg-[#313338] w-full flex flex-col h-full">
+
+            <ChatHeader
+              imageUrl={otherMember.profile.imageUrl as any}
+              name={otherMember.profile.name}
+              serverId={params.serverId}
+              type="conversation"
+            />
+
+              Member Id Page
+            </div>
           </div>
       )
 }
