@@ -1,13 +1,9 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import NextAuth, { NextAuthOptions, User, AuthOptions, getServerSession } from "next-auth";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation"
+import NextAuth, { User, AuthOptions} from "next-auth";
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
-import { NextResponse } from "next/server";
-import { getSession } from "next-auth/react";
 
 import prismaOrm from "./prismaOrm"
 
