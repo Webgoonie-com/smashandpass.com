@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { MemberRole } from "@prisma/client";
 
 import { CurrentProfile } from "@/lib/currentProfile";
-import prismaOrm  from "@/lib/prismaOrm";
+import { PrismaOrm }  from "@/lib/prismaOrm";
 
 console.log('Hit Servers')
 
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
 
     // find the previously uploaded image and tagg it to the server model right now it's seperate with only a UserId 1-27-2024 10:56 pm
 
-    const server = await prismaOrm.server.create({
+    const server = await PrismaOrm.server.create({
       data: {
         profileId: profile.Id,
         name: name,

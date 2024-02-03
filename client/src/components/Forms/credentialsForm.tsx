@@ -1,3 +1,4 @@
+
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -24,9 +25,10 @@ const CredentialsForm = (props: CredentialsFormProps) => {
 
         if (signInResponse && !signInResponse.error) {
             //Redirect to homepage (/timeline)
-            router.push("/timeline");
+            router.push("/");
         } else {
-            console.log("Error: ", signInResponse);
+            //console.log("Error: ", signInResponse);
+            //console.log("Error: ", signInResponse.error);
             setError("Your Email or Password is wrong!");
         }
     }

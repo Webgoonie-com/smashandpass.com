@@ -1,4 +1,4 @@
-import  prismaOrm  from "@/lib/prismaOrm"
+import  { PrismaOrm }  from "@/lib/prismaOrm"
 
 import getCurrentUser from "@/actions/getCurrentUsers";
 
@@ -14,7 +14,7 @@ export const CurrentProfile = async () => {
         return null
     }
 
-    const profile = await prismaOrm.profile.findUnique({
+    const profile = await PrismaOrm.profile.findUnique({
         where: { 
             Id: userId
         }

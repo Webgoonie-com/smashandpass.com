@@ -1,6 +1,6 @@
 import { ChatHeader } from '@/components/ChatComps/ChatHeader';
 import { CurrentProfile } from '@/lib/currentProfile';
-import PrismaOrm from '@/lib/prismaOrm';
+import {PrismaOrm} from '@/lib/prismaOrm';
 import { redirect } from 'next/navigation';
 import React from 'react'
 import { string } from 'zod'
@@ -16,7 +16,12 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
   
   const profile = await CurrentProfile()
 
-    if(!profile) return redirect('/')
+
+
+    if(!profile){ 
+      
+      return redirect('/')
+    }
 
   const channel = await PrismaOrm.channel.findUnique({
     where: {
@@ -24,15 +29,17 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
     },
   });
 
+  
   const server = await PrismaOrm.server.findFirst({
     where:{
       uuid: params.serverId,
     }
   })
 
+  
    
     if (!server) {
-      redirect("/");
+        redirect("/");
       return null; 
     }
 
@@ -43,7 +50,10 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
     }
   });
 
+  
+
     if (!channel || !member) {
+      
       redirect("/");
       return null; 
     }

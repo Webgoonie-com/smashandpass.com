@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter, redirect  } from "next/navigation";
-import prismaOrm from '@/lib/prismaOrm'
+import {PrismaOrm} from '@/lib/prismaOrm'
 import getCurrentUser from '@/actions/getCurrentUsers'
 
 
@@ -22,7 +22,7 @@ export const IntialProfileSetup = async () => {
     }
 
 
-    const profile = await prismaOrm.profile.findUnique({
+    const profile = await PrismaOrm.profile.findUnique({
         where: {
             userId: user.id
         }
@@ -32,7 +32,7 @@ export const IntialProfileSetup = async () => {
         return profile;
     }
 
-    const newProfile = await prismaOrm.profile.create({
+    const newProfile = await PrismaOrm.profile.create({
         data: {
             userId: user.id,
             name: `${user.name}`

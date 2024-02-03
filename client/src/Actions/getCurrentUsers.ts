@@ -3,7 +3,7 @@
 import { getServerSession } from 'next-auth/next';
 
 import { authOptions } from '@/lib/auth';
-import prismaOrm from '@/lib/prismaOrm'
+import {PrismaOrm} from '@/lib/prismaOrm'
 import React from 'react'
 
 
@@ -20,7 +20,7 @@ export default async function getCurrentUsers(){
             return null;
         }
 
-        const currentUser = await prismaOrm.user.findUnique({
+        const currentUser = await PrismaOrm.user.findUnique({
             where: {
                 email: session.user.email as string,
             }

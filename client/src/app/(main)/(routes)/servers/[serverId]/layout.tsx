@@ -1,6 +1,6 @@
 import ServerSidebar from "@/components/Servers/ServerSidebar";
 import { CurrentProfile } from "@/lib/currentProfile"
-import PrismaOrm from "@/lib/prismaOrm";
+import { PrismaOrm } from "@/lib/prismaOrm";
 import { redirect } from "next/navigation";
 
 

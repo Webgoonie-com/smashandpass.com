@@ -1,21 +1,26 @@
+import { NextResponse } from "next/server";
 import {PrismaOrm} from "./prismaOrm";
 
 
-export const getOrCreateConversation = async (memberOneId: number, memberTwoId: number) => {
+export const getOrCreateConversation = async (memberOneId: number, memberTwoId: string) => {
     
   console.log('Line 6 Getting getOrCreateConversation', memberOneId, memberTwoId);
-  try {
-        let conversation = await findConversation(memberOneId, memberTwoId) || await findConversation(memberTwoId, memberOneId);
+   // Parse memberTwoId as a number
+   const parsedMemberTwoId = parseInt(memberTwoId, 10);
 
-        console.log('Line 10 Getting conversation', conversation)
+  try {
+        let conversation = await findConversation(memberOneId, parsedMemberTwoId) || await findConversation(parsedMemberTwoId, memberOneId);
+
+        //console.log('Line 10 Getting conversation', conversation)
+
 
         if (!conversation) {
             
-            console.log('Line 14 Could not find conversation', memberOneId, memberTwoId);
+            //console.log('Line 14 Could not find conversation', memberOneId, memberTwoId);
 
-            conversation = await createNewConversation(memberOneId, memberTwoId);
+            conversation = await createNewConversation(memberOneId, parsedMemberTwoId);
         }
-        console.log('Line 18 Yes We found conversation', memberOneId, memberTwoId);
+        //console.log('Line 18 Yes We found conversation', memberOneId, memberTwoId);
 
         return conversation;
 
@@ -54,12 +59,12 @@ const findConversation = async (memberOneId: number, memberTwoId: number) => {
 const createNewConversation = async (memberOneId: number, memberTwoId: number) => {
   try {
     
-    console.log('createNewConversation', memberOneId, memberTwoId)
+    //console.log('createNewConversation', memberOneId, memberTwoId)
 
     return await PrismaOrm.conversation.create({
       data: {
         memberOneId,
-        memberTwoId,
+        memberTwoId: parseInt(memberTwoId as any),
       },
       include: {
         memberOne: {
@@ -74,7 +79,14 @@ const createNewConversation = async (memberOneId: number, memberTwoId: number) =
         }
       }
     })
-  } catch {
+  }
+  catch {
     return null;
   }
+
+  //  For Debugging Prurposes
+  // catch (error) {
+  //   console.log("[CREATE_NEW_CONVERATION]", error);
+  //   return new NextResponse("Internal Error", { status: 500 });
+  // }
 }

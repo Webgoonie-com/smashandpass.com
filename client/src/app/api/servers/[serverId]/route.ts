@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { CurrentProfile } from "@/lib/currentProfile";
-import prismaOrm from "@/lib/prismaOrm";
+import { PrismaOrm } from "@/lib/prismaOrm";
 import { AiOutlineConsoleSql } from "react-icons/ai";
 
 export async function DELETE(
@@ -17,7 +17,7 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const server = await prismaOrm.server.delete({
+    const server = await PrismaOrm.server.delete({
       where: {
         uuid: params.serverId,
         profileId: profile.Id,
@@ -44,7 +44,7 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const server = await prismaOrm.server.update({
+    const server = await PrismaOrm.server.update({
       where: {
         uuid: params.serverId,
         profileId: profile.Id,

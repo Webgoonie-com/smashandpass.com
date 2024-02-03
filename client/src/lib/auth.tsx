@@ -5,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 
-import prismaOrm from "./prismaOrm"
+import {PrismaOrm} from "./prismaOrm"
 
 
 
@@ -19,7 +19,7 @@ declare module 'next-auth' {
 }
 
 export const authOptions: AuthOptions = {
-    adapter: PrismaAdapter(prismaOrm),
+    adapter: PrismaAdapter(PrismaOrm),
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -38,7 +38,7 @@ export const authOptions: AuthOptions = {
                 };
                 console.log('Payload:',  payload);
 
-                const dbUser = await prismaOrm.user.findUnique({
+                const dbUser = await PrismaOrm.user.findUnique({
                     where: { 
                         email: payload.email 
                     },

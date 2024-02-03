@@ -1,7 +1,7 @@
 import { writeFile } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
 import { join } from 'path';
-import prismaOrm from "@/lib/prismaOrm";
+import {PrismaOrm} from "@/lib/prismaOrm";
 import { CurrentProfile } from '@/lib/currentProfile';
 
 export async function POST(request: NextRequest) {
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const createPhoto = await prismaOrm.userPhoto.create({
+    const createPhoto = await PrismaOrm.userPhoto.create({
       data: {
         serverCaption: 'Single Image',
         imageSize: buffer.length,

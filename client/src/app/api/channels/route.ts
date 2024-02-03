@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { MemberRole } from "@prisma/client";
 
 import { CurrentProfile } from "@/lib/currentProfile";
-import PrismaOrm from "@/lib/prismaOrm";
+import { PrismaOrm } from "@/lib/prismaOrm";
 
 
 

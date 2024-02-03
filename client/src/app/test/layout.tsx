@@ -32,7 +32,7 @@ export default async function TestLayout({
             )
         }> 
           <ClientOnly>
-            <Navbar currentUser={currentUser} />
+            <Navbar currentUser={currentUser as any} />
           </ClientOnly>
           {children}
        

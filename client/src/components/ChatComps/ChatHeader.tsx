@@ -23,16 +23,29 @@ export const ChatHeader = async ({
 }: ChatHeaderProps) => {
 
  
+  // Determines what server id we using from
+  var server
+  
+  if(isNaN(Number(serverId)) && serverId){
+    
+     server = await PrismaOrm.server.findFirst({
+      where:{
+        uuid: serverId.toString(),
+      }
+    })
+  }else{
+    
+     server = await PrismaOrm.server.findFirst({
+      where:{
+        Id: serverId,
+      }
+    })
+  }
 
-  const server = await PrismaOrm.server.findFirst({
-    where:{
-      uuid: serverId.toString(),
-    }
-  })
-
+ 
    
     if (!server) {
-      redirect("/");
+        redirect("/");
       return null; 
     }
 
@@ -41,7 +54,7 @@ export const ChatHeader = async ({
 
     <div className="text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2">
       <MobileToggle 
-        serverId={server.uuid} 
+        serverId={server.uuid as any} 
       />
       {type === "channel" && (
         <Hash className="w-5 h-5 text-zinc-500 dark:text-zinc-400 mr-2" />

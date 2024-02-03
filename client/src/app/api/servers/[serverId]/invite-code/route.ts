@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from  "uuid"
 import { NextResponse } from "next/server";
 
 import { CurrentProfile } from "@/lib/currentProfile";
-import prismaOrm from "@/lib/prismaOrm";
+import { PrismaOrm } from "@/lib/prismaOrm";
 
 export async function PATCH(
   req: Request,
@@ -20,7 +20,7 @@ export async function PATCH(
     }
 
 
-    const server = await prismaOrm.server.update({
+    const server = await PrismaOrm.server.update({
       where: {
         uuid: params.serverId,
         profileId: profile.Id,

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { CurrentProfile } from "@/lib/currentProfile";
-import {PrismaOrm} from "@/lib/prismaOrm";
+import { PrismaOrm } from "@/lib/prismaOrm";
 import { AiOutlineConsoleSql } from "react-icons/ai";
 
 

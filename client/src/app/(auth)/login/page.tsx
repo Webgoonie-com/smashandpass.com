@@ -1,8 +1,13 @@
+"use client"
+
+import CredentialsForm from '@/components/Forms/credentialsForm'
 import React from 'react'
 
 const LoginPage = () => {
   return (
-    <div>Login Page</div>
+    <div className="container">
+        <CredentialsForm />
+      </div>
   )
 }
 

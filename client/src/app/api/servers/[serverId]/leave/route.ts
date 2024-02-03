@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { CurrentProfile } from "@/lib/currentProfile";
-import prismaOrm from "@/lib/prismaOrm";
+import { PrismaOrm } from "@/lib/prismaOrm";
 
 export async function PATCH(
   req: Request,
@@ -18,7 +18,7 @@ export async function PATCH(
       return new NextResponse("Server ID missing", { status: 400 });
     }
 
-    const server = await prismaOrm.server.update({
+    const server = await PrismaOrm.server.update({
       where: {
         uuid: params.serverId,
         profileId: {

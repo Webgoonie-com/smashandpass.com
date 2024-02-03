@@ -8,7 +8,7 @@ import { NavigationItem } from './NavigationItem'
 import { ModeToggle } from '../modeToggle'
 import { CurrentProfile } from '@/lib/currentProfile'
 import { redirect } from 'next/navigation'
-import PrismaOrm from '@/lib/prismaOrm'
+import {PrismaOrm} from '@/lib/prismaOrm'
 import LogOutButton from '@/components/LogOutButton'
 
 

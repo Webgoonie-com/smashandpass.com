@@ -19,7 +19,7 @@ const MainLayout = async({
         <div className="h-full">
              <div className="flex-row mt-0 absolute">
                  <ClientOnly>
-                    <Navbar currentUser={currentUser} />
+                    <Navbar currentUser={currentUser as any} />
                 </ClientOnly>
              </div>
 
