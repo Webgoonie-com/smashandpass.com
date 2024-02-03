@@ -2,7 +2,7 @@ import { Hash } from "lucide-react";
 
 import { MobileToggle } from "@/components/MobileToggle";
 import  UserAvatar from "@/components/UserAvatar";
-import {PrismaOrm} from "@/lib/prismaOrm";
+import { PrismaOrm } from "@/lib/prismaOrm";
 import { redirect } from "next/navigation";
 import SocketIndicator from "@/components/Sockets/SocketIndicator";
 
@@ -65,9 +65,11 @@ export const ChatHeader = async ({
           className="h-8 w-8 md:h-8 md:w-8 mr-2"
         />
       )}
+
       <p className="font-semibold text-md text-black dark:text-white">
         {name}
       </p>
+
       <div
         className="ml-auto flex items-center"
       >

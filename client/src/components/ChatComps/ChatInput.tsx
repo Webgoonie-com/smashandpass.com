@@ -50,6 +50,9 @@ const ChatInput = ({
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log('Just wanna log the values for now.', values)
+        
+        console.log('apiUrl', apiUrl)
+
       try {
         const url = qs.stringifyUrl({
           url: apiUrl,
