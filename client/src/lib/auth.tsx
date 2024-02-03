@@ -49,8 +49,6 @@ export const authOptions: AuthOptions = {
                      }
                 });
 
-                console.log('Github Testing: ', dbUser, )
-
                 if (!dbUser) {
                     throw new Error('Sorry there was an error');
                 }

@@ -5,6 +5,7 @@ import { CurrentProfile } from '@/lib/currentProfile';
 import { getOrCreateConversation } from "@/lib/conversations";
 import {PrismaOrm} from '@/lib/prismaOrm';
 import { ChatHeader } from '@/components/ChatComps/ChatHeader';
+import ChatInput from '@/components/ChatComps/ChatInput';
 
 interface MemberIdPageProps {
   params: {
@@ -85,23 +86,34 @@ const MemberIdPage = async ({
 
 
     return (
-        <div className='mt-[74px] flex flex-row w-full h-full z-30 top-0 absolute inset-y-0'>
-          <div className="relative md:w-[87%]">
-            <div className="bg-white dark:bg-[#313338] w-full flex flex-col h-full">
-  
-              <ChatHeader
-                imageUrl={otherMember.profile.imageUrl as any}
-                name={otherMember.profile.name}
-                serverId={params.serverId}
-                type="conversation"
-              />
-  
-                <div className='p-2'>
-                  Member Id Page
-                </div>
-              </div>
+      <div className='mt-[74px] flex md:w-full h-full z-30 flex-col top-0 absolute inset-y-0'>
+
+        <div className='fixed md:w-[84%] h-[90%]'>
+          <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
+    
+                <ChatHeader
+                  imageUrl={otherMember.profile.imageUrl as any}
+                  name={otherMember.profile.name}
+                  serverId={params.serverId}
+                  type="conversation"
+                />
+    
+                  <div className='flex-1 p-2'>
+                    
+                    Member Id Page
+
+                  </div>
+
+                  <div className="bottom-0">
+                    {"<"}ChatInput {"/ >"}
+                      {/* <ChatInput
+                    
+                      /> */}
+                  </div>
+
+            </div>
           </div>
-          </div>
+        </div>
       )
 }
 
