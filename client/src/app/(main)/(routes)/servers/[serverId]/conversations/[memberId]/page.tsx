@@ -89,12 +89,12 @@ const MemberIdPage = async ({
     
               
                   <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
-                  {/* <ChatHeader
+                  <ChatHeader
                     imageUrl={otherMember.profile.imageUrl as any}
                     name={otherMember.profile.name}
                     serverId={params.serverId}
                     type="conversation"
-                  /> */}
+                  />
                     Member Id Page
                   </div>
           
