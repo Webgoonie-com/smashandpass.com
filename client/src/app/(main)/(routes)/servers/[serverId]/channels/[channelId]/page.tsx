@@ -1,5 +1,6 @@
 import { ChatHeader } from '@/components/ChatComps/ChatHeader';
 import ChatInput from '@/components/ChatComps/ChatInput';
+import ChatMessages from '@/components/ChatComps/ChatMessages';
 import { CurrentProfile } from '@/lib/currentProfile';
 import {PrismaOrm} from '@/lib/prismaOrm';
 import { redirect } from 'next/navigation';
@@ -74,6 +75,8 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                 className="flex-1"
               >
                 Future Messages
+
+                <ChatMessages />
 
               </div>
               
