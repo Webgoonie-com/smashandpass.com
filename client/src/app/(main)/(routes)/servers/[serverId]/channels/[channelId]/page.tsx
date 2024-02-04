@@ -18,6 +18,8 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
   
   const profile = await CurrentProfile()
 
+  const parsedChannelId = parseInt(params.channelId, 10);
+  const parsedServerId = parseInt(params.serverId, 10);
 
 
     if(!profile){ 
@@ -27,14 +29,14 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
 
   const channel = await PrismaOrm.channel.findUnique({
     where: {
-      Id: parseInt(params.channelId),
+      Id: parsedChannelId,
     },
   });
 
   
   const server = await PrismaOrm.server.findFirst({
     where:{
-      uuid: params.serverId,
+      uuid: params.serverId.toString(),
     }
   })
 
@@ -74,13 +76,28 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
               <div
                 className="flex-1"
               >
+                
+                <ChatMessages
+                  member={member}
+                  name={channel.name}
+                  chatId={channel.Id}
+                  type="channel"
+                  apiUrl="/api/messages"
+                  socketUrl="/api/socket/messages"
+                  socketQuery={{
+                    channelId: channel.Id.toString(),
+                    serverId: channel.serverId.toString(),
+                  }}
+                  paramKey="channelId"
+                  paramValue={channel.Id.toString()}
+
+                />
                 Future Messages
-
-                <ChatMessages />
-
               </div>
               
-             <div> 
+              <div
+                className="flex-1"
+              > 
               
               Channel Id Page
 

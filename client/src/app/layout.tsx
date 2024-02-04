@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/providers/Theme-Provider";
 import { ModalProvider } from '@/providers/ModalProvider';
 import {cn} from '@/lib/utils'
 import { SocketProvider } from '@/Providers/SocketProvider';
+import { QueryProvider } from '@/Providers/QueryProvider';
 
 export const metadata: Metadata = {
   title: "SmashAndPass.com Chat & Streaming Application",
@@ -43,7 +44,9 @@ export default function RootLayout({
               <ModalProvider />
             
             
-            {children}
+            <QueryProvider>
+              {children}
+            </QueryProvider>
 
           </SocketProvider>
         </ThemeProvider>
