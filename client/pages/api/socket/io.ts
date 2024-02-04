@@ -3,6 +3,7 @@ import { NextApiRequest } from "next";
 import { Server as ServerIO } from "socket.io";
 
 import { NextApiResponseServerIo } from "@/Types";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 
 export const config = {
   api: {
@@ -10,9 +11,11 @@ export const config = {
   },
 };
 
+console.log('Hitting Io.ts')
+
 const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
   if (!res.socket.server.io) {
-    const path = "/api/sockets/io";
+    const path = "/api/socket/io";
     const httpServer: NetServer = res.socket.server as any;
     const io = new ServerIO(httpServer, {
       path: path,

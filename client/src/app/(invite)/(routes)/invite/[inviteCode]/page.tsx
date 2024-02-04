@@ -1,5 +1,5 @@
 import { CurrentProfile } from '@/lib/currentProfile'
-import PrismaOrm from '@/lib/prismaOrm'
+import { PrismaOrm } from '@/lib/prismaOrm'
 import { redirect } from 'next/navigation'
 import React from 'react'
 

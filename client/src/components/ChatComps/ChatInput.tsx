@@ -5,7 +5,7 @@ import axios from "axios";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus } from "lucide-react";
+import { Plus, Smile } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -51,7 +51,14 @@ const ChatInput = ({
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log('Just wanna log the values for now.', values)
         
-        console.log('apiUrl', apiUrl)
+        // const query = {
+        //   serverId: "exampleServerId",
+        //   channelId: "exampleChannelId",
+        // };
+        
+        console.log('Lione 54 apiUrl', apiUrl)
+        console.log('Line 55 query', query)
+        
 
       try {
         const url = qs.stringifyUrl({
@@ -59,8 +66,15 @@ const ChatInput = ({
           query,
         });
   
-        await axios.post(url, values)
-  
+        //const response = await axios.post(url, values, { params: query })
+        const response = await axios.post(apiUrl, {
+          ...values,
+          serverId: query.serverId,
+          channelId: query.channelId
+      });
+        
+        console.log('API Response:', response.data);
+
         form.reset()
         router.refresh()
       } catch (error) {
@@ -96,6 +110,7 @@ const ChatInput = ({
                     <EmojiPicker
                       onChange={(emoji: string) => field.onChange(`${field.value} ${emoji}`)}
                     />
+                    {/* <Smile /> */}
                   </div>
                 </div>
               </FormControl>

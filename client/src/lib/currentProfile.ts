@@ -6,7 +6,7 @@ export const CurrentProfile = async () => {
 
     const currentUser = await getCurrentUser()
     
-    console.log('Line 8 currentProfile', currentUser)
+    //console.log('Line 8 currentProfile', currentUser)
     const userId = currentUser?.id
 
     if(!userId) {
