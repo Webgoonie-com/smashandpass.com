@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
         imageSize: buffer.length,
         type: file.type,
         local: path,
-        url: `/public/images/uploaded/${file.name}`,
+        url: `/images/uploaded/${file.name}`,
         filename: file.name,
         message: "Buffer was successfully uploaded",
         //userId: profile.Id,
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
         size: buffer.length,
         type: file.type,
         local: path,
-        url: `/public/images/uploaded/${file.name}`,
+        url: `/images/uploaded/${file.name}`,
         filename: file.name,
         message: "Buffer was successfully uploaded",
       }, createPhoto);

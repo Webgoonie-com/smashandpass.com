@@ -16,6 +16,8 @@ export default async function getCurrentUsers(){
         
         const session = await getSession()
 
+        //console.log('authOptions session', session)
+
         if(!session?.user?.email){
             return null;
         }
@@ -35,6 +37,7 @@ export default async function getCurrentUsers(){
 
         return {
             ...currentUser,
+            ...session,
             createdAt: currentUser.createdAt.toISOString(),
             updatedAt: currentUser.updatedAt.toISOString(),
             emailVerified: currentUser.emailVerified?.toISOString() || null,

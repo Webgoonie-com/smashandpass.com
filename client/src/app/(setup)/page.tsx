@@ -12,7 +12,7 @@ const SetupPage = async () => {
 
     const profile = await IntialProfileSetup()
 
-    console.log('IntialProfileSetup', profile)
+    
 
     const server = await PrismaOrm.server.findFirst({
         where: {
@@ -26,7 +26,7 @@ const SetupPage = async () => {
 
 
     if(server){
-        console.log(`'We have a server lets redirect' /servers/${server.uuid}`)
+        //console.log(`'We have a server lets redirect' /servers/${server.uuid}`)
         return redirect(`/servers/${server.uuid}`)
     }
 

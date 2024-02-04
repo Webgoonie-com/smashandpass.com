@@ -7,7 +7,7 @@ interface ChatWelcomeProps {
 }
 
 
-const ChatWelcome = ({
+export const ChatWelcome = ({
   name,
   type
 }: ChatWelcomeProps ) => {
@@ -35,4 +35,3 @@ const ChatWelcome = ({
     )
 }
 
-export default ChatWelcome

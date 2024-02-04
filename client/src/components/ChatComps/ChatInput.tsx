@@ -67,7 +67,7 @@ const ChatInput = ({
         });
   
         //const response = await axios.post(url, values, { params: query })
-        const response = await axios.post(apiUrl, {
+        const response = await axios.post(url, {
           ...values,
           serverId: query.serverId,
           channelId: query.channelId

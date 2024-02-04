@@ -1,6 +1,6 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import NextAuth, { User, AuthOptions} from "next-auth";
-
+import NextAuth, { User, AuthOptions, NextAuthOptions} from "next-auth";
+import { getSession } from 'next-auth/react';
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
@@ -113,5 +113,8 @@ export const authOptions: AuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
 };
 
+export const getServerSession = async () => {
+    return await getSession(); // Ensure that getSession is imported from 'next-auth/react'
+};
 
 export default NextAuth(authOptions);

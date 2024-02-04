@@ -2,10 +2,14 @@
 
 import { Member, Message, Profile } from '@prisma/client'
 import { Fragment, useRef, ElementRef } from "react";
-import ChatWelcome from '@/components/ChatComps/ChatWelcome'
+import { format } from "date-fns";
+import { ChatWelcome } from '@/components/ChatComps/ChatWelcome'
 import { useChatQuery } from '@/Hooks/useChatQuery'
 import { Loader2, ServerCrash } from "lucide-react";
+import { ChatItem } from './ChatItem';
 
+const DATE_FORMAT = 'd MMM yyy, HH:mm:ss a';
+const DATE_FORMAT2 = 'yyyy-MM-dd'
 
 type MessageWithMemberWithProfile = Message & {
     member: Member & {
@@ -15,6 +19,7 @@ type MessageWithMemberWithProfile = Message & {
 
 interface ChatMessagesProps {
     name: string
+    profileId: number,
     member: Member
     chatId: number
     apiUrl: string
@@ -27,6 +32,7 @@ interface ChatMessagesProps {
 
 const ChatMessages = ({
     name,
+    profileId,
     member,
     chatId,
     apiUrl,
@@ -36,6 +42,10 @@ const ChatMessages = ({
     paramValue,
     type,
 }: ChatMessagesProps) => {
+
+    //console.log('profile on Chat Message', JSON.stringify(profileId))   << This works brings back profileId information.
+
+    //const profileId = profileId;
 
     const queryKey = `chat:${chatId}`;
     const addKey = `chat:${chatId}:messages`;
@@ -90,9 +100,19 @@ const ChatMessages = ({
                     { data?.pages?.map((group, index) => (
                         <Fragment key={index}>
                             {group.items.map((message: MessageWithMemberWithProfile) => (
-                                <div key={message.Id}>
-                                    {message.content}
-                                </div>
+                                <ChatItem
+                                    key={message.Id}
+                                    Id={message.Id}
+                                    profileId={profileId}
+                                    currentMember={member}
+                                    member={message.member} 
+                                    content={message.content}
+                                    fileUrl={message.fileUrl}
+                                    deleted={message.deleted}
+                                    timeStamp={format(new Date(message.createdAt), DATE_FORMAT)} 
+                                    isUpdated={message.updatedAt ! === message.createdAt} 
+                                    socketUrl={socketUrl} 
+                                    socketQuery={socketQuery}                                />
                             ))}
                         </Fragment>
                     ))}

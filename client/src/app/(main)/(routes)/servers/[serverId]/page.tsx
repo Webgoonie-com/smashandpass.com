@@ -41,7 +41,7 @@ const ServerIdPage = async ({params}: ServerIdProps) => {
     }
   })
 
-  console.log(' server results', server)
+  // console.log(' server results', server)
 
   const initialChannel = server?.channels[0];
 
@@ -53,7 +53,7 @@ const ServerIdPage = async ({params}: ServerIdProps) => {
   //console.log('Line 53 server results ${params.serverId}: ', params.serverId)
   //console.log('Line 53 server results {initialChannel?.Id}: ', initialChannel?.Id)
 
-  return redirect(`/servers/${params.serverId}/channels/${initialChannel?.Id}`)
+  return redirect(`/servers/${params.serverId}/channels/${initialChannel?.uuid}`)
 
   
 }
