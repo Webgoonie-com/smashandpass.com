@@ -33,7 +33,7 @@ import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash, X } from "lucide-react
 interface ChatItemProps {
     Id: number;
     profileId: number;
-    key: number;
+    key: number | string;
     content: string;
     member: Member & {
         profile: Profile;
@@ -61,7 +61,6 @@ const formSchema = z.object({
 export const ChatItem = ({
     Id,
     profileId,
-    key,
     content,
     member,
     timeStamp,
@@ -90,6 +89,14 @@ export const ChatItem = ({
     });
 
     const isLoading = form.formState.isSubmitting;
+
+    const onMemberClick = () => {
+        if(member.Id ===  currentMember.Id){
+            return;
+        }
+
+        router.push(`/servers/${params?.serverId}/conversations/${member.Id}`);
+    }
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         
@@ -130,11 +137,6 @@ export const ChatItem = ({
     
         return () => window.removeEventListener("keyDown", handleKeyDown);
     }, []);
-
-
-
-
-
     
     useEffect(() => {
         form.reset({
@@ -178,15 +180,15 @@ export const ChatItem = ({
     
 
     return (
-        <div id={`${Id}`} key={key} className="relative group flex items-center hover:bg-black/5-p-4 transition w-full">
+        <div className="relative group flex items-center hover:bg-black/5-p-4 transition w-full">
             <div className="group flex gap-x-2 items-start w-full p-4">
-                <div className="cursor-pointer hover:drop-shadow-md transition">
+                <div onClick={onMemberClick} className="cursor-pointer hover:drop-shadow-md transition">
                     <UserAvatar src={member.profile.imageUrl} />
                 </div>
                 <div className="w-full flex flex-col">
                     <div className="flex items-center gap-x-2">
                         <div className="flex items-center">
-                            <p className="font-semibold text-sm hover:underline cursor-pointer">
+                            <p onClick={onMemberClick} className="font-semibold text-sm hover:underline cursor-pointer">
                                 {member.profile.name}
                             </p>
                             <ActionTooltip label={member.role}>

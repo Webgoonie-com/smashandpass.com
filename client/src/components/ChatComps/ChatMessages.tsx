@@ -7,6 +7,7 @@ import { ChatWelcome } from '@/components/ChatComps/ChatWelcome'
 import { useChatQuery } from '@/Hooks/useChatQuery'
 import { Loader2, ServerCrash } from "lucide-react";
 import { ChatItem } from './ChatItem';
+import { useChatSocket } from '@/Hooks/useChatSocket';
 
 const DATE_FORMAT = 'd MMM yyy, HH:mm:ss a';
 const DATE_FORMAT2 = 'yyyy-MM-dd'
@@ -47,6 +48,9 @@ const ChatMessages = ({
 
     //const profileId = profileId;
 
+    //  This needs to match 
+    //  url:   /app/api/messages/route.ts
+    //  local: \client\src\app\api\messages\route.ts
     const queryKey = `chat:${chatId}`;
     const addKey = `chat:${chatId}:messages`;
     const updateKey = `chat:${chatId}:messages:update` 
@@ -66,6 +70,13 @@ const ChatMessages = ({
         paramKey,
         paramValue,
     });
+
+
+    // Using chat Socket
+    useChatSocket({ 
+        queryKey, addKey, updateKey
+    })
+
 
     if (status === "pending") {
         return (
@@ -101,7 +112,7 @@ const ChatMessages = ({
                         <Fragment key={index}>
                             {group.items.map((message: MessageWithMemberWithProfile) => (
                                 <ChatItem
-                                    key={message.Id}
+                                    key={message.uuid}
                                     Id={message.Id}
                                     profileId={profileId}
                                     currentMember={member}

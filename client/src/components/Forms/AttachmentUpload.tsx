@@ -28,8 +28,8 @@ export const AttachmentUpload = ({
     const [imageData, setImageData] = useState({})
 
 
-    console.log('ayo endpoint', endpoint)
-    console.log('ayo value', value)
+    // console.log('ayo endpoint', endpoint)
+    // console.log('ayo value', value)
     
     async function deleteImageFromServer(imageData: {}){
 
@@ -74,8 +74,8 @@ export const AttachmentUpload = ({
             
             const responseData = await res.json();
             
-            console.log('responseData', responseData)
-            console.log('responseData.url', responseData.url)
+            // console.log('responseData', responseData)
+            // console.log('responseData.url', responseData.url)
             setImageData(responseData)
             
             onChange(responseData.url);
@@ -101,9 +101,9 @@ export const AttachmentUpload = ({
 
     const handleDeleteImage = (event: string) => {
 
-        console.log('handleDeleteImage event', event);
+        // console.log('handleDeleteImage event', event);
 
-        console.log('deleteImage event', imageData);
+        // console.log('deleteImage event', imageData);
 
         deleteImageFromServer({imageData: imageData});
 
@@ -158,7 +158,7 @@ export const AttachmentUpload = ({
         )
     }
 
-    console.log('fileType', fileType)
+    //console.log('fileType', fileType)
 
 
     if(value && fileType === "pdf"){

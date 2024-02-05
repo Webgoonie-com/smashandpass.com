@@ -2,25 +2,29 @@
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
-    // webpack(config) {
-    //     // config.resolve.fallback = {
-    //     //   ...config.resolve.fallback,
-    //     //   fs: false,
-    //     // };
-        
-    //     //  config.infrastructureLogging = { debug: /PackFileCache/ };
+    webpack: (config) => {
+      config.externals.push({
+        "utf-8-validate": "commonjs utf-8-validate",
+        bufferutil: "commonjs bufferutil"
+      });
+      //  config.resolve.fallback = {
+      //    ...config.resolve.fallback,
+      //    fs: false,
+      //  };
       
-    //     //  let modularizeImports = null;
-    //     // config.module.rules.some((rule) =>
-    //     //   rule.oneOf?.some((oneOf) => {
-    //     //     modularizeImports =
-    //     //       oneOf?.use?.options?.nextConfig?.modularizeImports;
-    //     //     return modularizeImports;
-    //     //   }),
-    //     // );
+      //  config.infrastructureLogging = { debug: /PackFileCache/ };
+      
+      //  let modularizeImports = null;
+      //  config.module.rules.some((rule) =>
+      //    rule.oneOf?.some((oneOf) => {
+      //      modularizeImports =
+      //        oneOf?.use?.options?.nextConfig?.modularizeImports;
+      //        return modularizeImports;
+      //    }),
+      //  );
             
-    //     //return config;
-    //   },
+      return config;
+      },
       images: {
 
         remotePatterns: [

@@ -56,8 +56,8 @@ const ChatInput = ({
         //   channelId: "exampleChannelId",
         // };
         
-        console.log('Lione 54 apiUrl', apiUrl)
-        console.log('Line 55 query', query)
+        //console.log('Lione 54 apiUrl', apiUrl)
+        //console.log('Line 55 query', query)
         
 
       try {
@@ -73,7 +73,7 @@ const ChatInput = ({
           channelId: query.channelId
       });
         
-        console.log('API Response:', response.data);
+        //console.log('API Response:', response.data);
 
         form.reset()
         router.refresh()

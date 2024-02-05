@@ -145,6 +145,7 @@ export default async function handler(
         })
       }
   
+      // this the update for the messages that relates to the socket.
       const updateKey = `chat:${channelId}:messages:update`;
   
       res?.socket?.server?.io?.emit(updateKey, message);

@@ -228,7 +228,11 @@ export async function POST(
         });
         
 
+          //  This logic is for adding messages to the Socket
+          //  This is for creating and updating should be on client/pages/api/socket/messages/[messageId].ts
+
           const channelKey = `chat:${channelId}:messages`;
+
           //  console.log('channelKey: ', channelKey)
 
         
