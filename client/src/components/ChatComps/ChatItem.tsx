@@ -179,7 +179,7 @@ export const ChatItem = ({
 
     return (
         <div id={`${Id}`} key={key} className="relative group flex items-center hover:bg-black/5-p-4 transition w-full">
-            <div className="group flex gap-x-2 items-start w-full">
+            <div className="group flex gap-x-2 items-start w-full p-4">
                 <div className="cursor-pointer hover:drop-shadow-md transition">
                     <UserAvatar src={member.profile.imageUrl} />
                 </div>
@@ -200,9 +200,9 @@ export const ChatItem = ({
                         </span>
                     </div>
                     <div 
-                        className=""
+                        className="bg-white dark:bg-zinc-500 p-2 py-4 rounded-sm"
                     >
-                        <hr />
+                        
                         {isImage && (
                             <a 
                             href="#"
@@ -284,6 +284,7 @@ export const ChatItem = ({
                         )}
                     </div>
                 </div>
+                
                 {canDeleteMessage && (
                     <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border-rounded-sm">
                         {canEditMessage && (
@@ -309,7 +310,9 @@ export const ChatItem = ({
                         
                     </div>
                 )}
+                
             </div>
+            
         </div>
     );
 }
