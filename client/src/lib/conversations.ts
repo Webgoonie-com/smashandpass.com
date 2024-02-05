@@ -4,7 +4,7 @@ import {PrismaOrm} from "./prismaOrm";
 
 export const getOrCreateConversation = async (memberOneId: number, memberTwoId: string) => {
     
-  console.log('Line 6 Getting getOrCreateConversation', memberOneId, memberTwoId);
+  //  console.log('Line 6 Getting getOrCreateConversation', memberOneId, memberTwoId);
    // Parse memberTwoId as a number
    const parsedMemberTwoId = parseInt(memberTwoId, 10);
 
