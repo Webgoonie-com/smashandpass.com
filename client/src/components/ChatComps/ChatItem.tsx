@@ -74,10 +74,11 @@ export const ChatItem = ({
 }: ChatItemProps) => {
 
     //Set up a file type
-    const fileType = fileUrl?.split(".").pop();
+    
     const [isEditing, setIsEditing] = useState(false);
 
     const { onOpen } = useModal();
+
     const params = useParams();
     const router = useRouter();
 
@@ -147,6 +148,9 @@ export const ChatItem = ({
     const isOwner = currentMember.Id === member.Id;
     const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner)
     const canEditMessage = !deleted && isOwner && !fileUrl;
+
+    // Declare File Type Constant
+    const fileType = fileUrl?.split(".").pop();
 
     // Dangerous file types
     const isPDF = fileType === "pdf" && fileUrl;
@@ -294,7 +298,11 @@ export const ChatItem = ({
                         )}
                         
                         <ActionTooltip label="Delete">
-                            <Trash 
+                            <Trash
+                            onClick={() => onOpen("deleteMessage", {
+                                apiUrl: `${socketUrl}/${Id}`,
+                                query: socketQuery,
+                            })}
                                 className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                             />
                         </ActionTooltip>
