@@ -4,6 +4,8 @@ import { NextApiResponseServerIo } from "@/Types";
 import { CurrentProfilePages } from "@/lib/currentProfilePages";
 import { PrismaOrm } from "@/lib/prismaOrm";
 
+console.log('Hit socket/messages/index.ts')
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponseServerIo,
@@ -13,6 +15,7 @@ export default async function handler(
   }
 
   try {
+    
     const profile = await CurrentProfilePages(req);
     console.log('Profile on index.ts under pages/api/socket/messages/index.ts', profile)
     const { content, fileUrl } = req.body;
