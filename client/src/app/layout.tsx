@@ -7,6 +7,7 @@ import LoginModal from "@/components/Modals/LoginModal";
 import ToasterProvider from "@/Providers/ToastProvider";
 import { ThemeProvider } from "@/providers/Theme-Provider";
 import { ModalProvider } from '@/providers/ModalProvider';
+import AuthProvider from '@/providers/AuthProvider'
 import {cn} from '@/lib/utils'
 import { SocketProvider } from '@/Providers/SocketProvider';
 import { QueryProvider } from '@/Providers/QueryProvider';
@@ -30,26 +31,28 @@ export default function RootLayout({
           className={
              cn(font.className, "bg-white dark:bg-[#313338] text-orange-600")}
              >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            //forcedTheme="light"
-            enableSystem={false}
-            storageKey="smashandapass-theme"
-          >
-          <SocketProvider>
-              <ToasterProvider />
-              <RegisterModal />
-              <LoginModal />
-              <ModalProvider />
-            
-            
-            <QueryProvider>
-              {children}
-            </QueryProvider>
-
-          </SocketProvider>
-        </ThemeProvider>
+         <AuthProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              //forcedTheme="light"
+              enableSystem={false}
+              storageKey="smashandapass-theme"
+            >
+            <SocketProvider>
+                <ToasterProvider />
+                <RegisterModal />
+                <LoginModal />
+                <ModalProvider />
+              
+              
+              <QueryProvider>
+                {children}
+              </QueryProvider>
+  
+            </SocketProvider>
+            </ThemeProvider>
+        </AuthProvider>
         </body>
     </html>
   )

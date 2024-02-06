@@ -48,6 +48,10 @@ const ChatMessages = ({
 
     //const profileId = profileId;
 
+    console.log('Line 51 apiUrl ChatMessages: ', apiUrl)
+
+    console.log('Line 52 socketUrl ChatMessages: ', socketUrl)
+
     //  This needs to match 
     //  url:   /app/api/messages/route.ts
     //  local: \client\src\app\api\messages\route.ts

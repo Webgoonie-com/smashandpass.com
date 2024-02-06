@@ -90,7 +90,9 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                       chatId={channel.Id}
                       profileId={profile.Id}
                       type="channel"
-                      apiUrl="/api/messages"
+                      //apiUrl="/api/messages"
+                      //socketUrl="/api/messages"
+                      apiUrl="/api/socket/messages"
                       socketUrl="/api/socket/messages"
                       socketQuery={{
                         channelId: channel.Id.toString(),
