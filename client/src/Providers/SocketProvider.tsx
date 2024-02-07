@@ -38,6 +38,8 @@ export const SocketProvider = ({
       path: "/api/socket/io",
       addTrailingSlash: false,
     });
+    
+    console.log('socketInstance', socketInstance)
 
     socketInstance.on("connect", () => 
     {

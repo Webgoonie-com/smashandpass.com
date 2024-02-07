@@ -56,8 +56,8 @@ const ChatInput = ({
         //   channelId: "exampleChannelId",
         // };
         
-        //console.log('Lione 54 apiUrl', apiUrl)
-        //console.log('Line 55 query', query)
+        console.log('Lione 59 apiUrl', apiUrl)
+        console.log('Line 60 query', query)
         
 
       try {

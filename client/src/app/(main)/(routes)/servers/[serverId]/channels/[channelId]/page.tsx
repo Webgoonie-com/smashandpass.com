@@ -65,6 +65,9 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
       return null; 
     }
 
+    console.log("channelId Page: ", channel.Id)
+
+    console.log("ChannelIdPage: serverId:", channel.serverId)
 
   return (
     <div className='mt-[74px] flex md:w-full h-full z-30 flex-col top-0 absolute inset-y-0'>
@@ -84,16 +87,16 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                     className="flex-1"
                   >
                     
-                    <ChatMessages
+                    {/* <ChatMessages
                       member={member}
                       name={channel.name}
                       chatId={channel.Id}
                       profileId={profile.Id}
                       type="channel"
-                      //apiUrl="/api/messages"
-                      //socketUrl="/api/messages"
-                      apiUrl="/api/socket/messages"
-                      socketUrl="/api/socket/messages"
+                      apiUrl="/api/messages"
+                      //socketUrl="/api/socket/messages"
+                      ///apiUrl="/api/socket/messages"
+                      socketUrl="/api/messages"
                       socketQuery={{
                         channelId: channel.Id.toString(),
                         serverId: channel.serverId.toString(),
@@ -101,7 +104,7 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                       paramKey="channelId"
                       paramValue={channel.Id.toString()}
 
-                    />
+                    /> */}
                     
                   </div>
                   
@@ -115,11 +118,12 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                 </ScrollArea>
 
                 <div className="bottom-0">
+                 
                   <ChatInput
                   name={channel.name}
                   type={"channel"}
-                  //apiUrl={"/api/socket/messages"}
-                  apiUrl={"/api/messages"}
+                  apiUrl={"/api/socket/messages"}
+                  //apiUrl={"/api/messages"}
                   query={{
                     channelId: channel.Id,
                     serverId: channel.serverId,

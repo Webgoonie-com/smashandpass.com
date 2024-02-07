@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth/next";
 import getCurrentUser from "@/actions/getCurrentUsers";
 import { NextResponse } from "next/server";
 import { NextApiRequest } from "next";
+import { signOut, useSession } from "next-auth/react"
 
 
 import { authOptions } from "@/lib/auth"
@@ -14,9 +15,13 @@ export async function getSession() {
 
 
 
-export const CurrentProfilePages = async (req: NextApiRequest) => {
+export const CurrentProfilePages = async (session: any) => {
+//export const CurrentProfilePages = async () => {
+    
+    
 
-    const session = await getSession()
+    //const session = await getSession()
+    console.log('CurrentProfilePages session.user', session.user)
     //console.log('CurrentProfilePages session', session)
     
     const currentUser = await getCurrentUser()
