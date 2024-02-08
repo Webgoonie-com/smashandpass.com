@@ -8,17 +8,28 @@ import GoogleProvider from "next-auth/providers/google"
 import {PrismaOrm} from "./prismaOrm"
 
 
-
+declare module 'next-auth' {
+    interface Session {
+        user: {
+            email?: string | null | undefined;
+            uuid?: string | null | undefined;
+            role?: string | string[] | undefined | any;
+        };
+        expires: string;
+    }
+}
 declare module 'next-auth' {
     interface User {
         id: number | undefined;
+        uuid: string;
+        role: string | string[] | undefined | any;
         email: string | string[] | undefined;
         password: string | undefined;
         hashedPassword: string | null | undefined;
     }
 }
 
-export const authOptions: AuthOptions = {
+export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(PrismaOrm),
     providers: [
         CredentialsProvider({
@@ -44,6 +55,10 @@ export const authOptions: AuthOptions = {
                     },
                     select: {
                         id: true,
+                        uuid: true,
+                        name: true,
+                        role: true,
+                        emailVerified: true,
                         email: true,
                         hashedPassword: true,
                      }
@@ -55,12 +70,14 @@ export const authOptions: AuthOptions = {
 
                 const user: User = {
                     id: dbUser.id,
+                    uuid: dbUser.uuid,
+                    role: dbUser.role,
                     email: dbUser.email,
                     password: 'stopPeeking', // You can provide a dummy value for the password if necessary
                     hashedPassword: dbUser.hashedPassword || undefined, // Ensure it's not null
                 };
 
-                return Promise.resolve(user);
+                return user;
             },
         }),
         GithubProvider({
@@ -77,7 +94,9 @@ export const authOptions: AuthOptions = {
         if(user) {
             return {
             ...token,
-             
+            id: user.id,
+            uuid: user.uuid,
+            role: user.role, 
             }
         }
 
@@ -85,10 +104,16 @@ export const authOptions: AuthOptions = {
         },
         session: async ({ session, token }) => {
         
+        // console.log('Line 97 sessoin', session)
+        // console.log('Line 98 token', token)
         
 
-        if(token && session.user) {
-            //const userSession = await getSession();
+        if (token && session) {
+            session.user = {
+                email: token.email as string | null | undefined,
+                uuid: token.uuid as string | null | undefined,
+                role: token.role as string | string[] | undefined | any,
+            };
         }
 
         return session;

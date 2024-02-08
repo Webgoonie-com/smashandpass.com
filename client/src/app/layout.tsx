@@ -10,6 +10,7 @@ import { ModalProvider } from '@/providers/ModalProvider';
 import {cn} from '@/lib/utils'
 import { SocketProvider } from '@/Providers/SocketProvider';
 import { QueryProvider } from '@/Providers/QueryProvider';
+import AuthProvider from '@/Providers/AuthProvider';
 
 export const metadata: Metadata = {
   title: "SmashAndPass.com Chat & Streaming Application",
@@ -30,26 +31,28 @@ export default function RootLayout({
           className={
              cn(font.className, "bg-white dark:bg-[#313338] text-orange-600")}
              >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            //forcedTheme="light"
-            enableSystem={false}
-            storageKey="smashandapass-theme"
-          >
-          <SocketProvider>
-              <ToasterProvider />
-              <RegisterModal />
-              <LoginModal />
-              <ModalProvider />
-            
-            
-            <QueryProvider>
-              {children}
-            </QueryProvider>
+          <AuthProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              //forcedTheme="light"
+              enableSystem={false}
+              storageKey="smashandapass-theme"
+            >
+            <SocketProvider>
+                <ToasterProvider />
+                <RegisterModal />
+                <LoginModal />
+                <ModalProvider />
+              
+              
+              <QueryProvider>
+                {children}
+              </QueryProvider>
 
-          </SocketProvider>
-        </ThemeProvider>
+            </SocketProvider>
+            </ThemeProvider>
+          </AuthProvider>
         </body>
     </html>
   )

@@ -6,7 +6,8 @@ import { Server as SocketIoServer } from "socket.io"
  export type SafeUser = Omit<
     User,
     "createdAt" | "updatedAt" | "emailVerified"
- > & {     
+ > & {
+      role: string;
       createdAt: string;
       updatedAt: string;
       password: string | null;
