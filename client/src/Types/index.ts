@@ -1,7 +1,7 @@
-import {User, Server, Member, Profile} from "@prisma/client"
-import {Server as NetServer, Socket} from "net"
+import { Server as NetServer, Socket} from "net"
 import { NextApiResponse } from "next";
 import { Server as SocketIoServer } from "socket.io"
+import { User, Server, Member, Profile} from "@prisma/client"
 
  export type SafeUser = Omit<
     User,

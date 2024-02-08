@@ -29,9 +29,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
       <body 
           className={
-             cn(font.className, "bg-white dark:bg-[#313338] text-orange-600")}
-             >
-         <AuthProvider>
+             cn(font.className, "bg-white dark:bg-[#313338] text-orange-600")
+            }>
+         
             <ThemeProvider
               attribute="class"
               defaultTheme="dark"
@@ -52,8 +52,8 @@ export default function RootLayout({
   
             </SocketProvider>
             </ThemeProvider>
-        </AuthProvider>
-        </body>
+       
+      </body>
     </html>
   )
 }
