@@ -29,6 +29,8 @@ export const useChatSocket = ({
 
     useEffect(() => {
       
+        console.log('Line 32 : Socket?', socket)
+
         // No socket no need to do anything just return
         if (!socket) {
             return;

@@ -95,6 +95,7 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                       socketQuery={{
                         channelId: channel.Id.toString(),
                         serverId: channel.serverId.toString(),
+                        profileId: profile.Id.toString(),
                       }}
                       paramKey="channelId"
                       paramValue={channel.Id.toString()}
@@ -116,11 +117,12 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                   <ChatInput
                   name={channel.name}
                   type={"channel"}
-                  //apiUrl={"/api/socket/messages"}
-                  apiUrl={"/api/messages"}
+                  apiUrl={"/api/socket/messages"}
+                  //apiUrl={"/api/messages"}
                   query={{
                     channelId: channel.Id,
                     serverId: channel.serverId,
+                    profileId: profileId,
                   }}
                   />
                 </div>

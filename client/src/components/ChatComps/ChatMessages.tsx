@@ -67,12 +67,14 @@ const ChatMessages = ({
         paramValue,
     });
 
+  
+
     if (status === "pending") {
         return (
           <div className="flex flex-col flex-1 justify-center items-center">
             <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
             <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              Loading messages...
+              Loading channel messages...
             </p>
           </div>
         )
@@ -83,25 +85,34 @@ const ChatMessages = ({
           <div className="flex flex-col flex-1 justify-center items-center">
             <ServerCrash className="h-7 w-7 text-zinc-500 my-4" />
             <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              Something went wrong!
+              Sorry... Something went wrong!
             </p>
           </div>
         )
-      }
+    }
+
+    console.log('94 Messages data: ', data);
 
     return (
         <div className='flex-1 flex flex-col py-4 overflow-y-auto'>
              <div className="flex-1">
+
+
                 <ChatWelcome
                     type={type}
                     name={name}
                 />
+
+
                 <div className="flex flex-col-reverse mt-auto">
+
+                   
+
                     { data?.pages?.map((group, index) => (
                         <Fragment key={index}>
-                            {group.items.map((message: MessageWithMemberWithProfile) => (
+                            {group.items?.map((message: MessageWithMemberWithProfile) => (
                                 <ChatItem
-                                    key={message.Id}
+                                    key={message.uuid}
                                     Id={message.Id}
                                     profileId={profileId}
                                     currentMember={member}
@@ -110,7 +121,7 @@ const ChatMessages = ({
                                     fileUrl={message.fileUrl}
                                     deleted={message.deleted}
                                     timeStamp={format(new Date(message.createdAt), DATE_FORMAT)} 
-                                    isUpdated={message.updatedAt ! === message.createdAt} 
+                                    isUpdated={message.updatedAt !== message.createdAt} 
                                     socketUrl={socketUrl} 
                                     socketQuery={socketQuery}                                />
                             ))}

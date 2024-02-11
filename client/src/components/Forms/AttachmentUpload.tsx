@@ -123,7 +123,7 @@ export const AttachmentUpload = ({
                    
                    {selectedImage ? 
                     (<>
-                        <Image
+                        {/* <Image
                            
                             width="100"
                             height="100"
@@ -132,7 +132,9 @@ export const AttachmentUpload = ({
                             alt={"Uploaded Image" as string} 
                             className="rounded-full w-full h-auto"
                             priority
-                        />
+                        /> */}
+                        <FileIcon className="h-60 w-60 fill-indigo-200 stroke-indigo-400" />
+                        <span className="font-semibold text-green-900">Attached Successfully...</span>
                          <ActionTooltip
                             side="right"
                             align="center"

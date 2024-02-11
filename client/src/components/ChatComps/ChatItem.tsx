@@ -33,7 +33,6 @@ import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash, X } from "lucide-react
 interface ChatItemProps {
     Id: number;
     profileId: number;
-    key: number;
     content: string;
     member: Member & {
         profile: Profile;
@@ -50,7 +49,7 @@ interface ChatItemProps {
 const roleIconMap = {
     "GUEST": null,
     "MODERATOR": <ShieldCheck className="h-4 w-4 ml-2 text-indigo-500" />,
-    "ADMIN": <ShieldAlert className="h-4 w-4 ml-2 text-rose-500" />,
+    "ADMIN": <ShieldAlert className="h-4 w-4 ml-2 text-orange-500" />,
 }
   
 const formSchema = z.object({
@@ -61,7 +60,7 @@ const formSchema = z.object({
 export const ChatItem = ({
     Id,
     profileId,
-    key,
+    
     content,
     member,
     timeStamp,
@@ -94,7 +93,10 @@ export const ChatItem = ({
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         
         try {
-            console.log('values', values)
+            console.log('Chat Item values', values)
+
+            console.log('Chat Item url:', `${socketUrl}/${Id}`)
+            console.log('Chat Item query - socketQuery:', socketQuery)
 
             const url = qs.stringifyUrl({
                 url: `${socketUrl}/${Id}`,
@@ -145,9 +147,13 @@ export const ChatItem = ({
 
     const isAdmin = currentMember.role === MemberRole.ADMIN;
     const isModerator = currentMember.role === MemberRole.MODERATOR
+
     const isOwner = currentMember.Id === member.Id;
+
     const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner)
+
     const canEditMessage = !deleted && isOwner && !fileUrl;
+
 
     // Declare File Type Constant
     const fileType = fileUrl?.split(".").pop();
@@ -167,18 +173,16 @@ export const ChatItem = ({
     const isJpg = fileType === "jpg" || fileType === "jpeg" && fileUrl;
     const isGif = fileType === "gif" && fileUrl;
     const isWebp = fileType === "webp" && fileUrl;
-    
 
-    const isImage = !isPDF && !isEXE && !isSQL && !isPy && !isCs && !isTxt && fileUrl;
+    const isRealImage = isPng || isJpg || isGif || isWebp && fileUrl;
+
+    const isImage = !isPDF && !isEXE && !isSQL && !isPy && !isCs && !isTxt && isRealImage && fileUrl;
 
 
-    
-
-   
     
 
     return (
-        <div id={`${Id}`} key={key} className="relative group flex items-center hover:bg-black/5-p-4 transition w-full">
+        <div id={`${Id}`} className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
             <div className="group flex gap-x-2 items-start w-full">
                 <div className="cursor-pointer hover:drop-shadow-md transition">
                     <UserAvatar src={member.profile.imageUrl} />
@@ -202,7 +206,7 @@ export const ChatItem = ({
                     <div 
                         className=""
                     >
-                        <hr />
+                        
                         {isImage && (
                             <a 
                             href="#"
@@ -221,6 +225,7 @@ export const ChatItem = ({
                                 />
                             </a>
                         )}
+
                         {isPDF && (
                             <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
                             <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
@@ -234,6 +239,7 @@ export const ChatItem = ({
                             </a>
                           </div>
                         )}
+
                         {!fileUrl && !isEditing && (
                             <p className={cn(
                                 "text-sm text-zinc-600 dark:text-zinc-300",
@@ -247,7 +253,7 @@ export const ChatItem = ({
                                 )}
                               </p>
                         )}
-                        
+
 
                         {!fileUrl && isEditing &&(
                             <Form {...form}>
@@ -278,31 +284,44 @@ export const ChatItem = ({
                                     
                                 </form>
                                 <span className="text-[10px] mt-1 text-zinc-400">
-                                    Press escape to cancel, enter to save.
+                                    [Press] `escape` to cancel, or [Press] `enter` to save.
                                 </span>
                             </Form>
                         )}
+
                     </div>
                 </div>
+
+                {/* This Message Can Be Edited */}
                 {canDeleteMessage && (
-                    <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border-rounded-sm">
+                    <div className="
+                        hidden group-hover:flex items-center 
+                        gap-x-2 absolute p-1 -top-2 right-5
+                        bg-white dark:bg-zinc-800 
+                        border-rounded-sm
+                        ">
+
                         {canEditMessage && (
                             <ActionTooltip 
                             label="Edit"
                             >
                                 <Edit
                                     onClick={() => setIsEditing(true)}
-                                    className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+                                    className="
+                                        cursor-pointer 
+                                        ml-auto w-4 h-4 
+                                        text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 
+                                        transition"
                                 />
                             </ActionTooltip>
                         )}
                         
                         <ActionTooltip label="Delete">
                             <Trash
-                            onClick={() => onOpen("deleteMessage", {
+                                onClick={() => onOpen("deleteMessage", {
                                 apiUrl: `${socketUrl}/${Id}`,
                                 query: socketQuery,
-                            })}
+                                })}
                                 className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                             />
                         </ActionTooltip>
