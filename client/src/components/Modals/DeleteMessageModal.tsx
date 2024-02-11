@@ -44,13 +44,17 @@ export const DeleteMessageModal = () => {
               url: apiUrl || "",
               query,
             })
-      
-            //await axios.delete(url);
+
+            // pass object data to send with
+            const dataToSend = {
+                data: {
+                    content: "delete",
+                },
+                profileId: query,
+            };
 
             const response = await axios.delete(url, {
-                url: apiUrl || "",
-                data: query,
-                //profileId: profileId as number,
+                data: dataToSend,
              });
 
              console.log('Line 56 API Response:', response.data);

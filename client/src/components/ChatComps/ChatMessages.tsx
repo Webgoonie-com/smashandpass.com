@@ -7,6 +7,8 @@ import { ChatWelcome } from '@/components/ChatComps/ChatWelcome'
 import { useChatQuery } from '@/Hooks/useChatQuery'
 import { Loader2, ServerCrash } from "lucide-react";
 import { ChatItem } from './ChatItem';
+import { useChatSocket } from '@/Hooks/useChatSocket';
+import { AiOutlineConsoleSql } from 'react-icons/ai';
 
 const DATE_FORMAT = 'd MMM yyy, HH:mm:ss a';
 const DATE_FORMAT2 = 'yyyy-MM-dd'
@@ -49,7 +51,9 @@ const ChatMessages = ({
 
     const queryKey = `chat:${chatId}`;
     const addKey = `chat:${chatId}:messages`;
-    const updateKey = `chat:${chatId}:messages:update` 
+    const updateKey = `chat:${chatId}:messages:update`;
+
+    console.log('AllKeys', queryKey, addKey, updateKey)
 
     const chatRef = useRef<ElementRef<"div">>(null);
     const bottomRef = useRef<ElementRef<"div">>(null);
@@ -66,6 +70,10 @@ const ChatMessages = ({
         paramKey,
         paramValue,
     });
+
+    useChatSocket({
+        queryKey, addKey, updateKey
+    })
 
   
 

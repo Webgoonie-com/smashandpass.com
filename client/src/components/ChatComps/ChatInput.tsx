@@ -43,8 +43,8 @@ const ChatInput = ({
     const router = useRouter();
 
 
-    console.log('Lione 49 apiUrl', apiUrl)
-    console.log('Line 50 query', query)
+    // console.log('Lione 49 apiUrl', apiUrl)
+    // console.log(' query', query)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),

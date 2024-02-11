@@ -28,6 +28,7 @@ import { useModal } from "@/Hooks/useModalStore";
 
 
 import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash, X } from "lucide-react";
+import { createInitialRouterState } from "next/dist/client/components/router-reducer/create-initial-router-state";
 
 
 interface ChatItemProps {
@@ -120,6 +121,19 @@ export const ChatItem = ({
     }  
 
 
+    const onMemberClick = () => {
+        
+        console.log('Liine 126 onMemberClick params: ', params)
+        console.log('Liine 127 onMemberClick currentMember', currentMember)
+        
+        if(member.Id === currentMember.Id){
+            console.log('member Id and currentMember Id are not found!!!')
+            return;
+        }
+
+        router.push(`/servers/${params?.serverId}/conversations/${member.Id}`)
+
+    }
     // This useEffect is for canceling Edit Button
     useEffect(() => {
         const handleKeyDown = (event: any) => {
@@ -184,13 +198,15 @@ export const ChatItem = ({
     return (
         <div id={`${Id}`} className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
             <div className="group flex gap-x-2 items-start w-full">
-                <div className="cursor-pointer hover:drop-shadow-md transition">
+                <div
+                    onClick={onMemberClick} 
+                    className="cursor-pointer hover:drop-shadow-md transition">
                     <UserAvatar src={member.profile.imageUrl} />
                 </div>
                 <div className="w-full flex flex-col">
                     <div className="flex items-center gap-x-2">
                         <div className="flex items-center">
-                            <p className="font-semibold text-sm hover:underline cursor-pointer">
+                            <p onClick={onMemberClick} className="font-semibold text-sm hover:underline cursor-pointer">
                                 {member.profile.name}
                             </p>
                             <ActionTooltip label={member.role}>
