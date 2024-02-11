@@ -30,20 +30,18 @@ export const useChatSocket = ({
 
     useEffect(() => {
       
-        console.log('Line 32 useChatSocket.ts : Socket?', socket)
+        // console.log('Line 32 useChatSocket.ts : Socket?', socket)
 
         // No socket no need to do anything just return
         if (!socket) {
-            console.log("Sorry There's not Socket")
+            //console.log("Sorry There's not Socket")
             return;
-        }else{
-            console.log("Yes We Have A Socket")
         }
 
         // socketMethod to update the message in real time, delete or edit it.-mx-1
         socket.on(updateKey, (message: MessageWithMemberWithProfile) =>{
             
-            console.log('Line 46 Found updatekey on UseSeocket')
+            
 
             queryClient.setQueryData([queryKey], (oldData: any) => {
                 if(!oldData || !oldData.pages || oldData.pages.length === 0){
@@ -63,7 +61,7 @@ export const useChatSocket = ({
                     }
                 })
 
-                console.log('Line 66 useSocketTs. NewData: ', newData)
+             
 
                     return {
                         ...oldData,
@@ -76,7 +74,7 @@ export const useChatSocket = ({
             // Another Socket Watching For New fetchMessages
             socket.on(addKey, (message: MessageWithMemberWithProfile) => {
                 
-                console.log('Line 79 Found Addkey on UseSeocket')
+             
                 queryClient.setQueryData([queryKey], (oldData: any) => {
                     if(!oldData || !oldData.pages || oldData.pages.length === 0) {
                         return {

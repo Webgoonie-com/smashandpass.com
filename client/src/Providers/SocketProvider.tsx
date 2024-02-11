@@ -41,14 +41,14 @@ export const SocketProvider = ({
 
     socketInstance.on("connect", () => 
     {
-        console.log('socketInstance conntected');
+        //console.log('socketInstance conntected');
 
         setIsConnected(true);
     });
 
     socketInstance.on("disconnect", () => 
     {
-        console.log('socketInstance disconnected');
+        //console.log('socketInstance disconnected');
         
         setIsConnected(false);
     });

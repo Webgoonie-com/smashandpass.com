@@ -8,7 +8,8 @@ import { useChatQuery } from '@/Hooks/useChatQuery'
 import { Loader2, ServerCrash } from "lucide-react";
 import { ChatItem } from './ChatItem';
 import { useChatSocket } from '@/Hooks/useChatSocket';
-import { AiOutlineConsoleSql } from 'react-icons/ai';
+import { useChatScroll } from '@/Hooks/useChatScroll';
+
 
 const DATE_FORMAT = 'd MMM yyy, HH:mm:ss a';
 const DATE_FORMAT2 = 'yyyy-MM-dd'
@@ -53,7 +54,7 @@ const ChatMessages = ({
     const addKey = `chat:${chatId}:messages`;
     const updateKey = `chat:${chatId}:messages:update`;
 
-    console.log('AllKeys', queryKey, addKey, updateKey)
+    
 
     const chatRef = useRef<ElementRef<"div">>(null);
     const bottomRef = useRef<ElementRef<"div">>(null);
@@ -73,6 +74,14 @@ const ChatMessages = ({
 
     useChatSocket({
         queryKey, addKey, updateKey
+    })
+
+    useChatScroll({
+        chatRef,
+        bottomRef,
+        loadMore: fetchNextPage,
+        shouldLoadMore:!isFetchingNextPage && !!hasNextPage,
+        count: data?.pages?.[0]?.items?.length ?? 0,
     })
 
   
@@ -99,7 +108,7 @@ const ChatMessages = ({
         )
     }
 
-    console.log('94 Messages data: ', data);
+   
 
     return (
         <div ref={chatRef} className='flex-1 flex flex-col py-4 overflow-y-auto'>

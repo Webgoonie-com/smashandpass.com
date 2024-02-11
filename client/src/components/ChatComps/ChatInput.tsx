@@ -56,17 +56,6 @@ const ChatInput = ({
     const isLoading = form.formState.isSubmitting
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log('Just wanna log the values for now.', values)
-        
-        
-
-        // const query = {
-        //   serverId: "exampleServerId",
-        //   channelId: "exampleChannelId",
-        // };
-        
-        console.log('Lione 70 apiUrl', apiUrl)
-        console.log('Line 71 query', query)
         
 
       try {
@@ -83,7 +72,7 @@ const ChatInput = ({
           userUuid:  query.profileId,
       });
         
-        console.log('API Response:', response.data);
+        
 
         form.reset()
         router.refresh()
