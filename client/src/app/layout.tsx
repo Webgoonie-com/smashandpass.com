@@ -11,6 +11,7 @@ import AuthProvider from '@/providers/AuthProvider'
 import {cn} from '@/lib/utils'
 import { SocketProvider } from '@/Providers/SocketProvider';
 import { QueryProvider } from '@/Providers/QueryProvider';
+import AuthProvider from '@/Providers/AuthProvider';
 
 export const metadata: Metadata = {
   title: "SmashAndPass.com Chat & Streaming Application",
@@ -29,9 +30,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
       <body 
           className={
-             cn(font.className, "bg-white dark:bg-[#313338] text-orange-600")
-            }>
-         
+             cn(font.className, "bg-white dark:bg-[#313338] text-orange-600")}
+             >
+          <AuthProvider>
             <ThemeProvider
               attribute="class"
               defaultTheme="dark"
@@ -49,11 +50,11 @@ export default function RootLayout({
               <QueryProvider>
                 {children}
               </QueryProvider>
-  
+
             </SocketProvider>
             </ThemeProvider>
-       
-      </body>
+          </AuthProvider>
+        </body>
     </html>
   )
 }

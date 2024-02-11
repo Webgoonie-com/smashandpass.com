@@ -57,7 +57,9 @@ const ChatMessages = ({
     //  local: \client\src\app\api\messages\route.ts
     const queryKey = `chat:${chatId}`;
     const addKey = `chat:${chatId}:messages`;
-    const updateKey = `chat:${chatId}:messages:update` 
+    const updateKey = `chat:${chatId}:messages:update`;
+
+    console.log('AllKeys', queryKey, addKey, updateKey)
 
     const chatRef = useRef<ElementRef<"div">>(null);
     const bottomRef = useRef<ElementRef<"div">>(null);
@@ -87,7 +89,7 @@ const ChatMessages = ({
           <div className="flex flex-col flex-1 justify-center items-center">
             <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
             <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              Loading messages...
+              Loading channel messages...
             </p>
           </div>
         )
@@ -98,24 +100,59 @@ const ChatMessages = ({
           <div className="flex flex-col flex-1 justify-center items-center">
             <ServerCrash className="h-7 w-7 text-zinc-500 my-4" />
             <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              Something went wrong!
+              Sorry... Something went wrong!
             </p>
           </div>
         )
-      }
+    }
+
+    console.log('94 Messages data: ', data);
 
     return (
-        <div className='flex-1 flex flex-col py-4 overflow-y-auto'>
-             <div className="flex-1">
-                <ChatWelcome
-                    type={type}
-                    name={name}
-                />
+        <div ref={chatRef} className='flex-1 flex flex-col py-4 overflow-y-auto'>
+             
+                {!hasNextPage && (
+                    <div
+                        className="flex-1" 
+                    />
+                )}
+
+                
+                {!hasNextPage && (
+                        <ChatWelcome
+                            type={type}
+                            name={name}
+                        /> 
+                    )
+                }
+                
+                {hasNextPage && (
+                    <div className='flex justify-center'>
+                        {isFetchingNextPage ? (
+                            <Loader2 className='h-6 w-6 text-zinc-500 animate-spin my-4' />
+                        ) : (
+                            <button
+                                onClick={() => fetchNextPage()}
+                                className='text-zinc-500 hover:text-zinc-600 dark:text-amber-200 
+                                text-xs my-4 dark:hover:text-zinc-300 transition'
+                            >
+                                Load Prevous Messages
+                            </button>
+                        )}    
+                    
+
+                    </div>
+                ) }
+
                 <div className="flex flex-col-reverse mt-auto">
+
+                   
+
                     { data?.pages?.map((group, index) => (
                         <Fragment key={index}>
-                            {group.items.map((message: MessageWithMemberWithProfile) => (
+                            {group.items?.map((message: MessageWithMemberWithProfile) => (
                                 <ChatItem
+                                    key={message.uuid}
                                     key={message.uuid}
                                     Id={message.Id}
                                     profileId={profileId}
@@ -125,14 +162,16 @@ const ChatMessages = ({
                                     fileUrl={message.fileUrl}
                                     deleted={message.deleted}
                                     timeStamp={format(new Date(message.createdAt), DATE_FORMAT)} 
-                                    isUpdated={message.updatedAt ! === message.createdAt} 
+                                    isUpdated={message.updatedAt !== message.createdAt} 
                                     socketUrl={socketUrl} 
                                     socketQuery={socketQuery}                                />
                             ))}
                         </Fragment>
                     ))}
                 </div>
-             </div>
+
+             <div ref={bottomRef} />
+             
         </div>
     )
 }

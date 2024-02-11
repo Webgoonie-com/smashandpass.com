@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus, Smile } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react"
 
 import {
     Form,
@@ -29,6 +30,8 @@ const formSchema = z.object({
     content: z.string().min(1),
 });
 
+
+
 const ChatInput = ({
     apiUrl,
     query,
@@ -38,6 +41,10 @@ const ChatInput = ({
 
     const { onOpen } = useModal();
     const router = useRouter();
+
+
+    // console.log('Lione 49 apiUrl', apiUrl)
+    // console.log(' query', query)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -51,6 +58,8 @@ const ChatInput = ({
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log('Just wanna log the values for now.', values)
         
+        
+
         // const query = {
         //   serverId: "exampleServerId",
         //   channelId: "exampleChannelId",
@@ -63,14 +72,15 @@ const ChatInput = ({
       try {
         const url = qs.stringifyUrl({
           url: apiUrl,
-          query,
+          query: query,
         });
   
         //const response = await axios.post(url, values, { params: query })
         const response = await axios.post(url, {
           ...values,
           serverId: query.serverId,
-          channelId: query.channelId
+          channelId: query.channelId,
+          userUuid:  query.profileId,
       });
         
         //console.log('API Response:', response.data);

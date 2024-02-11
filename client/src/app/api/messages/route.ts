@@ -11,14 +11,19 @@ import { Message } from "@prisma/client";
 const MESSAGEES_BATCH = 10
 
 export async function GET(
-      req: Request, 
-      res: Response,
+      req: NextApiRequest, 
+      res: NextApiResponse,
 ) {
       //  console.log('SocketHandler Hit! req', req)
       //  console.log('SocketHandler Hit! res', res)  /// << yeilds nothing
 
 
 
+    const url = req.url;
+
+    if (!url) {
+      return res.status(500).json({ error: "Internal Error: Missing URL" });
+    }
    
 
     try {
@@ -26,11 +31,14 @@ export async function GET(
 
         const profile = await CurrentProfile()
 
-        //  console.log('Profile on Get', profile)
+          console.log('Line 34 Profile on Get', profile)
 
-        const { searchParams } = new URL(req.url);
+        const { searchParams } = new URL(url);
+
+        console.log('Line 38 searchParams: ', searchParams)
 
         const cursor = searchParams.get("cursor")
+        console.log('Line 41 cursor: ', cursor)
 
         const channelId = searchParams.get("channelId")
    
@@ -71,7 +79,7 @@ export async function GET(
           // No Cursor
           messages = await PrismaOrm.message.findMany({
             take: MESSAGEES_BATCH,
-            skip: 1,
+            //skip: 1,
             where: {
               channelId: parseInt(channelId),
             },
@@ -94,13 +102,19 @@ export async function GET(
           nextCursor = messages[MESSAGEES_BATCH - 1].Id
         }
 
-        return NextResponse.json({ items: messages, nextCursor });
+        return NextResponse.json(
+          { 
+            items: messages,
+            nextCursor: nextCursor,
+          }
+        );
         
 
     } catch (error) {
-        console.log("[MESSAGS_POST]", error)
+        console.log("[MESSAGS_GET]", error)
 
-        return NextResponse.json({ message: "Internal Error" });
+        //return NextResponse.json({ message: "Internal Error" });
+        return new NextResponse( "Internal Error", { status: 500} );
     }
 }
 
