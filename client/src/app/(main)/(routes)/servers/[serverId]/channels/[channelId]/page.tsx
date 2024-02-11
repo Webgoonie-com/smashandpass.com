@@ -79,7 +79,9 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                   serverId={channel.serverId}
                   type="channel"
                 />
+                
                 <ScrollArea className="h-7/8 w-[99%] rounded-md border p-4">
+                  
                   <div
                     className="flex-1"
                   >
@@ -104,13 +106,14 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                     
                   </div>
                   
-                  <div
+                  {/* <div
                     className="flex-1"
                   > 
                   
                     Channel Id Page
 
-                  </div>
+                  </div> */}
+               
                 </ScrollArea>
 
                 <div className="bottom-0">
