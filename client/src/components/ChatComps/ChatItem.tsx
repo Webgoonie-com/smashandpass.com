@@ -91,14 +91,7 @@ export const ChatItem = ({
 
     const isLoading = form.formState.isSubmitting;
 
-    const onMemberClick = () => {
-        if(member.Id ===  currentMember.Id){
-            return;
-        }
-
-        router.push(`/servers/${params?.serverId}/conversations/${member.Id}`);
-    }
-
+    
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         
         try {
@@ -207,7 +200,6 @@ export const ChatItem = ({
                 <div className="w-full flex flex-col">
                     <div className="flex items-center gap-x-2">
                         <div className="flex items-center">
-                            <p onClick={onMemberClick} className="font-semibold text-sm hover:underline cursor-pointer">
                             <p onClick={onMemberClick} className="font-semibold text-sm hover:underline cursor-pointer">
                                 {member.profile.name}
                             </p>

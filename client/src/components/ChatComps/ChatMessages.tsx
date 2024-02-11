@@ -153,7 +153,6 @@ const ChatMessages = ({
                             {group.items?.map((message: MessageWithMemberWithProfile) => (
                                 <ChatItem
                                     key={message.uuid}
-                                    key={message.uuid}
                                     Id={message.Id}
                                     profileId={profileId}
                                     currentMember={member}

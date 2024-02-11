@@ -7,7 +7,6 @@ import LoginModal from "@/components/Modals/LoginModal";
 import ToasterProvider from "@/Providers/ToastProvider";
 import { ThemeProvider } from "@/providers/Theme-Provider";
 import { ModalProvider } from '@/providers/ModalProvider';
-import AuthProvider from '@/providers/AuthProvider'
 import {cn} from '@/lib/utils'
 import { SocketProvider } from '@/Providers/SocketProvider';
 import { QueryProvider } from '@/Providers/QueryProvider';
