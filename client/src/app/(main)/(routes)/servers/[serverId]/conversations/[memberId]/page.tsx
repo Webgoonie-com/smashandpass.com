@@ -1,11 +1,13 @@
 import React from 'react'
 
-import { redirect } from "next/navigation";
 import { CurrentProfile } from '@/lib/currentProfile';
 import { getOrCreateConversation } from "@/lib/conversations";
-import {PrismaOrm} from '@/lib/prismaOrm';
+
 import { ChatHeader } from '@/components/ChatComps/ChatHeader';
 import ChatInput from '@/components/ChatComps/ChatInput';
+import ChatMessages from '@/components/ChatComps/ChatMessages';
+import { PrismaOrm } from '@/lib/prismaOrm';
+import { redirect } from 'next/navigation';
 
 interface MemberIdPageProps {
   params: {
@@ -84,6 +86,7 @@ const MemberIdPage = async ({
     // We use number one for ourselves if Id matches
     const otherMember = memberOne.profileId === profile.Id ? memberTwo : memberOne;
 
+    console.log('Messages Page.tsx LIne 89: profile.Id', otherMember.Id)
 
     return (
       <div className='mt-[74px] flex md:w-full h-full z-30 flex-col top-0 absolute inset-y-0'>
@@ -99,16 +102,40 @@ const MemberIdPage = async ({
                 />
     
                   <div className='flex-1 p-2'>
-                    
-                    Member Id Page
+                  
+                  <ChatMessages
+                      member={currentMember}
+                      name={otherMember.profile.name}
+                      chatId={conversation.Id}
+                      profileId={profile.Id}
+                      type="conversation"
+                      apiUrl="/api/direct-messages"
+                      paramKey="conversationId"
+                      paramValue={conversation.Id.toString()}
+                      socketUrl="/api/socket/direct-messages"
+                      socketQuery={{
+                        conversationId: conversation.Id.toString(),
+                        converationUuid: conversation.uuid.toString(),
+                        profileId: profile.Id.toString(),
+                      }}
+                     
+
+                    />
 
                   </div>
+                  
 
                   <div className="bottom-0">
-                    {"<"}ChatInput {"/ >"}
-                      {/* <ChatInput
                     
-                      /> */}
+                      <ChatInput
+                        name={otherMember.profile.name}
+                        type="conversation"
+                        apiUrl="/api/socket/direct-messages"
+                        query={{
+                          conversationId: conversation.Id,
+                          profileId: profile.Id.toString(),
+                        }}
+                      />
                   </div>
 
             </div>

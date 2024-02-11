@@ -5,13 +5,13 @@ import { PrismaOrm } from '@/lib/prismaOrm';
 
 
 
-console.log('Hitting pages/api/messages.ts')
+
 
 export default async function handler(
   req: NextApiRequest, 
   res: NextApiResponseServerIo,
 ) {
-    console.log('Messages.ts req.method: ', req.method)
+ 
     
   if (req.method !== 'POST') {
     return res.status(405).json({ error: "Method not allowed" });
@@ -19,20 +19,16 @@ export default async function handler(
 
   try {
 
-    console.log('Trying to get session')
+ 
 
     
     
     const {content, fileUrl} = req.body;
-    
-    console.log('req.query', req.query)
-    console.log('req.query', req.body)
-
+ 
     const {serverId, channelId, profileId } = req.query;
 
 
-    console.log('req.query', profileId)
-
+ 
     if (!profileId) {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -106,7 +102,7 @@ export default async function handler(
 
     const member =  server.members.find((member) => member.profileId === profile.id);
     
-    console.log('Member: ', member)
+    
 
     if(!member){
         return res.status(404).json({ meessage: "member not found"})
@@ -133,7 +129,7 @@ export default async function handler(
 
         // Note we could also check if channelId is a string or number at this point.
         const channelKey = `chat:${channelId}:messages`;
-        console.log('channelKey for socket: ', channelKey)
+    
 
         res?.socket?.server?.io?.emit(channelKey, message);
     

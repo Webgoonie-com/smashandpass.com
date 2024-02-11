@@ -1,11 +1,8 @@
-import { authOptions } from "@/lib/auth";
-import NextAuth from "next-auth/next";
 import { NextApiRequest, NextApiResponse } from 'next'
 import { NextApiResponseServerIo } from '@/Types'
 import { CurrentProfile } from '@/lib/currentProfile'
 import { NextResponse } from "next/server";
 import { PrismaOrm } from "@/lib/prismaOrm";
-import { Server } from "socket.io"
 import { Message } from "@prisma/client";
 
 const MESSAGEES_BATCH = 10
@@ -31,14 +28,14 @@ export async function GET(
 
         const profile = await CurrentProfile()
 
-          console.log('Line 34 Profile on Get', profile)
+        
 
         const { searchParams } = new URL(url);
 
-        console.log('Line 38 searchParams: ', searchParams)
+        
 
         const cursor = searchParams.get("cursor")
-        console.log('Line 41 cursor: ', cursor)
+        
 
         const channelId = searchParams.get("channelId")
    
