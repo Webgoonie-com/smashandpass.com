@@ -94,23 +94,20 @@ export const ChatItem = ({
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         
         try {
-            console.log('Chat Item values', values)
-
-            console.log('Chat Item url:', `${socketUrl}/${Id}`)
-            console.log('Chat Item query - socketQuery:', socketQuery)
+            
 
             const url = qs.stringifyUrl({
                 url: `${socketUrl}/${Id}`,
                 query: socketQuery,
               });
         
-              //const response = await axios.patch(url, values);
-              const response = await axios.patch(url, {
+              
+             await axios.patch(url, {
                 data: values,
                 profileId: profileId as number,
              });
 
-              console.log('API Response:', response.data);
+              
         
               form.reset();
               setIsEditing(false);
@@ -123,11 +120,9 @@ export const ChatItem = ({
 
     const onMemberClick = () => {
         
-        console.log('Liine 126 onMemberClick params: ', params)
-        console.log('Liine 127 onMemberClick currentMember', currentMember)
         
         if(member.Id === currentMember.Id){
-            console.log('member Id and currentMember Id are not found!!!')
+            
             return;
         }
 

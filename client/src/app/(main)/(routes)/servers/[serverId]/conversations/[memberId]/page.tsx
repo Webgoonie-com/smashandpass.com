@@ -86,7 +86,7 @@ const MemberIdPage = async ({
     // We use number one for ourselves if Id matches
     const otherMember = memberOne.profileId === profile.Id ? memberTwo : memberOne;
 
-    console.log('Messages Page.tsx LIne 89: profile.Id', otherMember.Id)
+    
 
     return (
       <div className='mt-[74px] flex md:w-full h-full z-30 flex-col top-0 absolute inset-y-0'>
