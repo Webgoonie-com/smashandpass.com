@@ -4,6 +4,7 @@ import PlayHeader from './PlayHeader'
 import { SiTinder } from 'react-icons/si'
 import { PlayCardFooter } from './PlayCardFooter'
 import PlayCardHeader from './PlayCardHeader'
+import PlayCardItem  from './PlayCardItem'
 
 const style = {
     wrapper: `h-[45rem] w-[27rem] flex flex-col rounded-lg overflow-hidden`,
@@ -26,9 +27,12 @@ export const PlayCard = () => {
           </div>
         </div>
         <div className={style.swipesContainer}>
-          {/* {cardsData.map((card, index) => (
-            <TinderCardItem card={card} key={index} />
-          ))} */}
+            
+            
+            <PlayCardItem />
+
+         
+
         </div>
       </div>
       <PlayCardFooter />
