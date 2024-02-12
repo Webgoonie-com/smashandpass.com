@@ -66,6 +66,11 @@ const nextConfig = {
             hostname: "avatars.githubusercontent.com",
             pathname: '**',
           },
+          {
+            protocol: "https",
+            hostname: "th.bing.com",
+            pathname: '**',
+          },
         ],
       },
 };

@@ -23,8 +23,10 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/actions/*": ["./src/Actions/*"],
+      "@/context/*": ["./src/Context/*"],
       "@/hooks/*": ["./src/Hooks/*"],
       "@/lib/*": ["./src/lib/*"],
+      "@/public/*": ["./public/*"],
       "@/providers/*": ["./src/Providers/*"],
       "@/types/*": ["./src/types/*"],
     }
