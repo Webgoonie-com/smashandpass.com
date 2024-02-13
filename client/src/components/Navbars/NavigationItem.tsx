@@ -19,10 +19,10 @@ export const NavigationItem  = ({
     imageUrl,
     name
 }: NavigationItemProps) => {
-    const params = useParams()
-    const router = useRouter()
 
-    const str ="public"
+    const params = useParams()
+    
+    const router = useRouter()
     
     const envImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || ""; 
 
