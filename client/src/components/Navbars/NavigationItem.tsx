@@ -24,7 +24,7 @@ export const NavigationItem  = ({
 
     const str ="public"
     
-    const envImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL; 
+    const envImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || ""; 
 
     const modifiedImageUrl = imageUrl?.replace('/public', '');
     
