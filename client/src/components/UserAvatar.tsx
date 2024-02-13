@@ -12,11 +12,7 @@ const UserAvatar = ({src, className}:UserAvatarProps) => {
     
     // Default value if the variable is not defined
 
-    const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "/images/"; 
-
-    console.log("process.env.NEXT_PUBLIC_IMAGE_URL", process.env.NEXT_PUBLIC_IMAGE_URL);
-    console.log("imageUrl", imageUrl);
-    
+    const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "/images/";
 
     return (
         <Avatar className={cn("h-7 w-7 md:h-10 md:w-10", className)}>
