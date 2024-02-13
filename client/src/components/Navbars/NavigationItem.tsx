@@ -26,14 +26,11 @@ export const NavigationItem  = ({
     
     const envImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL; 
 
-    const modifiedImageUrl = imageUrl.replace('/public', '');
+    const modifiedImageUrl = imageUrl?.replace('/public', '');
     
     const modifiedImageUrl2 = envImageUrl?.replace('/images', '');
 
     const ImageURL = modifiedImageUrl2+modifiedImageUrl;
-
-    console.log('ImageURL: ', ImageURL)
-
 
     const onClick = () => {
 
