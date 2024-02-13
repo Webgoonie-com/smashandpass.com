@@ -14,6 +14,7 @@ const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
     const server = express();
+    server.use(cors());
 
     server.get('*', (req, res) =>   {
         return handle(req, res)

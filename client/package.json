@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev -p 7667",
-    "devv": "nodemon server.js",
-    "devvsrc": "nodemon src/index.js",
+    "devv": "nodemon server.mjs",
+    "devvsrc": "nodemon src/index.mjs",
     "turbo": "next dev -p 7667 --turbo",
     "build": "next build",
     "start": "next start",

@@ -8,8 +8,8 @@ import { Message } from "@prisma/client";
 const MESSAGEES_BATCH = 10
 
 export async function GET(
-      req: NextApiRequest, 
-      res: NextApiResponse,
+      req: Request, 
+      res: NextApiResponseServerIo,
 ) {
       //  console.log('SocketHandler Hit! req', req)
       //  console.log('SocketHandler Hit! res', res)  /// << yeilds nothing
