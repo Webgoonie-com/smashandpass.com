@@ -12,6 +12,11 @@ const handleLogOut = () => {
 }
 
 const LogOutButton = () => {
+
+  // Default value if the variable is not defined
+
+  const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "/images/"; 
+
   return (
     <div>
         
@@ -19,7 +24,7 @@ const LogOutButton = () => {
     className="pb-3 mt-auto flex flex-col items-center"
         onClick={handleLogOut}
     >
-        <Avatar src={'/images/userPlaceholder.jpg'} />
+        <Avatar src={`${imageUrl}userPlaceholder.jpg`} />
         <span className='font-semibold'>Log Out</span>
     </button>
     </div>

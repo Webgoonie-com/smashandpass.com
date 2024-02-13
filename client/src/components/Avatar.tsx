@@ -7,6 +7,11 @@ interface AvatarProps {
 }
 
 const Avatar: React.FC<AvatarProps> = ({ src }) => {
+
+  // Default value if the variable is not defined
+
+  const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "/images/"; 
+
   return ( 
     <Image 
       className="rounded-full"
@@ -14,7 +19,7 @@ const Avatar: React.FC<AvatarProps> = ({ src }) => {
       height={"30"}
       width={"30"}
       alt="Avatar" 
-      src={src || '/images/userPlaceholder.jpg'}
+      src={src || `${imageUrl}userPlaceholder.jpg`}
       priority
     />
    );

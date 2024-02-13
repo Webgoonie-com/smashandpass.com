@@ -24,13 +24,15 @@ export async function POST(request: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "/images/"; 
+
     const createPhoto = await PrismaOrm.userPhoto.create({
       data: {
         serverCaption: 'Single Image',
         imageSize: buffer.length,
         type: file.type,
         local: path,
-        url: `/images/uploaded/${file.name}`,
+        url: `${imageUrl}uploaded/${file.name}`,
         filename: file.name,
         message: "Buffer was successfully uploaded",
         //userId: profile.Id,
@@ -47,7 +49,7 @@ export async function POST(request: NextRequest) {
         size: buffer.length,
         type: file.type,
         local: path,
-        url: `/images/uploaded/${file.name}`,
+        url: `${imageUrl}uploaded/${file.name}`,
         filename: file.name,
         message: "Buffer was successfully uploaded",
       }, createPhoto);

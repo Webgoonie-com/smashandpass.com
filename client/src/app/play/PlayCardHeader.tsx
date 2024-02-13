@@ -16,9 +16,13 @@ const style = {
 
 const PlayCardHeader = async () => {
 
+ // Default value if the variable is not defined
+
+const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "/images/"; 
+
 const currentUser = await getCurrentUser()
 
-const profilePic = "/images/userPlaceholder.jpg"
+const profilePic = `${imageUrl}userPlaceholder.jpg`
 
   return (
     <div className={style.wrapper}>
