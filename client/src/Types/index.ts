@@ -11,7 +11,7 @@ import { Server as SocketIoServer } from "socket.io"
       createdAt: string;
       updatedAt: string;
       password: string | null;
-      emailVerified: string | null;
+      emailVerified?: string | Date | null | undefined;
       hashedPassword: string | null | undefined;
  }
 
