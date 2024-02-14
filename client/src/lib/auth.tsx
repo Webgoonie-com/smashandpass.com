@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/react';
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
+import bcrypt from "bcrypt"
 
 import {PrismaOrm} from "./prismaOrm"
 
@@ -67,6 +68,23 @@ export const authOptions: NextAuthOptions = {
                 if (!dbUser) {
                     throw new Error('Sorry there was an error');
                 }
+
+                if (!dbUser ||  !dbUser?.hashedPassword) {
+                    throw new Error('Invalid Credentials');
+                }
+
+                // Is the password incrypted?
+
+                const isCorrectPassword = await bcrypt.compare(
+                    credentials?.password, 
+                    dbUser.hashedPassword
+                );
+
+                // Is the password incrypted?
+                if (!isCorrectPassword) {
+                    throw new Error('Invalid Credentials');
+                }
+                
 
                 const user: User = {
                     id: dbUser.id,
