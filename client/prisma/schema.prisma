@@ -120,12 +120,25 @@ model Listing {
   category                String    
   locationValue           String    
   price                   Int   
-  createdAt           DateTime                @default(now())
-  updatedAt           DateTime                @default(now()) @updatedAt
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @default(now()) @updatedAt
 
   userResrvation          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations            Reservation[]   
   userId                  Int                 @unique
+}
+model Like {   
+  Id                      Int                 @id @default(autoincrement()) @map("id")
+  uuid                    String              @default(uuid())
+  likeWhoUserIdLiked      Int?
+  likeUserId              Int?
+  likePhotoId             Int?
+  likePicThreadId         Int?
+  likeThreadId            Int?
+  likeListingId           Int?
+  price                   Int?  
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @default(now()) @updatedAt
 }
 
 model Member {
@@ -247,18 +260,120 @@ model User {
   hashedPassword      String? 
   firstName           String? 
   lastName            String? 
-  role                String? 
+  role                String?
+  nickname            String? 
+  show_fullname       Int?                    @default(0)
+  zipcode             String? 
+  profile_blob        String? 
+  profile_type        String? 
+  profile_blob_time   String? 
+  show_mylocation     Int?                    @default(0)
+  country             String? 
+  bdaymonth           String? 
+  bdayday             String? 
+  bdayyear            String? 
+  ethnicity           String? 
+  religion            String? 
+  showreligion        Int?                    @default(0)
+  sex                 String? 
+  orientation         String? 
+  relstatus           String? 
+  show_relstatus      Int?                    @default(0)
+  show_orientation    Int?                    @default(0)
+  pointsvalue         Int?                    @default(0)
+  last_loggedin       String? 
+  aboutme             String? 
   updatedAt           DateTime                @default(now()) @updatedAt
   createdAt           DateTime                @default(now())
   favoriteIds         Favorite[]    
   posts               Post[]  
   profile             Profile?
+  UserFriends         UserFriend[]
+  UserConnections     UserConnection[]
   UserPhotos          UserPhoto[]
+  UserLedger          UserLedger[]
+  UserLedgerSysCredits          UserLedgerSysCredit[]
+  UserThreads         UserThread[]
+  UserPhotoThreads      UserPhotoThread[]
   account             Account[]
   listing             Listing[]
   reservation         Reservation[]
   ActivateToken       ActivateToken[]
 } 
+
+model UserConnection {
+  Id Int @id @default(autoincrement()) @map("id")
+  uuid String @default(uuid())
+  user_idone Int                    
+  user_idone_time DateTime
+  smashandpass_user_idtwo Int
+  smashandpass_user_idtwo_time DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  @@index([userId])
+}
+
+model UserFriend {
+  Id Int @id @default(autoincrement()) @map("id")
+  uuid String @default(uuid())
+  friendUserId Int                    
+  friendOkUserId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  @@index([userId])
+}
+
+model UserLedger {
+  Id Int @id @default(autoincrement()) @map("id")
+  uuid String @default(uuid())
+  userledger_log_descrp Int                    
+  userledger_log_ownerid Int
+  userledger_log_buyerid Int
+  userledger_log_typtransc Int
+  user_ledger_price Int
+  userledger_log_amount Int
+  userledger_log_batched_time DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  userLedgerSysCredit UserLedgerSysCredit @relation(fields: [userLedgerSysCreditId], references: [Id], onDelete: Cascade)
+  userLedgerSysCreditId  Int
+
+  @@index([userId])
+  @@index([userLedgerSysCreditId])
+}
+
+model UserLedgerSysCredit {
+  Id Int @id @default(autoincrement()) @map("id")
+  uuid String @default(uuid())
+  userledger_log_descrp Int                    
+  userledger_log_ownerid Int
+  userledger_log_buyerid Int
+  userledger_log_typtransc Int
+  user_ledger_price Int
+  userledger_log_amount Int
+  userledger_log_batched_time DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  
+  userLedger UserLedger []
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  
+  @@index([userId])
+}
 
 model UserPhoto {
   Id Int @id @default(autoincrement()) @map("id")
@@ -274,10 +389,49 @@ model UserPhoto {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
   
+  UserPhotoThreads   UserPhotoThread[]
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 
   @@index([userId])
+}
+
+model UserThread {
+  Id Int                  @id @default(autoincrement()) @map("id")
+  uuid String             @default(uuid())
+  status Int              @default(0)
+  belongsTouser_id Int
+  html String
+  deletedAt DateTime 
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @default(now()) @updatedAt
+  
+  user User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  @@index([userId])
+}
+
+model UserPhotoThread {
+  Id Int @id @default(autoincrement()) @map("id")
+  uuid String @default(uuid())
+  touser_id String?
+  fromuserid Int?
+  fromuser_timzone String
+  
+  deletedAt DateTime 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  
+  UserPhoto UserPhoto @relation(fields: [UserPhotoId], references: [Id], onDelete: Cascade)
+  UserPhotoId Int
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  @@index([userId])
+  @@index([UserPhotoId])
 }
 
 enum MemberRole {

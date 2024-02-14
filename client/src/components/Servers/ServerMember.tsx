@@ -59,7 +59,7 @@ export const ServerMember = ({
         src={imageUrl+''+member?.profile?.imageUrl}
         className="h-8 w-8 md:h-8 md:w-8"
       />
-      {imageUrl}{member?.profile?.imageUrl}
+
       <p
         className={cn(
           "font-semibold text-sm text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300 transition",
