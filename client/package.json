@@ -8,6 +8,8 @@
     "devv": "nodemon server.mjs",
     "devvsrc": "nodemon src/index.mjs",
     "turbo": "next dev -p 7667 --turbo",
+    "seed": "ts-node prisma/seed.js",
+    "start2": "ts-node -r tsconfig-paths/register prisma/seed",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -60,6 +62,7 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@prisma/client": "^5.9.1",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.0",
@@ -68,7 +71,6 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/uuid": "^9.0.7",
-    "@prisma/client": "^5.9.1",
     "autoprefixer": "^10.0.1",
     "dotenv": "^16.3.2",
     "eslint": "^8",

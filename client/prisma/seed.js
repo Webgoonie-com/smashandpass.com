@@ -1,4 +1,4 @@
-import { users } from './users'
+import { users } from './users.js'
 import {PrismaClient } from '@prisma/client'
 
 
@@ -19,7 +19,7 @@ async function main() {
 
 main().catch(e =>{
     console.log(e)
-    process.exit(1)
+    throw new Error('Failed to seed data.');
 }).finally(() => {
     prisma.$disconnect()
 })

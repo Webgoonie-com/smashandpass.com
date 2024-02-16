@@ -12,7 +12,7 @@ datasource db {
 }
 
 model ActivateToken {
-  Id                  Int                     @id @default(autoincrement()) @map("id")
+  Id                  Int                     @id @default(autoincrement())
   uuid                String                  @default(uuid()) 
   token               String                  @unique
   activatedAt         DateTime?
@@ -25,7 +25,7 @@ model ActivateToken {
 }
 
 model Account { 
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement())
   uuid                    String              @default(uuid()) 
   type                    String
   provider                String
@@ -45,8 +45,20 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+model calendarTimezones {
+  CountryCode    String  @db.Char(2)
+  Coordinates    String  @db.Char(15)
+  TimeZone       String  @id @db.Char(32)
+  timezoneStatus Int?
+  Comments       String  @db.VarChar(85)
+  UTC_offset     String  @map("UTC offset") @db.Char(8)
+  UTC_DST_offset String  @map("UTC DST offset") @db.Char(8)
+  Notes          String? @db.VarChar(79)
+
+}
+
 model Channel {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement())
   uuid                    String              @default(uuid())
   name                    String
   type                    ChannelType         @default(TEXT)
@@ -67,7 +79,7 @@ model Channel {
 }
 
 model Conversation {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement())
   uuid                    String              @default(uuid())
   memberOneId             Int
   memberOne               Member              @relation("MemberOne", fields: [memberOneId], references: [Id], onDelete: Cascade)
@@ -84,7 +96,7 @@ model Conversation {
 }
 
 model DirectMessage {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement())
   uuid                    String              @default(uuid())
   content                 String              @db.Text
   fileUrl                 String?             @db.Text
@@ -105,14 +117,14 @@ model DirectMessage {
 }
 
 model Favorite {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement())
   uuid                    String              @default(uuid())
   userfavorite            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                  Int                 @unique
 }
 
 model Listing {   
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement())
   uuid                    String              @default(uuid())
   title                   String    
   description             String    
@@ -120,25 +132,12 @@ model Listing {
   category                String    
   locationValue           String    
   price                   Int   
-  createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @default(now()) @updatedAt
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @default(now()) @updatedAt
 
   userResrvation          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations            Reservation[]   
   userId                  Int                 @unique
-}
-model Like {   
-  Id                      Int                 @id @default(autoincrement()) @map("id")
-  uuid                    String              @default(uuid())
-  likeWhoUserIdLiked      Int?
-  likeUserId              Int?
-  likePhotoId             Int?
-  likePicThreadId         Int?
-  likeThreadId            Int?
-  likeListingId           Int?
-  price                   Int?  
-  createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @default(now()) @updatedAt
 }
 
 model Member {
@@ -166,7 +165,7 @@ model Member {
 }
 
 model Message {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement())
   uuid                    String              @default(uuid())
   content                 String              @db.Text
 
@@ -187,8 +186,15 @@ model Message {
   @@index([memberId])
 }
 
+model MobileCarriers {
+  carrier_id      Int    @id @default(autoincrement())
+  carrier_label   String @db.VarChar(50)
+  carrier_url     String @db.VarChar(30)
+  carrier_example String @db.VarChar(150)
+}
+
 model Post {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement())
   uuid                    String              @default(uuid())
   createdAt               DateTime            @default(now())
   updatedAt               DateTime            @updatedAt
@@ -201,7 +207,7 @@ model Post {
 }
 
 model Profile {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement())
   uuid                    String              @default(uuid())
   name                    String      
   bio                     String?     
@@ -218,7 +224,7 @@ model Profile {
 }
 
 model Reservation {       
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement())
   uuid                    String              @default(uuid())
   startDate               DateTime    
   endDate                 DateTime    
@@ -232,7 +238,7 @@ model Reservation {
 }
 
 model Server {
-  Id                      Int                 @id @default(autoincrement()) @map("id")
+  Id                      Int                 @id @default(autoincrement())
   uuid                    String              @unique @default(uuid())
   name                    String
   imageUrl                String              @db.Text
@@ -260,123 +266,43 @@ model User {
   hashedPassword      String? 
   firstName           String? 
   lastName            String? 
-  role                String?
   nickname            String? 
-  show_fullname       Int?                    @default(0)
+  role                String? 
+  show_fullname       Int?
   zipcode             String? 
   profile_blob        String? 
   profile_type        String? 
   profile_blob_time   String? 
-  show_mylocation     Int?                    @default(0)
+  show_mylocation     Int?
   country             String? 
   bdaymonth           String? 
   bdayday             String? 
   bdayyear            String? 
   ethnicity           String? 
   religion            String? 
-  showreligion        Int?                    @default(0)
+  showreligion        Int?
   sex                 String? 
   orientation         String? 
   relstatus           String? 
-  show_relstatus      Int?                    @default(0)
-  show_orientation    Int?                    @default(0)
-  pointsvalue         Int?                    @default(0)
-  last_loggedin       String? 
-  aboutme             String? 
+  show_relstatus      Int?
+  show_orientation    Int?
+  pointsvalue         Int?
+  last_loggedin       DateTime?
+  aboutme             String?
   updatedAt           DateTime                @default(now()) @updatedAt
   createdAt           DateTime                @default(now())
   favoriteIds         Favorite[]    
   posts               Post[]  
   profile             Profile?
-  UserFriends         UserFriend[]
-  UserConnections     UserConnection[]
   UserPhotos          UserPhoto[]
-  UserLedger          UserLedger[]
-  UserLedgerSysCredits          UserLedgerSysCredit[]
-  UserThreads         UserThread[]
-  UserPhotoThreads      UserPhotoThread[]
   account             Account[]
   listing             Listing[]
   reservation         Reservation[]
   ActivateToken       ActivateToken[]
 } 
 
-model UserConnection {
-  Id Int @id @default(autoincrement()) @map("id")
-  uuid String @default(uuid())
-  user_idone Int                    
-  user_idone_time DateTime
-  smashandpass_user_idtwo Int
-  smashandpass_user_idtwo_time DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-
-  @@index([userId])
-}
-
-model UserFriend {
-  Id Int @id @default(autoincrement()) @map("id")
-  uuid String @default(uuid())
-  friendUserId Int                    
-  friendOkUserId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-
-  @@index([userId])
-}
-
-model UserLedger {
-  Id Int @id @default(autoincrement()) @map("id")
-  uuid String @default(uuid())
-  userledger_log_descrp Int                    
-  userledger_log_ownerid Int
-  userledger_log_buyerid Int
-  userledger_log_typtransc Int
-  user_ledger_price Int
-  userledger_log_amount Int
-  userledger_log_batched_time DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-
-  userLedgerSysCredit UserLedgerSysCredit @relation(fields: [userLedgerSysCreditId], references: [Id], onDelete: Cascade)
-  userLedgerSysCreditId  Int
-
-  @@index([userId])
-  @@index([userLedgerSysCreditId])
-}
-
-model UserLedgerSysCredit {
-  Id Int @id @default(autoincrement()) @map("id")
-  uuid String @default(uuid())
-  userledger_log_descrp Int                    
-  userledger_log_ownerid Int
-  userledger_log_buyerid Int
-  userledger_log_typtransc Int
-  user_ledger_price Int
-  userledger_log_amount Int
-  userledger_log_batched_time DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  
-  userLedger UserLedger []
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-  
-  @@index([userId])
-}
-
 model UserPhoto {
-  Id Int @id @default(autoincrement()) @map("id")
+  Id Int @id @default(autoincrement())
   uuid String @default(uuid())
   serverCaption String?
   userCaption String?
@@ -389,49 +315,10 @@ model UserPhoto {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
   
-  UserPhotoThreads   UserPhotoThread[]
-
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 
   @@index([userId])
-}
-
-model UserThread {
-  Id Int                  @id @default(autoincrement()) @map("id")
-  uuid String             @default(uuid())
-  status Int              @default(0)
-  belongsTouser_id Int
-  html String
-  deletedAt DateTime 
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @default(now()) @updatedAt
-  
-  user User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-
-  @@index([userId])
-}
-
-model UserPhotoThread {
-  Id Int @id @default(autoincrement()) @map("id")
-  uuid String @default(uuid())
-  touser_id String?
-  fromuserid Int?
-  fromuser_timzone String
-  
-  deletedAt DateTime 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  
-  UserPhoto UserPhoto @relation(fields: [UserPhotoId], references: [Id], onDelete: Cascade)
-  UserPhotoId Int
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
-
-  @@index([userId])
-  @@index([UserPhotoId])
 }
 
 enum MemberRole {
@@ -445,4 +332,3 @@ enum ChannelType {
   AUDIO
   VIDEO
 }
-

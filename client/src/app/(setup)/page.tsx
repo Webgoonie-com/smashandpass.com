@@ -12,6 +12,9 @@ const SetupPage = async () => {
 
     const profile = await IntialProfileSetup()
 
+    if(!profile){
+        return null;
+    }
     
 
     const server = await PrismaOrm.server.findFirst({

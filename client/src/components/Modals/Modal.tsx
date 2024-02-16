@@ -90,6 +90,7 @@ import Button from '../Buttons/Button';
                     <div className={`
                         tranlsate 
                         duration-300
+                        z-[300  ]
                         h-full
                         ${showModal ? "translate-y-0" : "translate-y-full"}
                         ${showModal ? "opacity-100" : "opacity-0"}
