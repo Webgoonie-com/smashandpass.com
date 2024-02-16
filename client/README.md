@@ -64,6 +64,15 @@ After chaning a model in the again, you must migrate reset, prisma migrate genea
 
 ```sh
 
+    npx prisma migrate dev
+
+    npx prisma migrate generate
+
+    npx primsa 
+
+```
+```sh
+
     npx prisma migrate reset
 
     npx prisma migrate generate
@@ -78,4 +87,13 @@ This is how you run prisma studio from client directory.
 
 ```sh
     npx prisma studio
+```
+
+
+## For Development There is seed data for users
+
+This file takes seed.js and runs users.js for seeder file.
+
+```sh
+    yarn seed
 ```
