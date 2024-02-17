@@ -4,6 +4,7 @@ import { join } from 'path';
 import {PrismaOrm} from "@/lib/prismaOrm";
 import { CurrentProfile } from '@/lib/currentProfile';
 
+console.log('Hit Upload single img')
 export async function POST(request: NextRequest) {
   const data = await request.formData();
   
@@ -15,12 +16,14 @@ export async function POST(request: NextRequest) {
 
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
+  console.log('Uploading file', process.cwd(), '/public/images/uploaded/', file.name)
   const path = join(process.cwd(), '/public/images/uploaded/', file.name);
 
   // Now Log To Database
   try {
     const profile = await CurrentProfile();
     if (!profile) {
+      console.log('No Profile So Failed.')
       return new NextResponse("Unauthorized", { status: 401 });
     }
 

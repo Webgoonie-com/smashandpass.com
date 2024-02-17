@@ -24,19 +24,15 @@ export const NavigationItem  = ({
     
     const router = useRouter()
     
-    const envImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || ""; 
+    const envImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "/images/"; 
 
-    const modifiedImageUrl = imageUrl?.replace('/public', '');
-    
-    const modifiedImageUrl2 = envImageUrl?.replace('/images', '');
-
-    const ImageURL = modifiedImageUrl2+modifiedImageUrl;
 
     const onClick = () => {
 
         router.push(`/servers/${uuid}`)
 
     }
+
 
    
 
@@ -63,7 +59,7 @@ export const NavigationItem  = ({
                         )}>
                         <Image
                             fill
-                            src={ImageURL}
+                            src={imageUrl}
                             alt="User Channel Image"
                             sizes="48px"
                             className="relative"

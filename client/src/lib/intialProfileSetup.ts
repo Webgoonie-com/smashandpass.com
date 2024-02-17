@@ -11,7 +11,7 @@ export const IntialProfileSetup = async () => {
     
     async function redirectToSign() {
         console.log('Redirecting to Sign In because session not found.')
-        redirect('/test')
+        redirect('/login')
     }
 
     const user = await getCurrentUser()
@@ -35,8 +35,11 @@ export const IntialProfileSetup = async () => {
     const newProfile = await PrismaOrm.profile.create({
         data: {
             userId: user.id,
-            name: `${user.name}`
+            name: `${user.name}`,
+            imageUrl: user.image,
         }
     })
+
+    return newProfile;
 }
 

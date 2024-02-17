@@ -12,7 +12,7 @@ import { redirect } from 'next/navigation';
 interface MemberIdPageProps {
   params: {
     memberId: string;
-    serverId: number;
+    serverId: string;
   },
   searchParams: {
     video?: boolean;
@@ -34,14 +34,14 @@ const MemberIdPage = async ({
 
     const server = await PrismaOrm.server.findFirst({
       where:{
-        uuid: params.serverId as any,
+        uuid: params.serverId,
       }
     })
   
      
       if (!server) {
         
-        console.log('Could not find server', params.serverId)
+        //console.log('Could not find server', params.serverId)
 
         redirect("/");
         return null; 
@@ -97,7 +97,7 @@ const MemberIdPage = async ({
                 <ChatHeader
                   imageUrl={otherMember.profile.imageUrl as any}
                   name={otherMember.profile.name}
-                  serverId={params.serverId}
+                  serverId={params.serverId as any}
                   type="conversation"
                 />
     

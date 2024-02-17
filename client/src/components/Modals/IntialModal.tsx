@@ -64,11 +64,14 @@ export const IntialModal = () => {
     const isLoading = form.formState.isSubmitting
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values)
+        
+        console.log('Intial Modal running', values);
 
         try {
 
-            await axios.post("/api/servers", values)
+            const response = await axios.post("/api/servers", values)
+
+            console.log('Line 47 response', response)
 
             form.reset()
             router.refresh()

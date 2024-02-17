@@ -76,6 +76,7 @@ model Channel {
 
   @@index([profileId])
   @@index([serverId])
+  @@unique([uuid])
 }
 
 model Conversation {

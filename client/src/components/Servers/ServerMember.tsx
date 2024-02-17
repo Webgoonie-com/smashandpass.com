@@ -41,10 +41,10 @@ export const ServerMember = ({
   
   const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "/images/"; 
   
-  console.log('Line 44 Server Member: ', imageUrl)
-  console.log("process.env.NEXT_PUBLIC_IMAGE_URL", process.env.NEXT_PUBLIC_IMAGE_URL);
-    console.log("imageUrl", imageUrl);
-    console.log("${imageUrl}`+member?.profile?.imageUrl", `${imageUrl}`+member?.profile?.imageUrl);
+  // console.log('Line 44 Server Member: ', imageUrl)
+  // console.log("process.env.NEXT_PUBLIC_IMAGE_URL", process.env.NEXT_PUBLIC_IMAGE_URL);
+  //   console.log("imageUrl", imageUrl);
+  //   console.log("${imageUrl}`+member?.profile?.imageUrl", `${imageUrl}`+member?.profile?.imageUrl);
 
   return (
     <button
@@ -56,7 +56,7 @@ export const ServerMember = ({
     >
       
       <UserAvatar 
-        src={imageUrl+''+member?.profile?.imageUrl}
+        src={imageUrl+member?.profile?.imageUrl}
         className="h-8 w-8 md:h-8 md:w-8"
       />
 

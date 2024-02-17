@@ -42,7 +42,7 @@ export default async function handler(
         }
     })
 
-    console.log("Line 49 = profile", profile, "profile.uuid: ", profile?.uuid);
+    //console.log("Line 49 = profile", profile, "profile.uuid: ", profile?.uuid);
 
     if(!profile){
         console.log("Line 45 = !profileDetected")

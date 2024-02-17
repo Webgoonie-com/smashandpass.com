@@ -24,23 +24,25 @@ export const ChatHeader = async ({
 
  
   // Determines what server id we using from
-  var server
+  // var server
   
-  if(isNaN(Number(serverId)) && serverId){
+  // if(isNaN(Number(serverId)) && serverId){
     
-     server = await PrismaOrm.server.findFirst({
-      where:{
-        uuid: serverId.toString(),
-      }
-    })
-  }else{
+  //    server = await PrismaOrm.server.findFirst({
+  //     where:{
+  //       uuid: serverId.toString(),
+  //     }
+  //   })
+  // }else{
     
-     server = await PrismaOrm.server.findFirst({
-      where:{
-        Id: serverId,
-      }
-    })
-  }
+    
+  // }
+
+  const server = await PrismaOrm.server.findFirst({
+    where:{
+      Id: serverId,
+    }
+  })
 
  
    

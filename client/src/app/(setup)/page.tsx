@@ -1,12 +1,12 @@
 
 
 import React from 'react'
-import {redirect} from 'next/navigation'
-import {PrismaOrm} from '@/lib/prismaOrm'
+import { redirect } from 'next/navigation'
+import { PrismaOrm } from '@/lib/prismaOrm'
 
 import { IntialProfileSetup } from '@/lib/intialProfileSetup'
 import { IntialModal } from '@/components/Modals/IntialModal'
-import { revalidatePath } from 'next/cache'
+
 
 const SetupPage = async () => {
 
@@ -29,10 +29,11 @@ const SetupPage = async () => {
 
 
     if(server){
-        //console.log(`'We have a server lets redirect' /servers/${server.uuid}`)
+        console.log(`'We have a server lets redirect to: ' /servers/${server.uuid}`)
         return redirect(`/servers/${server.uuid}`)
     }
 
+    // Create Server
     return <IntialModal  />
 
 }

@@ -21,8 +21,7 @@ export default async function TestLayout({
 
   const currentUser = await getCurrentUser()
 
-  //console.log('Layout on Test currentUser', currentUser)
-
+  console.log('currentUser', currentUser)
   return (
     
       <div 
