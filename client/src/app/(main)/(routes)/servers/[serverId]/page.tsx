@@ -32,7 +32,7 @@ const ServerIdPage = async ({params}: ServerIdProps) => {
     include: {
       channels: {
         where: {
-          name: "general"
+          name: "lobby"
         },
         orderBy: {
           createdAt: "asc"
@@ -45,7 +45,7 @@ const ServerIdPage = async ({params}: ServerIdProps) => {
 
   const initialChannel = server?.channels[0];
 
-  if (initialChannel?.name !== "general") {
+  if (initialChannel?.name !== "lobby") {
     console.log('Returning Null No Initial channel')
     return null;
   }

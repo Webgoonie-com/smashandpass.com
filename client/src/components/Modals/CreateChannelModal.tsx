@@ -44,7 +44,7 @@ import { ChannelType } from "@prisma/client";
 
 
 
-const forbiddenNames = ["general", "api", "server", "channel", "member", "smashandpass", "smashandpass.com"];
+const forbiddenNames = ["general", "lobby", "api", "server", "channel", "member", "smashandpass", "smashandpass.com"];
 
 const formSchema = z.object({
     name: z.string().min(1, {

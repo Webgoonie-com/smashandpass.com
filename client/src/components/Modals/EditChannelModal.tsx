@@ -44,7 +44,7 @@ import { ChannelType } from "@prisma/client";
 
 
 
-const forbiddenNames = ["general", "api", "server", "channel", "member", "smashandpass", "smashandpass.com"];
+const forbiddenNames = ["lobby", "api", "server", "channel", "member", "smashandpass", "smashandpass.com"];
 
 const formSchema = z.object({
     name: z.string().min(1, {
@@ -94,7 +94,7 @@ export const EditChannelModal = () => {
         try {
 
             const url = qs.stringifyUrl({
-                url: `/api/channels/${channel?.Id}`,
+                url: `/api/channels/${channel?.uuid}`,
                 query: {
                   serverId: server?.uuid
                 }

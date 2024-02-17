@@ -97,3 +97,20 @@ This file takes seed.js and runs users.js for seeder file.
 ```sh
     yarn seed
 ```
+
+
+## Kurento Development
+
+https://github.com/kurento
+
+
+Perferably to pull kurento a docker image and bridge the network on local and in production.
+
+## Kurento Docker Image
+
+https://hub.docker.com/r/kurento/kurento-media-server
+
+```sh
+        docker pull kurento/kurento-media-server
+```
+

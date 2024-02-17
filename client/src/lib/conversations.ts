@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import {PrismaOrm} from "./prismaOrm";
+
+import { PrismaOrm } from "./prismaOrm";
 
 
 export const getOrCreateConversation = async (memberOneId: number, memberTwoId: string) => {

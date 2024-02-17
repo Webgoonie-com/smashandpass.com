@@ -26,8 +26,8 @@ export async function POST(
       return new NextResponse("Server ID missing", { status: 400 });
     }
 
-    if (name === "general") {
-      return new NextResponse("Name cannot be 'general'", { status: 400 });
+    if (name === "lobby") {
+      return new NextResponse("Name cannot be 'lobby'", { status: 400 });
     }
 
     const server = await PrismaOrm.server.update({

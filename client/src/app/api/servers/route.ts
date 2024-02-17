@@ -5,7 +5,7 @@ import { MemberRole } from "@prisma/client";
 import { CurrentProfile } from "@/lib/currentProfile";
 import { PrismaOrm }  from "@/lib/prismaOrm";
 
-console.log('Hit Servers')
+
 
 export async function POST(req: Request) {
 
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
         inviteCode: uuidv4(),
         channels: {
           create: [
-            { name: "general", profileId: profile.Id }
+            { name: "lobby", profileId: profile.Id }
           ]
         },
         members: {

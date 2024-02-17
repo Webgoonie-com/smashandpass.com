@@ -45,7 +45,7 @@ export async function DELETE(
           delete: {
             Id: parseInt( params.channelId),
             name: {
-              not: "general",
+              not: "lobby",
             }
           }
         }
@@ -85,8 +85,8 @@ export async function PATCH(
       return new NextResponse("Channel ID missing", { status: 400 });
     }
 
-    if (name === "general") {
-      return new NextResponse("Name cannot be 'general'", { status: 400 });
+    if (name === "lobby") {
+      return new NextResponse("Name cannot be 'lobby'", { status: 400 });
     }
 
     const server = await PrismaOrm.server.update({
@@ -107,7 +107,7 @@ export async function PATCH(
             where: {
               Id: parseInt( params.channelId),
               NOT: {
-                name: "general",
+                name: "lobby",
               }
             },
             data: {

@@ -60,7 +60,7 @@ export const FileUpload = ({
         
             const data = new FormData()
             data.set('filename', file)
-            console.log('Line 63 filename', file)
+            // console.log('Line 63 filename', file)
 
             const res = await fetch('/api/uploadsingleimg', {
                 method: 'POST',
@@ -68,7 +68,7 @@ export const FileUpload = ({
             })
             
             const responseData = await res.json();
-            console.log('Line 70 on fleUpload.tsx responseData: ', responseData)
+            // console.log('Line 70 on fleUpload.tsx responseData: ', responseData)
             setImageData(responseData)
             
             onChange(responseData.url);
