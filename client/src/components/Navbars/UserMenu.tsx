@@ -10,6 +10,7 @@ import useLoginModal from '@/Hooks/useLoginModal'
 import { signOut } from 'next-auth/react'
 import { SafeUser } from '@/Types'
 import { ModeToggle } from '../modeToggle'
+import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
     currentUser?: SafeUser | null
@@ -22,9 +23,40 @@ const UserMenu: React.FC<UserMenuProps> = ({
     const loginModal = useLoginModal()
     const [isOpen, setIsOpen] = useState(false)
 
+     const router = useRouter();
+
+    const handleLogin = ()  => {
+        
+        setIsOpen(false)
+
+        loginModal.onOpen()
+
+        registerModal.onClose()
+    }
+
+    const handleSignUp = ()  => {
+        
+        setIsOpen(false)
+
+        loginModal.onClose()
+
+        registerModal.onOpen()
+    }
+
+    const handleSignOut = async () => {
+        try {
+          await signOut();
+          // Redirect to a specific page after successful sign-out
+         
+          router.push('/login'); // Replace with your desired redirection path
+        } catch (error) {
+          console.error("Sign-out error:", error);
+        }
+    };
+
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value)
-      }, []);
+    }, []);
 
     
     
@@ -95,7 +127,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                                 />
 
                                 <MenuItem 
-                                    onClick={() => signOut()}
+                                    onClick={handleSignOut}
                                     label={'Logout'}
                                 />
                                 
@@ -105,11 +137,11 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
                                 <>
                                 <MenuItem 
-                                    onClick={loginModal.onOpen}
+                                    onClick={handleLogin}
                                     label={'Login'}
                                 />
                                 <MenuItem 
-                                    onClick={registerModal.onOpen}
+                                    onClick={handleSignUp}
                                     label={'SignUp'}
                                 />
                                 

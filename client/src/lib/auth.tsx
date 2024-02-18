@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
                 email: { label: "Your Email", type: "email" },
                 password: { label: "Your Password", type: "password" },
             },
-            async authorize(credentials) {
+            async authorize(credentials, req) {
                 if (!credentials || !credentials?.email || !credentials?.password) {
                     throw new Error('Invalid credentials');
                 }
@@ -105,10 +105,25 @@ export const authOptions: NextAuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            // authorization: {
+            //     params: {
+            //         prompt: "consent",
+            //         access_type: "offline",
+            //         response_type: "code"
+            //     }
+            // }
         }),
     ],
     callbacks: {
-        jwt({ token, user }) {
+        async jwt({ token, user, account, profile, isNewUser }) {
+
+        //console.log('Line 113 auth.tsx = JWT Callback:', token, user);
+
+        if (account) {
+            token.accessToken = account.access_token
+            token.id = user.uuid
+        }
+
         if(user) {
             return {
             ...token,
@@ -120,7 +135,15 @@ export const authOptions: NextAuthOptions = {
 
         return token;
         },
-        session: async ({ session, token }) => {
+        async redirect({ url, baseUrl }) {
+             // Allows relative callback URLs
+            if (url.startsWith("/")) return `${baseUrl}${url}`
+            // Allows callback URLs on the same origin
+            else if (new URL(url).origin === baseUrl) return url
+            
+            return baseUrl
+        },
+        async session({ session, user, token }) {
         
         // console.log('Line 97 sessoin', session)
         // console.log('Line 98 token', token)
@@ -136,6 +159,18 @@ export const authOptions: NextAuthOptions = {
 
         return session;
         
+        }
+        ,
+        async signIn({ user, account, profile, email, credentials }) {
+            const isAllowedToSignIn = true
+            if (isAllowedToSignIn) {
+              return true
+            } else {
+              // Return false to display a default error message
+              return false
+              // Or you can return a URL to redirect to:
+              // return '/unauthorized'
+            }
         }
     },
     pages: {
@@ -156,8 +191,8 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
 };
 
-export const getServerSession = async () => {
-    return await getSession(); // Ensure that getSession is imported from 'next-auth/react'
+export const getServerSession = async (req: any) => {
+    return await getSession({ req }); // Ensure that getSession is imported from 'next-auth/react'
 };
 
 export default NextAuth(authOptions);

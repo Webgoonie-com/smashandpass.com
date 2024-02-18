@@ -71,7 +71,7 @@ export const IntialModal = () => {
 
             const response = await axios.post("/api/servers", values)
 
-            console.log('Line 47 response', response)
+            //console.log('Line 47 response', response)
 
             form.reset()
             router.refresh()

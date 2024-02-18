@@ -20,6 +20,7 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
       "@/actions/*": ["./src/Actions/*"],
@@ -28,9 +29,26 @@
       "@/lib/*": ["./src/lib/*"],
       "@/public/*": ["./public/*"],
       "@/providers/*": ["./src/Providers/*"],
-      "@/types/*": ["./src/types/*"],
+      "@/types/*": ["./src/Types/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "next-env.d.ts", 
+    "*.ts", 
+    "*.tsx", 
+    "*.cjs", 
+    "*.mjs", 
+    "**/*.cjs",
+    "**/*.mjs",
+    "**/*.ts", 
+    "**/*.tsx", 
+    "**/**/*.tsx", 
+    ".next/types/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules"
+  ],
 }
