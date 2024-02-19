@@ -5,11 +5,11 @@
 # Type="MYSQL"
 # HTTP="true"
 $hostname_webgoneGlobal = "localhost";
-$database_webgoneGlobal = "smashan_smashandpass";
+$database_webgoneGlobal = "webgoon_smashandpass";
 $username_webgoneGlobal = "smashan_webgoon";
-$password_webgoneGlobal = "caution357!!!";
+$password_webgoneGlobal = "5^M+cD7P)+#?";
 
-$webgoneGlobal_mysqli = mysqli_connect($hostname_webgoneGlobal, $username_webgoneGlobal, $password_webgoneGlobal) or trigger_error(mysqli_connect_errno(),E_USER_ERROR); 
+$webgoneGlobal_mysqli = mysqli_connect($hostname_webgoneGlobal, $username_webgoneGlobal, $password_webgoneGlobal, $database_webgoneGlobal) or trigger_error(mysqli_connect_errno(),E_USER_ERROR); 
 
 
 @$rsession = session_id();
