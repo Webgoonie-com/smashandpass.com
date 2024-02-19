@@ -10,11 +10,13 @@ export const config = {
   },
 };
 
-console.log('Hitting Io.ts')
+const socketUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
+
+console.log('Hitting Io.ts', socketUrl)
 
 const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
   if (!res.socket.server.io) {
-    const path = "/api/socket/io";
+    const path = `${socketUrl}/api/socket/io`;
     const httpServer: NetServer = res.socket.server as any;
     const io = new ServerIO(httpServer, {
       path: path,
