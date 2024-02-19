@@ -2,7 +2,11 @@
   "compilerOptions": {
     "types": [],
     "allowSyntheticDefaultImports": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -22,33 +26,50 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/actions/*": ["./src/Actions/*"],
-      "@/context/*": ["./src/Context/*"],
-      "@/hooks/*": ["./src/Hooks/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/public/*": ["./public/*"],
-      "@/providers/*": ["./src/Providers/*"],
-      "@/types/*": ["./src/Types/*"],
+      "@/*": [
+        "./src/*"
+      ],
+      "@/actions/*": [
+        "./src/Actions/*"
+      ],
+      "@/context/*": [
+        "./src/Context/*"
+      ],
+      "@/hooks/*": [
+        "./src/Hooks/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/public/*": [
+        "./public/*"
+      ],
+      "@/providers/*": [
+        "./src/Providers/*"
+      ],
+      "@/types/*": [
+        "./src/Types/*"
+      ]
     }
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "next-env.d.ts", 
-    "*.ts", 
-    "*.tsx", 
-    "*.cjs", 
-    "*.mjs", 
+    "next-env.d.ts",
+    "*.ts",
+    "*.tsx",
+    "*.cjs",
+    "*.mjs",
     "**/*.cjs",
     "**/*.mjs",
-    "**/*.ts", 
-    "**/*.tsx", 
-    "**/**/*.tsx", 
+    "**/*.ts",
+    "**/*.tsx",
+    "**/**/*.tsx",
     ".next/types/**/*.ts",
+    "_next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
-  ],
+  ]
 }

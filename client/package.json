@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "cleanClient": "rm -rf client/.next",
+    "cleanupClient": "rm -rf client/node_modules && rm -rf client/.next",
     "dev": "next dev -p 7667",
     "devv": "nodemon server.mjs",
     "devvsrc": "nodemon src/index.mjs",
@@ -11,6 +13,9 @@
     "seed": "ts-node prisma/seed.js",
     "start2": "ts-node -r tsconfig-paths/register prisma/seed",
     "build": "next build",
+    "build:development": "env-cmd -f .env.development next build",
+    "build:staging": "env-cmd -f .env.staging next build",
+    "build:production": "env-cmd -f .env.production next build",
     "start": "next start",
     "lint": "next lint"
   },
