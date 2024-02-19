@@ -24,7 +24,7 @@ export const NavigationItem  = ({
     
     const router = useRouter()
     
-    const envImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "/images/"; 
+    const envImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || ""; 
 
 
     const onClick = () => {
@@ -59,7 +59,7 @@ export const NavigationItem  = ({
                         )}>
                         <Image
                             fill
-                            src={imageUrl}
+                            src={`${envImageUrl}`+imageUrl}
                             alt="User Channel Image"
                             sizes="48px"
                             className="relative"
