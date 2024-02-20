@@ -10,7 +10,7 @@ export const config = {
   },
 };
 
-const socketUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
+const socketUrl = process.env.NEXTAUTH_SECUREURL || "";
 
 console.log('Hitting Io.ts', socketUrl)
 
