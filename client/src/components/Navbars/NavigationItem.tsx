@@ -35,7 +35,8 @@ export const NavigationItem  = ({
 
 
    
-
+    console.log('Line 38 : imageUrl', imageUrl)
+    
     return ( 
             <ActionTooltip 
                 side="right"
