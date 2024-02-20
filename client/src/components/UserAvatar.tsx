@@ -22,7 +22,7 @@ const UserAvatar = ({src, className}:UserAvatarProps) => {
         <Avatar className={cn("h-7 w-7 md:h-10 md:w-10", className)}>
                 <AvatarImage 
                 alt="Avatar" 
-                src={imageUrl + src || `/images/userPlaceholder.jpg`}
+                src={ src || `/images/userPlaceholder.jpg`}
                 />
                 
                 <AvatarFallback
