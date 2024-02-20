@@ -59,7 +59,7 @@ export const NavigationItem  = ({
                         )}>
                         <Image
                             fill
-                            src={`${envImageUrl}`+imageUrl}
+                            src={imageUrl}
                             alt="User Channel Image"
                             sizes="48px"
                             className="relative"
