@@ -23,8 +23,6 @@ export const NavigationItem  = ({
     const params = useParams()
     
     const router = useRouter()
-    
-    const envImageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || ""; 
 
 
     const onClick = () => {
@@ -35,8 +33,7 @@ export const NavigationItem  = ({
 
 
    
-    console.log('Line 38 : imageUrl', imageUrl)
-    
+
     return ( 
             <ActionTooltip 
                 side="right"
