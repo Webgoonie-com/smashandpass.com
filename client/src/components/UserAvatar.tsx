@@ -14,11 +14,12 @@ const UserAvatar = ({src, className}:UserAvatarProps) => {
 
     const imageUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "/images/";
 
+
     return (
         <Avatar className={cn("h-7 w-7 md:h-10 md:w-10", className)}>
                 <AvatarImage 
                 alt="Avatar" 
-                src={src || `${imageUrl}userPlaceholder.jpg`}
+                src={ src || `${imageUrl}userPlaceholder.jpg`}
                 />
                 
                 <AvatarFallback
