@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { PrismaOrm } from "@/lib/prismaOrm";
 import { DirectMessage } from "@prisma/client";
 
-const MESSAGEES_BATCH = 10
+const MESSAGEES_BATCH = 50
 
 export async function GET(
       req: Request, 
