@@ -10,13 +10,13 @@ interface CredentialsFormProps {
 }
 
 
-const CredentialsForm = (props: CredentialsFormProps) => {
+const CredentialsRegisterForm = (props: CredentialsFormProps) => {
 
     const router = useRouter();
     const [error, setError] = useState<string | null>(null)
 
-    const goToSignUp = () => {
-        router.push("/signup");
+    const goToLogin = () => {
+      router.push("/signin");
     }
     
     const handleSubmit = async function (e:any) {
@@ -41,7 +41,7 @@ const CredentialsForm = (props: CredentialsFormProps) => {
         
   return (
     <div>
-        <h2>Credentials Form</h2>
+        <h2>Registration Form</h2>
         <div className="form">
             <form
                 className="w-full mt-8 text-xl text-black font-semibold flex flex-col"
@@ -67,12 +67,19 @@ const CredentialsForm = (props: CredentialsFormProps) => {
                     required
                     className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md"
                 />
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Password"
+                    required
+                    className="w-full px-4 py-4 mb-4 border border-gray-300 rounded-md"
+                />
 
                 <button
                     type="submit"
                     className="w-full h-12 px-6 mt-4 text-lg text-white transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700"
                 >
-                    Log in
+                    Sign Up
                 </button>
 
 
@@ -104,16 +111,16 @@ const CredentialsForm = (props: CredentialsFormProps) => {
         >
           <p>Already have an account?
             <span 
-              onClick={ goToSignUp }
+              onClick={goToLogin}
               className="
                 text-neutral-800
                 cursor-pointer 
                 hover:underline
-              "> Log in</span>
+              "> Sign Up</span>
           </p>
         </div>
       </div>
     </div>
   )}
 
-export default CredentialsForm
+export default CredentialsRegisterForm
