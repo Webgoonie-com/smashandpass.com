@@ -108,9 +108,31 @@ Perferably to pull kurento a docker image and bridge the network on local and in
 
 ## Kurento Docker Image
 
-https://hub.docker.com/r/kurento/kurento-media-server
+Kurento Landing Page since Twillo Bought Them Out.
+    https://kurento.openvidu.io/documentation
+
+The Docker Image For Kurento
+    https://hub.docker.com/r/kurento/kurento-media-server
+
+Installation of Kurento And How to Install IT
+    https://doc-kurento.readthedocs.io/en/latest/user/installation.html
+
+
+Reference Points Of Tutorials With Kurento
+    https://doc-kurento.readthedocs.io/en/latest/user/tutorials.html
+
 
 ```sh
         docker pull kurento/kurento-media-server
 ```
 
+
+```sh
+    curl \
+        --include \
+        --header "Connection: Upgrade" \
+        --header "Upgrade: websocket" \
+        --header "Host: 127.0.0.1:8888" \
+        --header "Origin: 127.0.0.1" \
+        "http://127.0.0.1:8888/kurento"
+```
