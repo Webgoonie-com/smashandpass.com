@@ -11,7 +11,7 @@ export const IntialProfileSetup = async () => {
     
     async function redirectToSign() {
         console.log('Redirecting to Sign In because session not found.')
-        redirect('/login')
+        redirect('/signin')
     }
 
     const user = await getCurrentUser()

@@ -36,7 +36,7 @@ const ServerSidebar = async({serverId}: ServerSidebarProps) => {
     const profile = await CurrentProfile();
 
     if(!profile){
-        return redirect('/login')
+        return redirect('/signin')
     }
 
     const server = await PrismaOrm.server.findUnique({

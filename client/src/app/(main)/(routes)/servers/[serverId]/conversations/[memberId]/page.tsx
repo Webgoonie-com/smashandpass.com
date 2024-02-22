@@ -27,7 +27,7 @@ const MemberIdPage = async ({
     const profile = await CurrentProfile();
 
     if (!profile) {
-      return redirect("/login");
+      return redirect("/signin");
     }
 
     //console.log('Line 32 params.serverId', params.serverId)

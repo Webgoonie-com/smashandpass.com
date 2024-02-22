@@ -14,7 +14,7 @@ const ServerIdLayout = async ({
     const profile = await CurrentProfile();
 
     if(!profile){
-        redirect('/login')
+        redirect('/signin')
     }
 
     const server = await PrismaOrm.server.findUnique({

@@ -40,8 +40,12 @@ const CredentialsRegisterForm = (props: CredentialsFormProps) => {
     }
         
   return (
-    <div>
-        <h2>Registration Form</h2>
+    <div className=''>
+        
+        <h2 className="mb-8 text-2xl font-bold text-gray-800 dark:text-white">
+                        Sign Up
+        </h2>
+
         <div className="form">
             <form
                 className="w-full mt-8 text-xl text-black font-semibold flex flex-col"

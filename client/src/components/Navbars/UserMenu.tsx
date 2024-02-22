@@ -48,7 +48,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
           await signOut();
           // Redirect to a specific page after successful sign-out
          
-          router.push('/login'); // Replace with your desired redirection path
+          router.push('/signin'); // Replace with your desired redirection path
         } catch (error) {
           console.error("Sign-out error:", error);
         }

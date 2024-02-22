@@ -176,7 +176,7 @@ export const authOptions: NextAuthOptions = {
     pages: {
         signIn: '/',
         //signIn: 'api/auth/signin',
-        // signIn: '/auth/login',
+        // signIn: '/auth/signin',
         // signOut: '/auth/logout',
         // error: '/auth/error',
         // verifyRequest: '/auth/verify-request',
