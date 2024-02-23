@@ -7,5 +7,7 @@ module.exports = {
       presets: [require.resolve('next/babel')],
     },
   },
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint"],
 };
 
