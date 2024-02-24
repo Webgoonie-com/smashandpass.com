@@ -116,3 +116,24 @@ a {
   border-radius: 3px; */
 }
  
+#meetingRoom {
+  text-align: center;
+}
+
+.videoContainer {
+  float: left;
+}
+#roomSelection{
+  background-color: brown;
+}
+
+.roomSelection{
+  background-color: aquamarine;
+}
+
+
+#meetingRoom:after {
+  content: '';
+  display: block;
+  clear: both;
+}

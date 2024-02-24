@@ -1,20 +1,30 @@
 "use client"
 
 
-import React from 'react'
+import React, { useEffect } from 'react';
 import { signOut, useSession } from "next-auth/react"
 
 
 const Blank = () => {
+  
     const {data: session, status} = useSession();
 
     const dataSessions = session;
     
-    console.log('Session', session)
+    console.log(dataSessions, 'dataSessions')
+    useEffect(() => {
+      if (status === 'loading') {
+          console.log('Loading session data...');
+          console.log('Line 14 on Blank/page.tsx = Session', session)
+          console.log('Line 15 on Blank/page.tsx = status', status)
+      }else{
+        console.log('Loading session satus not loading = ...', status);
+      }
+  }, [session, status]);
 
     return (
       <div>
-        <h1>Blank Page</h1>
+        <h1>Blank Pages</h1>
         {status === "authenticated" && (
           <div>
             <p>User ID: {session.user.uuid}</p>
