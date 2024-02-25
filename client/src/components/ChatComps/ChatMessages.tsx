@@ -24,7 +24,7 @@ interface ChatMessagesProps {
     name: string
     profileId: number,
     member: Member
-    chatId: number
+    chatId: string
     apiUrl: string
     socketUrl: string
     socketQuery: Record<string, string>

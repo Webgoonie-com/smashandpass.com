@@ -7,6 +7,8 @@ import { redirect } from 'next/navigation';
 import React from 'react'
 
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { MediaRoom } from '@/components/Media/MediaRoom';
+import { ChannelType } from '@prisma/client';
 
 
 interface ChannelIdProps {
@@ -82,6 +84,8 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                     serverId={channel.serverId as any}
                     type="channel"
                   />
+
+                  
                   
                   <ScrollArea className="h-7/8 w-[99%] rounded-md border p-4">
                     
@@ -89,25 +93,58 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                       className="flex-1"
                     >
                       
-                      <ChatMessages
-                        member={member}
-                        name={channel.name}
-                        chatId={channel.Id}
-                        profileId={profile.Id}
-                        type="channel"
-                        apiUrl="/api/messages"
-                        socketUrl="/api/socket/messages"
-                        socketQuery={{
-                          channelId: channel.Id.toString(),
-                          serverId: channel.serverId.toString(),
-                          profileId: profile.Id.toString(),
-                        }}
-                        paramKey="channelId"
-                        paramValue={channel.Id.toString()}
+                    {channel.type === ChannelType.TEXT && (
+        
+                     <>
+                        <ChatMessages
+                          member={member}
+                          name={channel.name}
+                          chatId={channel.uuid}
+                          profileId={profile.Id}
+                          type="channel"
+                          apiUrl="/api/messages"
+                          socketUrl="/api/socket/messages"
+                          socketQuery={{
+                            channelId: channel.Id.toString(),
+                            serverId: channel.serverId.toString(),
+                            profileId: profile.Id.toString(),
+                          }}
+                          paramKey="channelId"
+                          paramValue={channel.Id.toString()}
+  
+                        />
 
+                        <div className="bottom-0">
+                          <ChatInput
+                          name={channel.name}
+                          type={"channel"}
+                          apiUrl={"/api/socket/messages"}
+                          //apiUrl={"/api/messages"}
+                          query={{
+                            channelId: channel.Id,
+                            serverId: channel.serverId,
+                            profileId: profileId,
+                          }}
+                          />
+                        </div>
+                     </>
+                    )}
+                    
+                    {channel.type === ChannelType.AUDIO && (
+                      <MediaRoom
+                        chatId={channel.Id.toString()}
+                        video={false}
+                        audio={true}
                       />
-                      
-                    </div>
+                    )}
+                    {channel.type === ChannelType.VIDEO && (
+                      <MediaRoom
+                        chatId={channel.Id.toString()}
+                        video={true}
+                        audio={true}
+                      />
+                    )}
+                                  </div>
                     
                     {/* <div
                       className="flex-1"
@@ -119,19 +156,7 @@ const ChannelIdPage = async ({params}: ChannelIdProps) => {
                 
                   </ScrollArea>
 
-                  <div className="bottom-0">
-                    <ChatInput
-                    name={channel.name}
-                    type={"channel"}
-                    apiUrl={"/api/socket/messages"}
-                    //apiUrl={"/api/messages"}
-                    query={{
-                      channelId: channel.Id,
-                      serverId: channel.serverId,
-                      profileId: profileId,
-                    }}
-                    />
-                  </div>
+                  
                 
                 </div>
               

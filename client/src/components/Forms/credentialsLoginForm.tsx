@@ -1,3 +1,5 @@
+"use client"
+
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { AiFillGithub } from "react-icons/ai";
@@ -6,12 +8,12 @@ import { signIn } from 'next-auth/react'
 import Button from "../Buttons/Button";
 import Image from "next/image";
 
-interface CredentialsFormProps {
+interface CredentialsLoginFormProps {
     csrfToken?: string;
 }
 
 
-const CredentialsForm = (props: CredentialsFormProps) => {
+const CredentialsLoginForm = (props: CredentialsLoginFormProps) => {
 
     const router = useRouter();
     const [error, setError] = useState<string | null>(null)
@@ -163,4 +165,4 @@ const CredentialsForm = (props: CredentialsFormProps) => {
     </div>
   )}
 
-export default CredentialsForm
+export default CredentialsLoginForm

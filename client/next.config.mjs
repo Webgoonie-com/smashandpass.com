@@ -10,11 +10,15 @@ const nextConfig = {
       //  !! WARN !!
       //  ignoreBuildErrors: false,
     },
-    // webpack(config) {
-    //     config.resolve.fallback = {
-    //       ...config.resolve.fallback,
-    //       fs: false,
-    //     };
+    webpack(config) {
+      config.module.rules.push({
+        test: /\.html$/,
+        use: 'html-loader',
+      });
+      // config.resolve.fallback = {
+      //   ...config.resolve.fallback,
+      //   fs: false,
+      // };
         
     //      config.infrastructureLogging = { debug: /PackFileCache/ };
       
@@ -27,8 +31,8 @@ const nextConfig = {
     //       }),
     //     );
             
-    //     return config;
-    //   },
+         return config;
+    },
     images: {
 
       remotePatterns: [

@@ -1,22 +1,22 @@
-"use client"
 
-import Image from "next/image";
+
 import Logo from "@/components/Logo";
 import { NextPage } from "next";
-import { signIn } from "next-auth/react";
-import { FormEventHandler, useState } from "react";
-import { useRouter } from 'next/navigation'
-import CredentialsForm from "@/components/Forms/credentialsForm";
+import { getServerSession } from "next-auth";
+import { redirect } from 'next/navigation'
+import CredentialsLoginForm from "@/components/Forms/credentialsLoginForm";
 
 
 interface Props {}
 
-const SignIn: NextPage = (props): JSX.Element => {
+const SignIn: NextPage = async (props): Promise<JSX.Element> => {
     
-  const router = useRouter();
-  const [error, setError] = useState<string | null>(null)
+  const session =  await getServerSession();
 
-  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+  if(session){
+    console.log('Session Found')
+    //redirect("/")
+  }
 
   return (
     <div className="sign-in-form">
@@ -58,7 +58,7 @@ const SignIn: NextPage = (props): JSX.Element => {
                     </form> */}
 
                         <div className="container">
-                            <CredentialsForm />
+                            <CredentialsLoginForm />
                         </div>
 
                     
