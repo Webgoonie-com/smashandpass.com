@@ -106,14 +106,14 @@ const CredentialsForm = (props: CredentialsFormProps) => {
               font-light
             "
           >
-            <p>Already have an account?
+            <p>Don{`'`}t Have An Account ?
               <span 
                 onClick={ goToSignUp }
                 className="
                   text-neutral-800
                   cursor-pointer 
                   hover:underline
-                "> Log in</span>
+                "> Sign Up</span>
             </p>
           </div>
 
