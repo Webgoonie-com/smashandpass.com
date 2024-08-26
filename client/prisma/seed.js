@@ -1,5 +1,5 @@
 import { users } from './users.js'
-import {PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 
 const prisma = new PrismaClient()
@@ -9,8 +9,8 @@ const prisma = new PrismaClient()
 
 async function main() {
     for (let user of users) {
-        await prisma.user.create({
-            data: user
+        await prisma.user.createMany({
+            data: user,
         })
     }
 }
